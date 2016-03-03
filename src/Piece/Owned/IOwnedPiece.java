@@ -19,7 +19,7 @@
 
 package Piece.Owned;
 
-import Core.Piece;
+import Core.IPiece;
 import Core.Avatar;
 
 /**
@@ -28,7 +28,7 @@ import Core.Avatar;
  * @author Fabian Pijcke
  * @param <P>
  */
-public interface IOwnedPiece<P extends Avatar> extends Piece {
+public interface IOwnedPiece<P extends Avatar> extends IPiece {
 	
 	/**
 	 * @return The avatar owning this piece.

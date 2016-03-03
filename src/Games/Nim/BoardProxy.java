@@ -19,7 +19,6 @@
 
 package Games.Nim;
 
-import Board.Path.PathCoordinate;
 import Board.Path.PathProxy;
 
 /**
@@ -28,7 +27,7 @@ import Board.Path.PathProxy;
  * 
  * @author Fabian Pijcke
  */
-public class BoardProxy extends PathProxy<Token, PathCoordinate, Board> implements IBoard {
+public class BoardProxy extends PathProxy<Token> implements IBoard {
 
 	private Board board;
 
@@ -43,7 +42,7 @@ public class BoardProxy extends PathProxy<Token, PathCoordinate, Board> implemen
 	}
 
 	@Override
-	public PathCoordinate getTokenPosition() {
+	public Integer getTokenPosition() {
 		return board.getTokenPosition();
 	}
 

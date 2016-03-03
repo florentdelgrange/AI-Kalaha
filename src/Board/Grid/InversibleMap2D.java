@@ -19,7 +19,7 @@
 
 package Board.Grid;
 
-import Core.Piece;
+import Core.IPiece;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +30,7 @@ import Utils.IConsumer;
  * @param <P> 
  * @param <C> 
  */
-public class InversibleMap2D<P extends Piece, C extends GridCoordinate> extends Map2D<P, C> {
+public class InversibleMap2D<P extends IPiece, C extends GridCoordinate> extends Map2D<P, C> {
     private final HashMap<P, C> inverse;
     
     /**

@@ -17,36 +17,10 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Board.Path;
-
-import Board.ICoordinate;
+package Core;
 
 /**
- * An immutable 1D coordinate (optimized version of Grid when h = 1).
- * 
  * @author Fabian Pijcke
  */
-public class PathCoordinate implements ICoordinate {
-	private final int i;
-	
-	/**
-	 * Constructs a 1D coordinate.
-	 * 
-	 * @param i
-	 */
-	public PathCoordinate(int i) {
-		this.i = i;
-	}
-	
-	/**
-	 * @return the coordinate.
-	 */
-	public int getI() {
-		return i;
-	}
-	
-	@Override
-	public String toString() {
-		return "(" + i + ")";
-	}
+public interface IPiece {
 }

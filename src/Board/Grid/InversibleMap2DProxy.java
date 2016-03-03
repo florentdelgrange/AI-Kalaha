@@ -19,7 +19,7 @@
 
 package Board.Grid;
 
-import Core.Piece;
+import Core.IPiece;
 import java.util.List;
 
 /**
@@ -30,7 +30,7 @@ import java.util.List;
  * @param <C>
  * @param <D>
  */
-public class InversibleMap2DProxy<P extends Piece, C extends GridCoordinate, D extends InversibleMap2D<P, C>> extends Map2DProxy<P, C, D> implements IInversibleMap2D<P, C> {
+public class InversibleMap2DProxy<P extends IPiece, C extends GridCoordinate, D extends InversibleMap2D<P, C>> extends Map2DProxy<P, C, D> implements IInversibleMap2D<P, C> {
     
     private final D pieces;
 

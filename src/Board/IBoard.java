@@ -19,7 +19,7 @@
 
 package Board;
 
-import Core.Piece;
+import Core.IPiece;
 
 /**
  * The board contains the current state of the game.
@@ -35,7 +35,7 @@ import Core.Piece;
  * @param <C>
  *            The coordinates used on the board.
  */
-public interface IBoard<P extends Piece, C extends ICoordinate> extends IBoardProxy<P, C> {
+public interface IBoard<P extends IPiece, C> extends IBoardProxy<P, C> {
 
 	/**
 	 * Puts the given piece at the given coordinate. The behaviour is not

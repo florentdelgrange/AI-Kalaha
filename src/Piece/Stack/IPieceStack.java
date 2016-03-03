@@ -16,15 +16,11 @@
  You should have received a copy of the GNU General Public License
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
+package Piece.Stack;
 
-package Board;
+import java.util.List;
 
-/**
- * Coordinates structure depends on the Board shape.
- * 
- * @author Fabian Pijcke
- */
-public interface ICoordinate {
-	@Override
-	String toString();
+import Core.IPiece;
+
+public interface IPieceStack<P extends IPiece> extends IPiece, List<P> {
 }

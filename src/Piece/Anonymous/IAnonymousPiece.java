@@ -19,13 +19,13 @@
 
 package Piece.Anonymous;
 
-import Core.Piece;
+import Core.IPiece;
 
 /**
  * Models pieces belonging to noone once they have been put on the board.
  * 
  * @author Fabian Pijcke
  */
-public interface IAnonymousPiece extends Piece {
+public interface IAnonymousPiece extends IPiece {
 	// We are legion. We do not forgive. We do not forget. Expect us.
 }

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import Core.Piece;
+import Core.IPiece;
 import Utils.IConsumer;
 
 /**
@@ -37,7 +37,7 @@ import Utils.IConsumer;
  * @param <P>
  * @param <C>
  */
-public interface IBoardProxy<P extends Piece, C extends ICoordinate> {
+public interface IBoardProxy<P extends IPiece, C> {
 
 	/**
 	 * @param coord

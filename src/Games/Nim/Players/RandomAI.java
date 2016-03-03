@@ -48,7 +48,7 @@ public class RandomAI extends Player {
 
 	@Override
 	public Move pickMove() {
-		return new MoveToken(randomizer.nextInt(Math.min(getBoard().getTokenPosition().getI(), getMaxLeap())) + 1);
+		return new MoveToken(randomizer.nextInt(Math.min(getBoard().getTokenPosition(), getMaxLeap())) + 1);
 	}
 
 	@Override

@@ -20,7 +20,6 @@
 package Games.Nim;
 
 import Board.Path.Path;
-import Board.Path.PathCoordinate;
 
 /**
  * The Nim board is a simple path on which a token is moved towards position 0.
@@ -29,10 +28,10 @@ import Board.Path.PathCoordinate;
  * 
  * @author Fabian Pijcke
  */
-public class Board extends Path<Token, PathCoordinate> implements IBoard {
+public class Board extends Path<Token> implements IBoard {
 
 	private Token token;
-	private PathCoordinate tokenPosition;
+	private Integer tokenPosition;
 
 	/**
 	 * Constructs a path of a given length and places the token on the last
@@ -43,17 +42,17 @@ public class Board extends Path<Token, PathCoordinate> implements IBoard {
 	public Board(int length) {
 		super(length);
 		token = new Token();
-		tokenPosition = new PathCoordinate(length - 1);
+		tokenPosition = length - 1;
 		setPieceAt(tokenPosition, token);
 	}
 
 	@Override
-	public PathCoordinate getTokenPosition() {
+	public Integer getTokenPosition() {
 		return tokenPosition;
 	}
 
 	@Override
-	public void setPieceAt(PathCoordinate c, Token dummy) {
+	public void setPieceAt(Integer c, Token dummy) {
 		super.setPieceAt(c, token);
 		tokenPosition = c;
 	}

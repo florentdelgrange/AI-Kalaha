@@ -19,14 +19,12 @@
 
 package Board.Grid;
 
-import Board.ICoordinate;
-
 /**
  * An immutable 2D coordinate using integers.
  * 
  * @author Fabian Pijcke
  */
-public class GridCoordinate implements ICoordinate {
+public class GridCoordinate {
     private final int x, y;
     
     /**

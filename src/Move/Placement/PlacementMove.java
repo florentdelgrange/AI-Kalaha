@@ -19,12 +19,12 @@
 
 package Move.Placement;
 
-import Board.ICoordinate;
-import Board.IBoard;
-import Core.IMove;
-import Core.Piece;
 import java.util.Arrays;
 import java.util.List;
+
+import Board.IBoard;
+import Core.IMove;
+import Core.IPiece;
 
 /**
  * @author Fabian Pijcke
@@ -32,10 +32,10 @@ import java.util.List;
  * @param <P>
  * @param <D>
  */
-public class PlacementMove<P extends Piece, C extends ICoordinate, D extends IBoard<P, C>> implements IMove<D> {
+public class PlacementMove<P extends IPiece, C, D extends IBoard<P, C>> implements IMove<D> {
     private final List<Step<C, P>> steps;
     
-    public PlacementMove(ICoordinate c, Piece p) {
+    public PlacementMove(C c, IPiece p) {
         Step<C, P> step = new Step(c, p);
         steps = Arrays.asList(step);
     }

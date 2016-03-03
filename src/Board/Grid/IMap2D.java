@@ -20,7 +20,7 @@
 package Board.Grid;
 
 import Board.IBoardProxy;
-import Core.Piece;
+import Core.IPiece;
 
 /**
  * Common interface to Map2D and Map2DProxy, meant to be passed to both the user (AI) and to the Game implementation.
@@ -29,7 +29,7 @@ import Core.Piece;
  * @param <P>
  * @param <C> A 2D Coordinate type.
  */
-public interface IMap2D<P extends Piece, C extends GridCoordinate> extends IBoardProxy<P, C> {
+public interface IMap2D<P extends IPiece, C extends GridCoordinate> extends IBoardProxy<P, C> {
 	/**
 	 * @return the width of the board.
 	 */

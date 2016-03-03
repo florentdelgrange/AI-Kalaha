@@ -19,7 +19,7 @@
 
 package Board.Grid;
 
-import Core.Piece;
+import Core.IPiece;
 
 /**
  * Extends the 2D map interface with an operation returning the coordinates of a given piece.
@@ -29,7 +29,7 @@ import Core.Piece;
  * @param <P> A piece, as in IMap2D.
  * @param <C> A 2D coordinate.
  */
-public interface IInversibleMap2D<P extends Piece, C extends GridCoordinate> extends IMap2D<P, C> {
+public interface IInversibleMap2D<P extends IPiece, C extends GridCoordinate> extends IMap2D<P, C> {
 	/**
 	 * @param piece
 	 * @return the coordinate of the given piece.

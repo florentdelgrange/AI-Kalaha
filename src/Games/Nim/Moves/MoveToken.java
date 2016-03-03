@@ -19,7 +19,6 @@
 
 package Games.Nim.Moves;
 
-import Board.Path.PathCoordinate;
 import Games.Nim.Board;
 import Games.Nim.Game;
 
@@ -44,15 +43,15 @@ public final class MoveToken extends Move {
 
 	@Override
 	public void apply(final Board board) {
-		PathCoordinate curC = board.getTokenPosition();
-		PathCoordinate newC = new PathCoordinate(curC.getI() - leapLength);
+		Integer curC = board.getTokenPosition();
+		Integer newC = curC - leapLength;
 		board.setPieceAt(newC, null);
 	}
 
 	@Override
 	public void cancel(final Board board) {
-		PathCoordinate curC = board.getTokenPosition();
-		PathCoordinate newC = new PathCoordinate(curC.getI() + leapLength);
+		Integer curC = board.getTokenPosition();
+		Integer newC = curC + leapLength;
 		board.setPieceAt(newC, null);
 	}
 

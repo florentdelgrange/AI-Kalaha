@@ -22,7 +22,7 @@ package Board.Grid;
 import java.util.ArrayList;
 
 import Board.IBoard;
-import Core.Piece;
+import Core.IPiece;
 import Utils.IConsumer;
 
 /**
@@ -33,7 +33,7 @@ import Utils.IConsumer;
  * @param <P> 
  * @param <C> 
  */
-public class Map2D<P extends Piece, C extends GridCoordinate> implements IBoard<P, C>, IMap2D<P, C> {
+public class Map2D<P extends IPiece, C extends GridCoordinate> implements IBoard<P, C>, IMap2D<P, C> {
     
     private final ArrayList<P> elements;
     private final int width, height;

@@ -91,12 +91,12 @@ public class Game implements Core.Game<Board, Move, Player> {
 
 	@Override
 	public boolean isGameEnded() {
-		return board.getTokenPosition().getI() == 0 || getPlayers().size() == 1;
+		return board.getTokenPosition() == 0 || getPlayers().size() == 1;
 	}
 
 	@Override
 	public List<Player> getWinners() {
-		int winner = (board.getTokenPosition().getI() == 0) ? players.size() - 1 : 0;
+		int winner = (board.getTokenPosition() == 0) ? players.size() - 1 : 0;
 		return Collections.singletonList(getPlayers().get(winner));
 	}
 

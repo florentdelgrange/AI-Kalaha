@@ -20,7 +20,7 @@
 package Board.Path;
 
 import Board.IBoardProxy;
-import Core.Piece;
+import Core.IPiece;
 
 /**
  * Common interface to Path and PathProxy, meant to be passed to both the user
@@ -28,10 +28,8 @@ import Core.Piece;
  * 
  * @author Fabian Pijcke
  * @param <P>
- * @param <C>
- *            A 1D (Path) Coordinate type.
  */
-public interface IPath<P extends Piece, C extends PathCoordinate> extends IBoardProxy<P, C> {
+public interface IPath<P extends IPiece> extends IBoardProxy<P, Integer> {
 	/**
 	 * @return the length of the board.
 	 */
@@ -41,5 +39,5 @@ public interface IPath<P extends Piece, C extends PathCoordinate> extends IBoard
 	 * @param c
 	 * @return true if the coordinate belongs to the limits of the board.
 	 */
-	boolean has(C c);
+	boolean has(Integer c);
 }

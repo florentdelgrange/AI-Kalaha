@@ -20,7 +20,6 @@
 package Games.Nim;
 
 import Board.Path.IPath;
-import Board.Path.PathCoordinate;
 
 /**
  * As the game of Nim involves only one token, we provide a facility to retrieve
@@ -28,11 +27,11 @@ import Board.Path.PathCoordinate;
  * 
  * @author Fabian Pijcke
  */
-public interface IBoard extends IPath<Token, PathCoordinate> {
+public interface IBoard extends IPath<Token> {
 	
 	/**
 	 * @return the current position of the token.
 	 */
-	PathCoordinate getTokenPosition();
+	Integer getTokenPosition();
 	
 }

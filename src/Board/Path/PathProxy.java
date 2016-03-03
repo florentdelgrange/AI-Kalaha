@@ -19,7 +19,7 @@
 
 package Board.Path;
 
-import Core.Piece;
+import Core.IPiece;
 import Utils.IConsumer;
 
 /**
@@ -27,18 +27,16 @@ import Utils.IConsumer;
  * @author Fabian Pijcke
  *
  * @param <P>
- * @param <C>
- * @param <D>
  */
-public class PathProxy<P extends Piece, C extends PathCoordinate, D extends Path<P, C>> implements IPath<P, C> {
+public class PathProxy<P extends IPiece> implements IPath<P> {
 
-	private final D pieces;
+	private final Path<P> pieces;
 
 	/**
 	 * Constructs a read-only version of a Path board.
 	 * @param pieces
 	 */
-	public PathProxy(D pieces) {
+	public PathProxy(Path<P> pieces) {
 		this.pieces = pieces;
 	}
 	
@@ -48,7 +46,7 @@ public class PathProxy<P extends Piece, C extends PathCoordinate, D extends Path
     }
     
     @Override
-    public P getPieceAt(C c) {
+    public P getPieceAt(Integer c) {
         return pieces.getPieceAt(c);
     }
     
@@ -58,7 +56,7 @@ public class PathProxy<P extends Piece, C extends PathCoordinate, D extends Path
     }
     
     @Override
-    public boolean has(C c) {
+    public boolean has(Integer c) {
         return pieces.has(c);
     }
 }

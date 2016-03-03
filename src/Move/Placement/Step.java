@@ -19,15 +19,14 @@
 
 package Move.Placement;
 
-import Board.ICoordinate;
-import Core.Piece;
+import Core.IPiece;
 
 /**
  * @author Fabian Pijcke
  * @param <C>
  * @param <P> 
  */
-public class Step<C extends ICoordinate, P extends Piece> {
+public class Step<C, P extends IPiece> {
     private final C c;
     private final P p;
     

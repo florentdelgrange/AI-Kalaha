@@ -22,7 +22,7 @@ package Board.Path;
 import java.util.ArrayList;
 
 import Board.IBoard;
-import Core.Piece;
+import Core.IPiece;
 import Utils.IConsumer;
 
 /**
@@ -31,9 +31,8 @@ import Utils.IConsumer;
  * 
  * @author Fabian Pijcke
  * @param <P> 
- * @param <C> 
  */
-public class Path<P extends Piece, C extends PathCoordinate> implements IBoard<P, C>, IPath<P, C> {
+public class Path<P extends IPiece> implements IBoard<P, Integer>, IPath<P> {
 	
 	private final ArrayList<P> elements;
 	private final int length;
@@ -53,9 +52,9 @@ public class Path<P extends Piece, C extends PathCoordinate> implements IBoard<P
 	}
 	
 	@Override
-	public P getPieceAt(C c) {
+	public P getPieceAt(Integer c) {
 		if (has(c)) {
-			return elements.get(c.getI());
+			return elements.get(c);
 		}
 		return null;
 	}
@@ -66,9 +65,9 @@ public class Path<P extends Piece, C extends PathCoordinate> implements IBoard<P
 	}
 	
 	@Override
-	public void setPieceAt(C c, P e) {
+	public void setPieceAt(Integer c, P e) {
 		if (has(c)) {
-			elements.set(c.getI(), e);
+			elements.set(c, e);
 		}
 		else {
 			throw new IllegalArgumentException();
@@ -81,8 +80,8 @@ public class Path<P extends Piece, C extends PathCoordinate> implements IBoard<P
 	}
 	
 	@Override
-	public boolean has(C c) {
-		return c.getI() >= 0 && c.getI() < length;
+	public boolean has(Integer c) {
+		return c >= 0 && c < length;
 	}
 	
 }
