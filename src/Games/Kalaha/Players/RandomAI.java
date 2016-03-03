@@ -25,7 +25,7 @@ public class RandomAI extends Player {
 		Move move;
 		do {
 			move = new Move(offset + randomizer.nextInt(getBoard().getLength() / 2 - 1));
-		} while (getBoard().getPieceAt(move.getPit()).getSize() == 0);
+		} while (getBoard().getPieceAt(move.getPit()) == 0);
 		
 		return move;
 	}

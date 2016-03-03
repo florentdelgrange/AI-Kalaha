@@ -19,7 +19,6 @@
 
 package Board.Grid;
 
-import Core.IPiece;
 import Utils.IConsumer;
 
 /**
@@ -32,7 +31,7 @@ import Utils.IConsumer;
  * @param <C> 
  * @param <D> 
  */
-public class Map2DProxy<P extends IPiece, C extends GridCoordinate, D extends Map2D<P, C>> implements IMap2D<P, C> {
+public class Map2DProxy<P, C extends GridCoordinate, D extends Map2D<P, C>> implements IMap2D<P, C> {
 
     private final D pieces;
     

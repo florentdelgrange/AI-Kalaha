@@ -20,6 +20,7 @@
 package Games.Nim;
 
 import Board.Path.PathProxy;
+import Piece.AnonymousToken;
 
 /**
  * The board given to the players. The token position can be retrieved in
@@ -27,7 +28,7 @@ import Board.Path.PathProxy;
  * 
  * @author Fabian Pijcke
  */
-public class BoardProxy extends PathProxy<Token> implements IBoard {
+public class BoardProxy extends PathProxy<AnonymousToken> implements IBoard {
 
 	private Board board;
 

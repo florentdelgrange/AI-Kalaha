@@ -17,15 +17,21 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Piece.Anonymous;
+package Piece;
 
-import Core.IPiece;
+import Core.Avatar;
 
 /**
- * Models pieces belonging to noone once they have been put on the board.
+ * Models pieces belonging to some player.
  * 
  * @author Fabian Pijcke
+ * @param <P>
  */
-public interface IAnonymousPiece extends IPiece {
-	// We are legion. We do not forgive. We do not forget. Expect us.
+public interface IOwnedPiece<P extends Avatar> {
+	
+	/**
+	 * @return The avatar owning this piece.
+	 */
+    public P getAvatar();
+    
 }

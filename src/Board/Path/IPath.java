@@ -20,7 +20,6 @@
 package Board.Path;
 
 import Board.IBoardProxy;
-import Core.IPiece;
 
 /**
  * Common interface to Path and PathProxy, meant to be passed to both the user
@@ -29,7 +28,7 @@ import Core.IPiece;
  * @author Fabian Pijcke
  * @param <P>
  */
-public interface IPath<P extends IPiece> extends IBoardProxy<P, Integer> {
+public interface IPath<P> extends IBoardProxy<P, Integer> {
 	/**
 	 * @return the length of the board.
 	 */

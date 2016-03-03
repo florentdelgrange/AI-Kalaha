@@ -22,7 +22,6 @@ package Board.Path;
 import java.util.ArrayList;
 
 import Board.IBoard;
-import Core.IPiece;
 import Utils.IConsumer;
 
 /**
@@ -32,7 +31,7 @@ import Utils.IConsumer;
  * @author Fabian Pijcke
  * @param <P> 
  */
-public class Path<P extends IPiece> implements IBoard<P, Integer>, IPath<P> {
+public class Path<P> implements IBoard<P, Integer>, IPath<P> {
 	
 	private final ArrayList<P> elements;
 	private final int length;

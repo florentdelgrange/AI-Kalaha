@@ -20,6 +20,7 @@
 package Games.Nim;
 
 import Board.Path.IPath;
+import Piece.AnonymousToken;
 
 /**
  * As the game of Nim involves only one token, we provide a facility to retrieve
@@ -27,7 +28,7 @@ import Board.Path.IPath;
  * 
  * @author Fabian Pijcke
  */
-public interface IBoard extends IPath<Token> {
+public interface IBoard extends IPath<AnonymousToken> {
 	
 	/**
 	 * @return the current position of the token.

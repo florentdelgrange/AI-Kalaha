@@ -2,9 +2,8 @@ package Games.Kalaha.Boards;
 
 import Board.Path.IPath;
 import Core.Avatar;
-import Games.Kalaha.IPiece;
 
-public interface IBoard extends IPath<IPiece> {
+public interface IBoard extends IPath<Integer> {
 	
 	/*
 	 *   8 7 6 5
@@ -26,7 +25,7 @@ public interface IBoard extends IPath<IPiece> {
 	default public int player1Sum() {
 		int sum = 0;
 		for (int i = 0; i < getLength() / 2 - 1; ++i) {
-			sum += getPieceAt(i).getSize();
+			sum += getPieceAt(i);
 		}
 		return sum;
 	}
@@ -34,7 +33,7 @@ public interface IBoard extends IPath<IPiece> {
 	default public int player2Sum() {
 		int sum = 0;
 		for (int i = getLength() / 2; i < getLength() - 1; ++i) {
-			sum += getPieceAt(i).getSize();
+			sum += getPieceAt(i);
 		}
 		return sum;
 	}

@@ -24,7 +24,6 @@ import java.util.List;
 
 import Board.IBoard;
 import Core.IMove;
-import Core.IPiece;
 
 /**
  * @author Fabian Pijcke
@@ -32,10 +31,10 @@ import Core.IPiece;
  * @param <P>
  * @param <D>
  */
-public class PlacementMove<P extends IPiece, C, D extends IBoard<P, C>> implements IMove<D> {
+public class PlacementMove<P, C, D extends IBoard<P, C>> implements IMove<D> {
     private final List<Step<C, P>> steps;
     
-    public PlacementMove(C c, IPiece p) {
+    public PlacementMove(C c, P p) {
         Step<C, P> step = new Step(c, p);
         steps = Arrays.asList(step);
     }

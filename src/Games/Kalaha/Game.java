@@ -59,8 +59,8 @@ public class Game extends GameHistory<Board, Move, Player> {
 
 	@Override
 	public List<Player> getWinners() {
-		int player1Score = getBoard().player1Sum() + getBoard().getPieceAt(getBoard().getLength() / 2 - 1).getSize();
-		int player2Score = getBoard().player2Sum() + getBoard().getPieceAt(getBoard().getLength() - 1).getSize();
+		int player1Score = getBoard().player1Sum() + getBoard().getPieceAt(getBoard().getLength() / 2 - 1);
+		int player2Score = getBoard().player2Sum() + getBoard().getPieceAt(getBoard().getLength() - 1);
 		
 		System.out.println("Player 1 : " + player1Score);
 		System.out.println("Player 2 : " + player2Score);
@@ -82,15 +82,15 @@ public class Game extends GameHistory<Board, Move, Player> {
 		}
 		
 		for (int i = 0; i < getBoard().getLength() / 2 - 1; i++) {
-			System.out.print("	" + getBoard().getPieceAt(i).getSize());
+			System.out.print("	" + getBoard().getPieceAt(i));
 		}
-		System.out.print("\n" + getBoard().getPieceAt(-1).getSize());
+		System.out.print("\n" + getBoard().getPieceAt(-1));
 		for (int i = 0; i < getBoard().getLength() / 2; i++) {
 			System.out.print("	");
 		}
-		System.out.println(getBoard().getPieceAt(getBoard().getLength() / 2 - 1).getSize());
+		System.out.println(getBoard().getPieceAt(getBoard().getLength() / 2 - 1));
 		for (int i = 0; i < getBoard().getLength() / 2 - 1; i++) {
-			System.out.print("	" + getBoard().getPieceAt(getBoard().getLength() - 2 - i).getSize());
+			System.out.print("	" + getBoard().getPieceAt(getBoard().getLength() - 2 - i));
 		}
 		
 		System.out.println("\nNext player : " + getCurrentPlayer().getAvatar().getName());

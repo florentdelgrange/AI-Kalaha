@@ -19,7 +19,6 @@
 
 package Board.Path;
 
-import Core.IPiece;
 import Utils.IConsumer;
 
 /**
@@ -28,7 +27,7 @@ import Utils.IConsumer;
  *
  * @param <P>
  */
-public class PathProxy<P extends IPiece> implements IPath<P> {
+public class PathProxy<P> implements IPath<P> {
 
 	private final Path<P> pieces;
 

@@ -20,6 +20,7 @@
 package Games.Nim;
 
 import Board.Path.Path;
+import Piece.AnonymousToken;
 
 /**
  * The Nim board is a simple path on which a token is moved towards position 0.
@@ -28,9 +29,9 @@ import Board.Path.Path;
  * 
  * @author Fabian Pijcke
  */
-public class Board extends Path<Token> implements IBoard {
+public class Board extends Path<AnonymousToken> implements IBoard {
 
-	private Token token;
+	private AnonymousToken token;
 	private Integer tokenPosition;
 
 	/**
@@ -41,7 +42,7 @@ public class Board extends Path<Token> implements IBoard {
 	 */
 	public Board(int length) {
 		super(length);
-		token = new Token();
+		token = new AnonymousToken();
 		tokenPosition = length - 1;
 		setPieceAt(tokenPosition, token);
 	}
@@ -52,7 +53,7 @@ public class Board extends Path<Token> implements IBoard {
 	}
 
 	@Override
-	public void setPieceAt(Integer c, Token dummy) {
+	public void setPieceAt(Integer c, AnonymousToken dummy) {
 		super.setPieceAt(c, token);
 		tokenPosition = c;
 	}

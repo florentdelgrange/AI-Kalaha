@@ -19,14 +19,12 @@
 
 package Move.Placement;
 
-import Core.IPiece;
-
 /**
  * @author Fabian Pijcke
  * @param <C>
  * @param <P> 
  */
-public class Step<C, P extends IPiece> {
+public class Step<C, P> {
     private final C c;
     private final P p;
     

@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import Core.IPiece;
 import Utils.IConsumer;
 
 /**
@@ -37,7 +36,7 @@ import Utils.IConsumer;
  * @param <P>
  * @param <C>
  */
-public interface IBoardProxy<P extends IPiece, C> {
+public interface IBoardProxy<P, C> {
 
 	/**
 	 * @param coord

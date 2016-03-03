@@ -21,7 +21,6 @@ package Move.Movement;
 
 import Board.IBoard;
 import Core.IMove;
-import Core.IPiece;
 
 /**
  * This model of movement is indicated when the pieces are moved from one place
@@ -33,7 +32,7 @@ import Core.IPiece;
  * @param <P>
  * @param <D>
  */
-public class MovementMove<P extends IPiece, C, D extends IBoard<P, C>> implements IMove<D> {
+public class MovementMove<P, C, D extends IBoard<P, C>> implements IMove<D> {
 
 	private final C start, destination;
 	private P startPiece, destinationPiece;

@@ -27,26 +27,25 @@ public final class Move implements IMove<Board> {
 			if (board.isKalaha(pit + i) && board.getAvatar(pit + i) != board.getAvatar(pit)) {
 				continue;
 			}
-			board.getPieceAt(pit + i).increment(multiplier * (i > offset ? count : count + 1));
+			board.setPieceAt(pit + i, board.getPieceAt(pit + i) + multiplier * (i > offset ? count : count + 1));
 		}
 	}
 	
 	@Override
 	public void apply(Board board) {
-		tokens = board.getPieceAt(pit).getSize();
-		board.getPieceAt(pit).empty();
+		tokens = board.getPieceAt(pit);
+		board.setPieceAt(pit, 0);
 		add(board, tokens, 1);
 	}
 
 	@Override
 	public void cancel(Board board) {
 		add(board, tokens, -1);
-		board.getPieceAt(pit).empty();
-		board.getPieceAt(pit).increment(tokens);
+		board.setPieceAt(pit, tokens);
 	}
 
 	public boolean isLegal(Game game) {
-		return game.getBoard().getPieceAt(pit).getSize() > 0 && game.getBoard().getAvatar(pit) == game.getCurrentPlayer().getAvatar();
+		return game.getBoard().getPieceAt(pit) > 0 && game.getBoard().getAvatar(pit) == game.getCurrentPlayer().getAvatar();
 	}
 	
 	public boolean hasReplay(Board board) {

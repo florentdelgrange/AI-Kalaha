@@ -2,10 +2,8 @@ package Games.Kalaha.Boards;
 
 import Board.Path.Path;
 import Core.Avatar;
-import Games.Kalaha.IPiece;
-import Games.Kalaha.Piece;
 
-public class Board extends Path<IPiece> implements IBoard {
+public class Board extends Path<Integer> implements IBoard {
 	
 	private Avatar avatar1, avatar2;
 	
@@ -14,7 +12,7 @@ public class Board extends Path<IPiece> implements IBoard {
 		this.avatar1 = avatar1;
 		this.avatar2 = avatar2;
 		for (int i = 0; i < 2 * (pitsPerPlayer + 1); ++i) {
-			super.setPieceAt(i, new Piece(0));
+			super.setPieceAt(i, 0);
 		}
 	}
 	
@@ -29,13 +27,13 @@ public class Board extends Path<IPiece> implements IBoard {
 	}
 	
 	@Override
-	public Piece getPieceAt(Integer c) {
-		return (Piece) super.getPieceAt(Math.floorMod(c, getLength()));
+	public Integer getPieceAt(Integer c) {
+		return super.getPieceAt(Math.floorMod(c, getLength()));
 	}
 	
 	@Override
-	public void setPieceAt(Integer c, IPiece p) {
-		getPieceAt(c).increment(p.getSize());
+	public void setPieceAt(Integer c, Integer p) {
+		super.setPieceAt(Math.floorMod(c,  getLength()), p);
 	}
 	
 }

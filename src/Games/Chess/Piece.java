@@ -24,7 +24,7 @@ import java.util.List;
 import Board.Grid.GridCoordinate;
 import Core.Avatar;
 import Games.Chess.Moves.BasicMove;
-import Piece.Owned.IOwnedPiece;
+import Piece.IOwnedPiece;
 
 /**
  * @author Fabian Pijcke
