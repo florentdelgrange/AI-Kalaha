@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import Games.Nim.Players.Player;
 import Move.Movement.IllegalMovementException;
 
 /**

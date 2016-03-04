@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Random;
 
 import Games.Nim.Move;
-import Games.Nim.Player;
 
 /**
  * This AI plays randomly, but ensures to play a valid move in the endgame.

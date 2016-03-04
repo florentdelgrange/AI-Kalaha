@@ -22,7 +22,6 @@ package Games.Nim.Players;
 import java.util.List;
 
 import Games.Nim.Move;
-import Games.Nim.Player;
 
 /**
  * Allows a human player to play in a terminal.

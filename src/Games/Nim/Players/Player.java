@@ -17,9 +17,10 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Games.Nim;
+package Games.Nim.Players;
 
 import Core.IDecisionMaker;
+import Games.Nim.IBoard;
 import Games.Nim.Move;
 
 /**

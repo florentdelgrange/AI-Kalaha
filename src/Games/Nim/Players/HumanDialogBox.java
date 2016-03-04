@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Optional;
 
 import Games.Nim.Move;
-import Games.Nim.Player;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;

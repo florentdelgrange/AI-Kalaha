@@ -21,8 +21,6 @@ package Games.Nim.Players;
 
 import java.util.ArrayList;
 
-import Games.Nim.Player;
-
 /**
  * Reflection mecanisms do not allow us to find all the classes implemented in a
  * given package, or extending a given class. The classes can not register

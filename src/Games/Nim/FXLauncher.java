@@ -23,6 +23,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import Games.Nim.Players.Player;
 import Games.Nim.Players.PlayersList;
 import javafx.application.Application;
 import javafx.scene.Node;
