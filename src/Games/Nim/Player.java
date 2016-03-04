@@ -20,7 +20,7 @@
 package Games.Nim;
 
 import Core.IDecisionMaker;
-import Games.Nim.Moves.Move;
+import Games.Nim.Move;
 
 /**
  * Implementation of a basic Nim player. The additional methods provide

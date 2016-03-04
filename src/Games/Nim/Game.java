@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import Games.Nim.Moves.Move;
-import Games.Nim.Moves.Resign;
 import Move.Movement.IllegalMovementException;
 
 /**
@@ -105,11 +103,7 @@ public class Game implements Core.Game<Board, Move, Player> {
 			throw new IllegalMovementException();
 		}
 		move.apply(getBoard());
-		if (move instanceof Resign) {
-			players.remove(0);
-		} else {
-			players.add(players.remove(0));
-		}
+		players.add(players.remove(0));
 
 		if (isGameEnded()) {
 			List<String> avatars = new ArrayList<>();
@@ -153,7 +147,7 @@ public class Game implements Core.Game<Board, Move, Player> {
 				applyMove(getCurrentPlayer().pickMove());
 			}
 			catch (IllegalMovementException f) {
-				applyMove(new Resign());
+				// TODO make other player win.
 			}
 		}
 	}

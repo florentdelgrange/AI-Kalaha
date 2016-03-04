@@ -21,10 +21,8 @@ package Games.Nim.Players;
 
 import java.util.List;
 
+import Games.Nim.Move;
 import Games.Nim.Player;
-import Games.Nim.Moves.Move;
-import Games.Nim.Moves.MoveToken;
-import Games.Nim.Moves.Resign;
 
 /**
  * Allows a human player to play in a terminal.
@@ -44,12 +42,9 @@ public class HumanConsole extends Player {
 
 	@Override
 	public Move pickMove() {
-		System.out.println("Move token of how many places (or type resign to resign)? ");
+		System.out.println("Move token of how many places? ");
 		String s = System.console().readLine();
-		if (s.equals("resign")) {
-			return new Resign();
-		}
-		return new MoveToken(Integer.parseInt(s));
+		return new Move(Integer.parseInt(s));
 	}
 
 	@Override

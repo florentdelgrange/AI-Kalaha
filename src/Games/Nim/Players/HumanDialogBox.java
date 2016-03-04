@@ -22,10 +22,8 @@ package Games.Nim.Players;
 import java.util.List;
 import java.util.Optional;
 
+import Games.Nim.Move;
 import Games.Nim.Player;
-import Games.Nim.Moves.Move;
-import Games.Nim.Moves.MoveToken;
-import Games.Nim.Moves.Resign;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
@@ -51,12 +49,12 @@ public class HumanDialogBox extends Player {
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Your turn to play !");
 		dialog.setHeaderText("The token is on position " + getBoard().getTokenPosition());
-		dialog.setContentText("How much do you want to move it? (Cancel to resign)");
+		dialog.setContentText("How much do you want to move it?");
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()) {
-			return new MoveToken(Integer.parseInt(result.get()));
+			return new Move(Integer.parseInt(result.get()));
 		}
-		return new Resign();
+		return pickMove();
 	}
 
 	@Override

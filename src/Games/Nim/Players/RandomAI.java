@@ -22,9 +22,8 @@ package Games.Nim.Players;
 import java.util.List;
 import java.util.Random;
 
+import Games.Nim.Move;
 import Games.Nim.Player;
-import Games.Nim.Moves.Move;
-import Games.Nim.Moves.MoveToken;
 
 /**
  * This AI plays randomly, but ensures to play a valid move in the endgame.
@@ -47,7 +46,7 @@ public class RandomAI extends Player {
 
 	@Override
 	public Move pickMove() {
-		return new MoveToken(randomizer.nextInt(Math.min(getBoard().getTokenPosition(), getMaxLeap())) + 1);
+		return new Move(randomizer.nextInt(Math.min(getBoard().getTokenPosition(), getMaxLeap())) + 1);
 	}
 
 	@Override

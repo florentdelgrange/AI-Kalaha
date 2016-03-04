@@ -17,10 +17,9 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Games.Nim.Moves;
+package Games.Nim;
 
-import Games.Nim.Board;
-import Games.Nim.Game;
+import Core.IMove;
 
 /**
  * This move moves the token towards the position 0 of a given number of
@@ -28,7 +27,7 @@ import Games.Nim.Game;
  * 
  * @author Fabian Pijcke
  */
-public final class MoveToken extends Move {
+public final class Move implements IMove<Board> {
 
 	final int leapLength;
 
@@ -37,7 +36,7 @@ public final class MoveToken extends Move {
 	 * 
 	 * @param leapLength
 	 */
-	public MoveToken(final int leapLength) {
+	public Move(final int leapLength) {
 		this.leapLength = leapLength;
 	}
 
@@ -55,7 +54,10 @@ public final class MoveToken extends Move {
 		board.setPieceAt(newC, null);
 	}
 
-	@Override
+	/**
+	 * @param game
+	 * @return true if the move picked is legal regarding the parameters of the running game.
+	 */
 	public boolean isLegal(Game game) {
 		return leapLength > 0 && leapLength <= game.getMaxLeap();
 	}
