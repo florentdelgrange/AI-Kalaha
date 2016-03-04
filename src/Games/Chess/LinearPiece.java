@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Board.Grid.GridCoordinate;
-import Core.Avatar;
 import Games.Chess.Moves.BasicMove;
 
 /**
@@ -31,7 +30,7 @@ import Games.Chess.Moves.BasicMove;
  */
 public abstract class LinearPiece extends Piece {
     
-    public LinearPiece(Avatar player) {
+    public LinearPiece(String player) {
         super(player);
     }
     

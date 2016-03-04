@@ -23,7 +23,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import Core.NameAvatar;
 import Games.Nim.Players.PlayersList;
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -73,13 +72,8 @@ public class FXLauncher extends Application {
 			Class<? extends Player> class_player = combobox_type.getValue();
 			String name = textfield_name.getText();
 			try {
-				Constructor<? extends Player> constructor = class_player.getConstructor(NameAvatar.class);
-				return constructor.newInstance(new NameAvatar() {
-					@Override
-					public String getName() {
-						return name;
-					}
-				});
+				Constructor<? extends Player> constructor = class_player.getConstructor(String.class);
+				return constructor.newInstance(name);
 			} catch (NoSuchMethodException e) {
 				System.err.println(class_player.getName() + " does not declare a NameAvatar constructor.");
 				return null;

@@ -1,7 +1,6 @@
 package Games.Kalaha.Boards;
 
 import Board.Path.PathProxy;
-import Core.Avatar;
 
 public class BoardProxy extends PathProxy<Integer> implements IBoard {
 	
@@ -13,12 +12,12 @@ public class BoardProxy extends PathProxy<Integer> implements IBoard {
 	}
 	
 	@Override
-	public Avatar getAvatar1() {
+	public String getAvatar1() {
 		return board.getAvatar1();
 	}
 	
 	@Override
-	public Avatar getAvatar2() {
+	public String getAvatar2() {
 		return board.getAvatar2();
 	}
 }

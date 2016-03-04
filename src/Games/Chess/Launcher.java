@@ -19,7 +19,6 @@
 
 package Games.Chess;
 
-import Core.Avatar;
 import Games.Chess.AIs.FirstMove;
 import Games.Chess.Boards.Classic;
 import Move.Picking.IPickingDecisionMaker;
@@ -42,8 +41,8 @@ public class Launcher extends Application {
     }
     
     public void initGame() {
-        Avatar white = new Avatar() { /* No information needed */ };
-        Avatar black = new Avatar() { /* No information needed */ };
+    	String white = "white";
+    	String black = "black";
         IPickingDecisionMaker whiteAI = new RandomAI(white);
         IPickingDecisionMaker blackAI = new FirstMove(black);
         

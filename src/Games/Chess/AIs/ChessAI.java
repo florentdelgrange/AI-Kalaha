@@ -20,7 +20,6 @@ package Games.Chess.AIs;
 
 import java.util.List;
 
-import Core.Avatar;
 import Games.Chess.Game;
 import Games.Chess.IBoard;
 import Games.Chess.Move;
@@ -34,9 +33,9 @@ import Move.Picking.RandomAI;
  * In order to implement an AI for the chess game, one must override this class.
  * The main component to implement is the pickMove() method.
  */
-public abstract class ChessAI implements IPickingDecisionMaker<IBoard, Move, Avatar> {
+public abstract class ChessAI implements IPickingDecisionMaker<IBoard, Move, String> {
 
-    private final Avatar avatar;
+    private final String avatar;
     private IBoard board;
     private List<Move> possibleMoves, pastMoves;
 
@@ -46,7 +45,7 @@ public abstract class ChessAI implements IPickingDecisionMaker<IBoard, Move, Ava
      *
      * @param avatar
      */
-    public ChessAI(Avatar avatar) {
+    public ChessAI(String avatar) {
         this.avatar = avatar;
     }
 
@@ -55,7 +54,7 @@ public abstract class ChessAI implements IPickingDecisionMaker<IBoard, Move, Ava
      * to you.
      */
     @Override
-    public final Avatar getAvatar() {
+    public final String getAvatar() {
         return avatar;
     }
 
@@ -64,7 +63,7 @@ public abstract class ChessAI implements IPickingDecisionMaker<IBoard, Move, Ava
      *
      * @return the avatar name of your opponent.
      */
-    public final Avatar getOpponent() {
+    public final String getOpponent() {
         for (Piece p : getBoard().getPieces()) {
             if (p.getAvatar() != getAvatar()) {
                 return p.getAvatar();
@@ -145,7 +144,7 @@ public abstract class ChessAI implements IPickingDecisionMaker<IBoard, Move, Ava
      * @param winners
      */
     @Override
-    public void informEnd(List<Avatar> winners) {
+    public void informEnd(List<String> winners) {
     }
 
     /**

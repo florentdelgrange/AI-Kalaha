@@ -93,7 +93,7 @@ public class Game extends GameHistory<Board, Move, Player> {
 			System.out.print("	" + getBoard().getPieceAt(getBoard().getLength() - 2 - i));
 		}
 		
-		System.out.println("\nNext player : " + getCurrentPlayer().getAvatar().getName());
+		System.out.println("\nNext player : " + getCurrentPlayer().getAvatar());
 		System.out.println();
 	}
 	

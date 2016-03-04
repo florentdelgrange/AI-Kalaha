@@ -22,25 +22,24 @@ package Games.Chess;
 import java.util.List;
 
 import Board.Grid.GridCoordinate;
-import Core.Avatar;
 import Games.Chess.Moves.BasicMove;
 import Piece.IOwnedPiece;
 
 /**
  * @author Fabian Pijcke
  */
-public abstract class Piece implements IOwnedPiece<Avatar> {
+public abstract class Piece implements IOwnedPiece<String> {
     
-    private final Avatar avatar;
+    private final String avatar;
     
-    public Piece(Avatar avatar) {
+    public Piece(String avatar) {
         this.avatar = avatar;
     }
     
     public abstract List<GridCoordinate> getDirections();
     
     @Override
-    public Avatar getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
     

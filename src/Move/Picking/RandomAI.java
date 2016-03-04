@@ -19,11 +19,11 @@
 
 package Move.Picking;
 
-import Board.IBoardProxy;
-import Core.Avatar;
-import Core.IMove;
 import java.util.List;
 import java.util.Random;
+
+import Board.IBoardProxy;
+import Core.IMove;
 
 /**
  * @author Fabian Pijcke
@@ -31,7 +31,7 @@ import java.util.Random;
  * @param <M>
  * @param <A>
  */
-public class RandomAI<B extends IBoardProxy, M extends IMove<? extends B>, A extends Avatar> implements IPickingDecisionMaker<B, M, A> {
+public class RandomAI<B extends IBoardProxy, M extends IMove<? extends B>, A> implements IPickingDecisionMaker<B, M, A> {
     
     private final A avatar;
     private List<M> moves, pastMoves;

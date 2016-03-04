@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import Core.Avatar;
 import Core.GameHistory;
 import Games.Chess.Moves.AcceptDraw;
 import Games.Chess.Moves.BasicMove;
@@ -44,12 +43,12 @@ import Move.Picking.IPickingGame;
 /**
  * @author Fabian Pijcke
  */
-public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard, Move, Avatar>> implements IPickingGame<Board, Move, IPickingDecisionMaker<IBoard, Move, Avatar>> {
+public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard, Move, String>> implements IPickingGame<Board, Move, IPickingDecisionMaker<IBoard, Move, String>> {
     
     private final Board board;
     private final List<List<Move>> acceptedMovesLists;
     
-    public Game(IPickingDecisionMaker<IBoard, Move, Avatar> white, IPickingDecisionMaker<IBoard, Move, Avatar> black, Board board) {
+    public Game(IPickingDecisionMaker<IBoard, Move, String> white, IPickingDecisionMaker<IBoard, Move, String> black, Board board) {
         super(Arrays.asList(white, black));
         
         this.board = board;
@@ -60,7 +59,7 @@ public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard,
         informPlayer();
     }
     
-    public Game(IPickingDecisionMaker<IBoard, Move, Avatar> white, IPickingDecisionMaker<IBoard, Move, Avatar> black, IBoard board, List<Move> moves) {
+    public Game(IPickingDecisionMaker<IBoard, Move, String> white, IPickingDecisionMaker<IBoard, Move, String> black, IBoard board, List<Move> moves) {
         super(Arrays.asList(white, black));
         
         this.board = new Board(board);
@@ -75,11 +74,11 @@ public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard,
         informPlayer();
     }
     
-    public IPickingDecisionMaker<IBoard, Move, Avatar> getWhite() {
+    public IPickingDecisionMaker<IBoard, Move, String> getWhite() {
         return getPlayers().get(0);
     }
 
-    public IPickingDecisionMaker<IBoard, Move, Avatar> getBlack() {
+    public IPickingDecisionMaker<IBoard, Move, String> getBlack() {
         return getPlayers().get(1);
     }
     
@@ -156,7 +155,7 @@ public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard,
     }
 
     @Override
-    public List<IPickingDecisionMaker<IBoard, Move, Avatar>> getWinners() {
+    public List<IPickingDecisionMaker<IBoard, Move, String>> getWinners() {
         if (isCheckMate()) {
             new Resign().apply(board);
         }
@@ -201,12 +200,12 @@ public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard,
         return isFree(new Coordinate(x, y));
     }
 
-    public Coordinate getKingPosition(Avatar avatar) {
+    public Coordinate getKingPosition(String avatar) {
         Piece king = getBoard().getPieces(p -> p instanceof King && p.getAvatar() == avatar).get(0);
         return getBoard().getCoordinate(king);
     }
     
-    public List<BasicMove> getBasicMoves(Avatar avatar) {
+    public List<BasicMove> getBasicMoves(String avatar) {
         ArrayList<BasicMove> moves = new ArrayList();
         
         board.getPieces(p -> p.getAvatar() == avatar).forEach(p -> moves.addAll(p.getAvailableMoves(board)));
@@ -214,7 +213,7 @@ public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard,
         return moves;
     }
     
-    public List<Castling> getCastlingMoves(Avatar avatar) {
+    public List<Castling> getCastlingMoves(String avatar) {
         int baserow = avatar == getWhite().getAvatar() ? 0 : 7;
         List<Castling> moves = new ArrayList();
 
@@ -231,7 +230,7 @@ public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard,
         return moves;
     }
     
-    public List<EnPassant> getEnPassantMoves(Avatar avatar) {
+    public List<EnPassant> getEnPassantMoves(String avatar) {
         List<EnPassant> moves = new ArrayList();
         
         if (getTurn() > 0 && getMove(-1) instanceof PawnLeap) {
@@ -252,7 +251,7 @@ public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard,
         return moves;
     }
     
-    public List<Move> getPossibleMoves(Avatar avatar) {
+    public List<Move> getPossibleMoves(String avatar) {
         List<Move> moves = new ArrayList();
         
         if (getTurn() > 0 && getMove(-1) instanceof DrawOffer) {
@@ -280,11 +279,11 @@ public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard,
         return acceptedMovesLists.get(acceptedMovesLists.size() - 1);
     }
     
-    private Avatar getOpponent(Avatar avatar) {
+    private String getOpponent(String avatar) {
         return (getWhite().getAvatar() == avatar) ? getBlack().getAvatar() : getWhite().getAvatar();
     }
     
-    public boolean inCheck(Avatar avatar) {
+    public boolean inCheck(String avatar) {
         for (BasicMove m : getBasicMoves(getOpponent(avatar))) { // We do not need to take into account Castling nor EnPassant, because these moves can not take a king
             if (m.getCaptured() instanceof King) {
                 return true;
@@ -294,7 +293,7 @@ public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard,
         return false;
     }
 
-    public boolean inCheck(Avatar avatar, Move move) {
+    public boolean inCheck(String avatar, Move move) {
         move.apply(board); // Applies move without changing history nor current player
         boolean ret = inCheck(avatar);
         move.cancel(board);

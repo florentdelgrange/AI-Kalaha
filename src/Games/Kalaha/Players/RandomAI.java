@@ -3,14 +3,13 @@ package Games.Kalaha.Players;
 import java.util.List;
 import java.util.Random;
 
-import Core.NameAvatar;
 import Games.Kalaha.Move;
 
 public class RandomAI extends Player {
 	
 	private final Random randomizer;
 
-	public RandomAI(NameAvatar avatar) {
+	public RandomAI(String avatar) {
 		super(avatar);
 		this.randomizer = new Random();
 	}
@@ -31,7 +30,7 @@ public class RandomAI extends Player {
 	}
 
 	@Override
-	public void informEnd(List<NameAvatar> winners) {
+	public void informEnd(List<String> winners) {
 		// I don't care !
 	}
 	

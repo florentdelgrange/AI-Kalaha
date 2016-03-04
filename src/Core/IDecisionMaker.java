@@ -30,7 +30,7 @@ import java.util.List;
  * @param <M>
  * @param <A>
  */
-public interface IDecisionMaker<B extends IBoardProxy<?, ?>, M extends IMove<? extends B>, A extends Avatar> {
+public interface IDecisionMaker<B extends IBoardProxy<?, ?>, M extends IMove<? extends B>, A> {
    
 	/**
 	 * @return the avatar of the decision maker (usually just a name but some games can require more complex data).

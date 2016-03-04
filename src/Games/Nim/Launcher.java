@@ -23,8 +23,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import Core.NameAvatar;
-
 /**
  * Terminal-oriented launcher for the game.
  * 
@@ -49,13 +47,8 @@ public class Launcher {
 				final int n = i;
 				String className = "Games.Nim.Players." + args[i];
 				Class<? extends Player> c = Class.forName(className).asSubclass(Player.class);
-				Constructor<? extends Player> constructor = c.getConstructor(NameAvatar.class);
-				players.add(constructor.newInstance(new NameAvatar() {
-					@Override
-					public String getName() {
-						return "Player " + (n - 2);
-					}
-				}));
+				Constructor<? extends Player> constructor = c.getConstructor(String.class);
+				players.add(constructor.newInstance("Player " + (n - 2)));
 			} catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException
 					| InstantiationException e) {
 				System.err.println(e.toString());

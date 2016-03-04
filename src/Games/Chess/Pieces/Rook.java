@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import Board.Grid.GridCoordinate;
-import Core.Avatar;
 import Games.Chess.LinearPiece;
 
 /**
@@ -31,7 +30,7 @@ import Games.Chess.LinearPiece;
  */
 public class Rook extends LinearPiece {
     
-    public Rook(Avatar player) {
+    public Rook(String player) {
         super(player);
     }
 

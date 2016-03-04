@@ -19,15 +19,13 @@
 
 package Piece;
 
-import Core.Avatar;
-
 /**
  * Models pieces belonging to some player.
  * 
  * @author Fabian Pijcke
  * @param <P>
  */
-public interface IOwnedPiece<P extends Avatar> {
+public interface IOwnedPiece<P> {
 	
 	/**
 	 * @return The avatar owning this piece.

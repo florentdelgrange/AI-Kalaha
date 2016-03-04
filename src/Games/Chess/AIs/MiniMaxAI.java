@@ -18,14 +18,14 @@
  */
 package Games.Chess.AIs;
 
-import Core.Avatar;
+import java.util.List;
+import java.util.Random;
+
 import Games.Chess.Game;
 import Games.Chess.Move;
 import Move.Picking.IAuxiliaryMove;
 import Move.Picking.IPickingDecisionMaker;
 import Move.Picking.RandomAI;
-import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -38,12 +38,12 @@ public class MiniMaxAI extends ChessAI {
     private final int DEPTH = 2;
     private final Random r = new Random();
     
-    public MiniMaxAI(Avatar avatar) {
+    public MiniMaxAI(String avatar) {
         super(avatar);
     }
     
     @Override
-    public final void informEnd(List<Avatar> winners) {
+    public final void informEnd(List<String> winners) {
         if (winners.size() == 2) {
             System.out.println("Égalité");
         }

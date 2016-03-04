@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import Board.Grid.GridCoordinate;
-import Core.Avatar;
 import Games.Chess.StepPiece;
 
 /**
@@ -31,7 +30,7 @@ import Games.Chess.StepPiece;
  */
 public class King extends StepPiece {
     
-    public King(Avatar player) {
+    public King(String player) {
         super(player);
     }
     

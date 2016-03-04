@@ -22,7 +22,6 @@ package Games.Nim.Players;
 import java.util.List;
 import java.util.Random;
 
-import Core.NameAvatar;
 import Games.Nim.Player;
 import Games.Nim.Moves.Move;
 import Games.Nim.Moves.MoveToken;
@@ -41,7 +40,7 @@ public class RandomAI extends Player {
 	 * 
 	 * @param avatar
 	 */
-	public RandomAI(NameAvatar avatar) {
+	public RandomAI(String avatar) {
 		super(avatar);
 		randomizer = new Random();
 	}
@@ -52,7 +51,7 @@ public class RandomAI extends Player {
 	}
 
 	@Override
-	public void informEnd(List<NameAvatar> winners) {
+	public void informEnd(List<String> winners) {
 		// "I don't care, let's just start another game!"
 	}
 

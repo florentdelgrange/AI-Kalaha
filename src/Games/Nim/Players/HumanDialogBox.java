@@ -22,14 +22,13 @@ package Games.Nim.Players;
 import java.util.List;
 import java.util.Optional;
 
-import Core.NameAvatar;
 import Games.Nim.Player;
 import Games.Nim.Moves.Move;
 import Games.Nim.Moves.MoveToken;
 import Games.Nim.Moves.Resign;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
 
 /**
  * Allows a human to play using a really basic GUI.
@@ -43,7 +42,7 @@ public class HumanDialogBox extends Player {
 	 * 
 	 * @param avatar
 	 */
-	public HumanDialogBox(NameAvatar avatar) {
+	public HumanDialogBox(String avatar) {
 		super(avatar);
 	}
 
@@ -61,7 +60,7 @@ public class HumanDialogBox extends Player {
 	}
 
 	@Override
-	public void informEnd(List<NameAvatar> winners) {
+	public void informEnd(List<String> winners) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setHeaderText(null);
 		alert.setTitle("The game has ended");

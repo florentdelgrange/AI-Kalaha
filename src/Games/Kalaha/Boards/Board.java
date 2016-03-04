@@ -1,13 +1,12 @@
 package Games.Kalaha.Boards;
 
 import Board.Path.Path;
-import Core.Avatar;
 
 public class Board extends Path<Integer> implements IBoard {
 	
-	private Avatar avatar1, avatar2;
+	private String avatar1, avatar2;
 	
-	public Board(int pitsPerPlayer, Avatar avatar1, Avatar avatar2) {
+	public Board(int pitsPerPlayer, String avatar1, String avatar2) {
 		super(2 * (pitsPerPlayer + 1));
 		this.avatar1 = avatar1;
 		this.avatar2 = avatar2;
@@ -17,12 +16,12 @@ public class Board extends Path<Integer> implements IBoard {
 	}
 	
 	@Override
-	public Avatar getAvatar1() {
+	public String getAvatar1() {
 		return avatar1;
 	}
 	
 	@Override
-	public Avatar getAvatar2() {
+	public String getAvatar2() {
 		return avatar2;
 	}
 	

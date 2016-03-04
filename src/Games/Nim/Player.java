@@ -20,7 +20,6 @@
 package Games.Nim;
 
 import Core.IDecisionMaker;
-import Core.NameAvatar;
 import Games.Nim.Moves.Move;
 
 /**
@@ -33,9 +32,9 @@ import Games.Nim.Moves.Move;
  * 
  * @author Fabian Pijcke
  */
-public abstract class Player implements IDecisionMaker<IBoard, Move, NameAvatar> {
+public abstract class Player implements IDecisionMaker<IBoard, Move, String> {
 
-	private final NameAvatar avatar;
+	private final String avatar;
 
 	private IBoard board;
 	private int maxLeap;
@@ -45,12 +44,12 @@ public abstract class Player implements IDecisionMaker<IBoard, Move, NameAvatar>
 	 * 
 	 * @param avatar
 	 */
-	public Player(NameAvatar avatar) {
+	public Player(String avatar) {
 		this.avatar = avatar;
 	}
 
 	@Override
-	public final NameAvatar getAvatar() {
+	public final String getAvatar() {
 		return avatar;
 	}
 

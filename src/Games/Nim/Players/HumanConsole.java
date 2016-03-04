@@ -21,7 +21,6 @@ package Games.Nim.Players;
 
 import java.util.List;
 
-import Core.NameAvatar;
 import Games.Nim.Player;
 import Games.Nim.Moves.Move;
 import Games.Nim.Moves.MoveToken;
@@ -39,7 +38,7 @@ public class HumanConsole extends Player {
 	 * 
 	 * @param avatar
 	 */
-	public HumanConsole(NameAvatar avatar) {
+	public HumanConsole(String avatar) {
 		super(avatar);
 	}
 
@@ -54,7 +53,7 @@ public class HumanConsole extends Player {
 	}
 
 	@Override
-	public void informEnd(List<NameAvatar> winners) {
+	public void informEnd(List<String> winners) {
 		if (winners.get(0) == getAvatar()) {
 			System.out.println("Won!");
 		}

@@ -19,11 +19,11 @@
 
 package Move.Picking;
 
+import java.util.List;
+
 import Board.IBoardProxy;
-import Core.Avatar;
 import Core.IDecisionMaker;
 import Core.IMove;
-import java.util.List;
 
 /**
  * @author Fabian Pijcke
@@ -31,7 +31,7 @@ import java.util.List;
  * @param <M>
  * @param <A>
  */
-public interface IPickingDecisionMaker<B extends IBoardProxy, M extends IMove<? extends B>, A extends Avatar> extends IDecisionMaker<B, M, A> {
+public interface IPickingDecisionMaker<B extends IBoardProxy, M extends IMove<? extends B>, A> extends IDecisionMaker<B, M, A> {
     
     void informPastMoves(List<M> moves);
     void informMoves(List<M> moves);

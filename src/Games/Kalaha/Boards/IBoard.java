@@ -1,7 +1,6 @@
 package Games.Kalaha.Boards;
 
 import Board.Path.IPath;
-import Core.Avatar;
 
 public interface IBoard extends IPath<Integer> {
 	
@@ -11,7 +10,7 @@ public interface IBoard extends IPath<Integer> {
 	 *   0 1 2 3
 	 */
 
-	default public Avatar getAvatar(Integer c) {
+	default public String getAvatar(Integer c) {
 		return (c % getLength()) < getLength() / 2 ? getAvatar1() : getAvatar2(); 
 	}
 
@@ -19,8 +18,8 @@ public interface IBoard extends IPath<Integer> {
 		return (c + 1) % (getLength() / 2) == 0;
 	}
 	
-	public Avatar getAvatar1();
-	public Avatar getAvatar2();
+	public String getAvatar1();
+	public String getAvatar2();
 	
 	default public int player1Sum() {
 		int sum = 0;

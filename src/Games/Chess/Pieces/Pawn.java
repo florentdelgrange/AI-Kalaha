@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import Board.Grid.GridCoordinate;
-import Core.Avatar;
 import Games.Chess.Coordinate;
 import Games.Chess.IBoard;
 import Games.Chess.Piece;
@@ -39,7 +38,7 @@ public class Pawn extends Piece {
     
     private final int dir;
     
-    public Pawn(Avatar player, GridCoordinate initial) {
+    public Pawn(String player, GridCoordinate initial) {
         super(player);
         dir = initial.getY() == 1 ? 1 : -1;
     }
