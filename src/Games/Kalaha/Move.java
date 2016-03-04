@@ -5,7 +5,7 @@ import Games.Kalaha.Boards.Board;
 
 public final class Move implements IMove<Board> {
 	
-	private int pit, tokens;
+	private int pit, tokens, captured = 0;
 	
 	public Move(Integer pit) {
 		super();
@@ -16,18 +16,39 @@ public final class Move implements IMove<Board> {
 		return pit;
 	}
 	
-	private void add(Board board, int tokens, int multiplier) {
-		int count = tokens / (board.getLength() - 1);
-		int offset = tokens % (board.getLength() - 1);
+	private void add(Board board, int tokens) {
+		int full = board.getLength();
+		int half = full / 2;
 		
-		System.out.println(count);
-		System.out.println(offset);
+		int count = tokens / (full - 1);
+		int offset = tokens % (full - 1);
 		
-		for (int i = 1; i <= board.getLength(); i++) {
-			if (board.isKalaha(pit + i) && board.getAvatar(pit + i) != board.getAvatar(pit)) {
+		if (count > 0) {
+			for (int i = 0; i < full; ++i) {
+				if (!board.isKalaha(i) || board.getAvatar(i) == board.getAvatar(pit)) {
+					board.setPieceAt(i, board.getPieceAt(i) + count);
+				}
+			}
+		}
+		
+		int i = pit;
+		while (offset > 0) {
+			++i;
+			if (board.isKalaha(i) && board.getAvatar(i) != board.getAvatar(pit)) {
 				continue;
 			}
-			board.setPieceAt(pit + i, board.getPieceAt(pit + i) + multiplier * (i > offset ? count : count + 1));
+			if (offset == 1 && board.getPieceAt(i) == 0 && board.getAvatar(i) == board.getAvatar(pit)) {
+				board.setPieceAt(i, 0);
+				int opp = full - 2 - i;
+				captured = board.getPieceAt(opp);
+				int kalaha = pit / half * half + half - 1; 
+				board.setPieceAt(opp, 0);
+				board.setPieceAt(kalaha, board.getPieceAt(kalaha) + captured + 1);
+			}
+			else {
+				board.setPieceAt(i, board.getPieceAt(i) + 1);
+			}
+			--offset;
 		}
 	}
 	
@@ -35,17 +56,16 @@ public final class Move implements IMove<Board> {
 	public void apply(Board board) {
 		tokens = board.getPieceAt(pit);
 		board.setPieceAt(pit, 0);
-		add(board, tokens, 1);
+		add(board, tokens);
 	}
 
 	@Override
 	public void cancel(Board board) {
-		add(board, tokens, -1);
-		board.setPieceAt(pit, tokens);
+		// TODO
 	}
 
 	public boolean isLegal(Game game) {
-		return game.getBoard().getPieceAt(pit) > 0 && game.getBoard().getAvatar(pit) == game.getCurrentPlayer().getAvatar();
+		return game.getBoard().getPieceAt(pit) > 0 && game.getBoard().getAvatar(pit) == game.getCurrentPlayer().getAvatar() && !game.getBoard().isKalaha(pit);
 	}
 	
 	public boolean hasReplay(Board board) {

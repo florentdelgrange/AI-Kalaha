@@ -12,7 +12,7 @@ public interface IBoard extends IPath<Integer> {
 	 */
 
 	default public Avatar getAvatar(Integer c) {
-		return c < getLength() / 2 ? getAvatar1() : getAvatar2(); 
+		return (c % getLength()) < getLength() / 2 ? getAvatar1() : getAvatar2(); 
 	}
 
 	default public boolean isKalaha(Integer c) {

@@ -22,7 +22,7 @@ public class Launcher {
 			}
 		};
 		
-		Board board = new Uniform(4, 6, avatar1, avatar2);
+		Board board = new Uniform(6, 4, avatar1, avatar2);
 		RandomAI ai1 = new RandomAI(avatar1);
 		RandomAI ai2 = new RandomAI(avatar2);
 		

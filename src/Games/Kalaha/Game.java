@@ -95,12 +95,6 @@ public class Game extends GameHistory<Board, Move, Player> {
 		
 		System.out.println("\nNext player : " + getCurrentPlayer().getAvatar().getName());
 		System.out.println();
-		
-		try {
-			Thread.sleep(1000);
-		}
-		catch (InterruptedException e) {
-		}
 	}
 	
 	@Override
