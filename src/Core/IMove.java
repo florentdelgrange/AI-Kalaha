@@ -38,6 +38,7 @@ public interface IMove<B extends IBoard<?, ?>> {
     /**
      * Cancels the move.
      * Assuming the state of the board is the one after apply has been called, the board should be in its state just before after this method is applied.
+     * As the framework is built with the construction of AIs in mind, the cancelling of a movement is mandatory if we don't want the AI to reimplement the game.
      * 
      * @param board
      */

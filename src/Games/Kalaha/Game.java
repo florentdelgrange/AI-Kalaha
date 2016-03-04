@@ -22,24 +22,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import Core.GameHistory;
 import Games.Kalaha.Boards.Board;
 import Games.Kalaha.Players.Player;
 import Move.Movement.IllegalMovementException;
 
-public class Game extends GameHistory<Board, Move, Player> {
+public class Game implements Core.Game<Board, Move, Player> {
 	
 	private final Board board;
 	private Player currentPlayer;
+	private ArrayList<Player> players;
 	
 	public Game(Player player1, Player player2, Board board) {
-		super(new ArrayList<>(Arrays.asList(player1, player2)));
+		this.players = new ArrayList<>(Arrays.asList(player1, player2));
 		
 		this.board = board;
 		player1.informBoard(board);
 		player2.informBoard(board);
 		this.currentPlayer = player1;
+	}
+	
+	@Override
+	public List<Player> getPlayers() {
+		return players;
 	}
 
 	@Override
@@ -77,10 +83,6 @@ public class Game extends GameHistory<Board, Move, Player> {
 	}
 	
 	public void printStatus() {
-		if (getTurn() > 0) {
-			System.out.println("Last move : " + getMove(-1).getPit());
-		}
-		
 		for (int i = 0; i < getBoard().getLength() / 2 - 1; i++) {
 			System.out.print("	" + getBoard().getPieceAt(i));
 		}
@@ -102,10 +104,15 @@ public class Game extends GameHistory<Board, Move, Player> {
 		if (!move.isLegal(this)) {
 			throw new IllegalMovementException();
 		}
+		move.apply(getBoard());
 			
-		super.applyMove(move);
 		if (!move.hasReplay(getBoard())) {
 			currentPlayer = (currentPlayer == getPlayers().get(0) ? getPlayers().get(1) : getPlayers().get(0));
+		}
+		
+		if (isGameEnded()) {
+			List<String> winners = getWinners().stream().map(player -> player.getAvatar()).collect(Collectors.toList());
+			getPlayers().forEach(player -> player.informEnd(winners));
 		}
 	}
 	
