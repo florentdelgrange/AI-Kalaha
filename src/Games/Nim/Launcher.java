@@ -58,13 +58,7 @@ public class Launcher {
 			}
 		}
 
-		Game game = new Game(players, maxLeap, initialPosition);
-		while (!game.isGameEnded()) {
-			game.printStatus();
-			game.step();
-		}
-
-		game.printStatus();
+		new Game(players, maxLeap, initialPosition).start();
 	}
 
 }

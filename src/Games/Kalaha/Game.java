@@ -28,19 +28,27 @@ import Games.Kalaha.Boards.Board;
 import Games.Kalaha.Players.Player;
 import Move.Movement.IllegalMovementException;
 
-public class Game implements Core.Game<Board, Move, Player> {
+enum LeftTokensGrantee { OPPONENT, OWNER, NOBODY };
+
+public class Game implements Core.Game<Board, Move, String, Player> {
 	
 	private final Board board;
 	private Player currentPlayer;
 	private ArrayList<Player> players;
 	
-	public Game(Player player1, Player player2, Board board) {
+	private final LeftTokensGrantee leftTokensGrantee;
+	private final boolean emptyCapture;
+	
+	public Game(Player player1, Player player2, Board board, LeftTokensGrantee leftTokensGrantee, boolean emptyCapture) {
 		this.players = new ArrayList<>(Arrays.asList(player1, player2));
 		
 		this.board = board;
 		player1.informBoard(board);
 		player2.informBoard(board);
 		this.currentPlayer = player1;
+		
+		this.leftTokensGrantee = leftTokensGrantee;
+		this.emptyCapture = emptyCapture;
 	}
 	
 	@Override
@@ -116,19 +124,8 @@ public class Game implements Core.Game<Board, Move, Player> {
 		}
 	}
 	
-	public void step() {
-		Move move = getCurrentPlayer().pickMove();
-		try {
-			applyMove(move);
-		}
-		catch (IllegalMovementException e) {
-			move = getCurrentPlayer().pickMove();
-			try {
-				applyMove(move);
-			}
-			catch (IllegalMovementException f) {
-				// TODO make other player win.
-			}
-		}
+	@Override
+	public void disqualify(Player player) {
+		// TODO
 	}
 }

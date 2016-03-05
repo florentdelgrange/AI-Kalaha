@@ -38,12 +38,14 @@ import Games.Chess.Pieces.King;
 import Games.Chess.Pieces.Pawn;
 import Move.Picking.IAuxiliaryMove;
 import Move.Picking.IPickingDecisionMaker;
-import Move.Picking.IPickingGame;
+import Move.Picking.PickingGameRunner;
 
 /**
  * @author Fabian Pijcke
  */
-public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard, Move, String>> implements IPickingGame<Board, Move, IPickingDecisionMaker<IBoard, Move, String>> {
+public class Game
+		extends GameHistory<Board, String, Move>
+		implements PickingGameRunner<Board, Move, String, IPickingDecisionMaker<IBoard, Move, String>> {
     
     private final Board board;
     private final List<List<Move>> acceptedMovesLists;
@@ -328,12 +330,8 @@ public class Game extends GameHistory<Board, Move, IPickingDecisionMaker<IBoard,
         informPlayer();
     }
     
-    @Override
-    public void step() {
-        if (isGameEnded()) {
-            throw new IllegalStateException();
-        }
-        applyMove(getCurrentPlayer().pickMove());
+    public void disqualify(IPickingDecisionMaker<IBoard, Move, String> dm) {
+    	// TODO
     }
-
+    
 }

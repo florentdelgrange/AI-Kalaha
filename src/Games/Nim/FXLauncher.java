@@ -163,12 +163,7 @@ public class FXLauncher extends Application {
 				players.add(player);
 			}
 		}
-		Game game = new Game(players, spinner_maxLeap.getValue(), spinner_initialPosition.getValue());
-		while (!game.isGameEnded()) {
-			game.printStatus();
-			game.step();
-		}
-		game.printStatus();
+		new Game(players, spinner_maxLeap.getValue(), spinner_initialPosition.getValue()).start();
 	}
 
 	/**

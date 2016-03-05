@@ -39,7 +39,7 @@ import Move.Movement.IllegalMovementException;
  * 
  * @author Fabian Pijcke
  */
-public class Game implements Core.Game<Board, Move, Player> {
+public class Game implements Core.Game<Board, Move, String, Player> {
 
 	private Board board;
 	private ArrayList<Player> players;
@@ -63,6 +63,8 @@ public class Game implements Core.Game<Board, Move, Player> {
 			p.informBoard(new BoardProxy(this.board));
 			p.informMaxLeap(maxLeap);
 		}
+		
+		printStatus();
 	}
 
 	/**
@@ -113,6 +115,8 @@ public class Game implements Core.Game<Board, Move, Player> {
 			}
 			players.forEach((player) -> player.informEnd(avatars));
 		}
+		
+		printStatus();
 	}
 
 	/**
@@ -127,29 +131,10 @@ public class Game implements Core.Game<Board, Move, Player> {
 			System.out.println();
 		}
 	}
-
-	/**
-	 * Executes a full step of the game : asks the next player to play, updates
-	 * the board, updates the players list.
-	 * 
-	 * If a player tries to play an illegal move, he is given a second chance.
-	 * If he fails again to pick a legal move, he is considered to have
-	 * resigned.
-	 */
-	public void step() {
-		if (isGameEnded()) {
-			throw new IllegalStateException();
-		}
-		try {
-			applyMove(getCurrentPlayer().pickMove());
-		} catch (IllegalMovementException e) {
-			System.out.println("Illegal move, one more try granted.");
-			try {
-				applyMove(getCurrentPlayer().pickMove());
-			}
-			catch (IllegalMovementException f) {
-				// TODO make other player win.
-			}
-		}
+	
+	@Override
+	public void disqualify(Player player) {
+		// TODO
 	}
+
 }

@@ -53,14 +53,14 @@ public final class Move implements IMove<Board> {
 	}
 	
 	@Override
-	public void apply(Board board) {
+	public void apply(Board board, Rules rules) {
 		tokens = board.getPieceAt(pit);
 		board.setPieceAt(pit, 0);
 		add(board, tokens);
 	}
 
 	@Override
-	public void cancel(Board board) {
+	public void cancel(Board board, Rules rules) {
 		// TODO
 	}
 
