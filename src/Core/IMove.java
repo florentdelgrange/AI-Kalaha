@@ -20,6 +20,7 @@
 package Core;
 
 import Board.IBoard;
+import Board.IBoardProxy;
 
 /**
  * A move is made of two actions. One going forward and the other backward.
@@ -27,13 +28,19 @@ import Board.IBoard;
  * @author Fabian Pijcke
  * @param <B>
  */
-public interface IMove<B extends IBoard<?, ?>> {
+public interface IMove<Piece,
+		Coordinate,
+		Board extends IBoard<Piece, Coordinate>,
+		BoardProxy extends IBoardProxy<Piece, Coordinate>,
+		Avatar,
+		Game extends IGame<Piece, Coordinate, Board, BoardProxy, Avatar>> {
+	
 	/**
 	 * Applies the move on the board.
 	 * 
 	 * @param board
 	 */
-    void apply(B board);
+    void apply(Game game);
     
     /**
      * Cancels the move.
@@ -42,5 +49,5 @@ public interface IMove<B extends IBoard<?, ?>> {
      * 
      * @param board
      */
-    void cancel(B board);
+    void cancel(Game game);
 }

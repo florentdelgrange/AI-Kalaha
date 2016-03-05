@@ -19,8 +19,10 @@
 
 package Core;
 
-import Board.IBoard;
 import java.util.List;
+
+import Board.IBoard;
+import Board.IBoardProxy;
 
 /**
  * This class defines the rules of the game. The DecisionMaker need not have
@@ -30,17 +32,27 @@ import java.util.List;
  * DecisionMaker opponents are sufficiently specific.
  *
  * @author Fabian Pijcke
- * @param <M>
  * @param <B>
+ * @param <M>
+ * @param <A>
  * @param <DM>
  */
-public interface Game<B extends IBoard<?, ?>, M extends IMove<B>, DM extends IDecisionMaker<? super B, M, ?>> {
+public interface IGame<Piece,
+		Coordinate,
+		Board extends IBoard<Piece, Coordinate>,
+		BoardProxy extends IBoardProxy<Piece, Coordinate>,
+		Avatar> {
 
 	/**
 	 * @return the game board.
 	 */
-	B getBoard();
+	Board getBoard();
 
+	/**
+	 * @return a proxy for the board of the game.
+	 */
+	BoardProxy getBoardProxy();
+	
 	/**
 	 * The players list may vary as the game goes on.
 	 * 
@@ -53,21 +65,13 @@ public interface Game<B extends IBoard<?, ?>, M extends IMove<B>, DM extends IDe
 	 * 
 	 * @return the players list.
 	 */
-	List<DM> getPlayers();
+	List<Avatar> getPlayers();
 
 	/**
 	 * @return the player which has to make the next move.
 	 */
-	DM getCurrentPlayer();
+	Avatar getCurrentPlayer();
 
-	/**
-	 * Applies a move.
-	 * 
-	 * @param m
-	 */
-	default void applyMove(M m) {
-		m.apply(getBoard());
-	}
 
 	/**
 	 * @return true if the winners list is known already.
@@ -77,6 +81,12 @@ public interface Game<B extends IBoard<?, ?>, M extends IMove<B>, DM extends IDe
 	/**
 	 * @return the winners list.
 	 */
-	List<DM> getWinners();
+	List<Avatar> getWinners();
 
+	/**
+	 * Disqualifies a player (for two consecutive illegal moves, for example).
+	 * @param dm
+	 */
+	void disqualify(Avatar player);
+	
 }

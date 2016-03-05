@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import Board.IBoard;
+import Board.IBoardProxy;
 
 /**
  * A game in which the list of played moves matters. For example a Chess game
@@ -34,33 +35,39 @@ import Board.IBoard;
  * @param <M>
  * @param <DM>
  */
-public abstract class GameHistory<B extends IBoard<?, ?>, M extends IMove<B>, DM extends IDecisionMaker<? super B, M, ?>>
-		implements Game<B, M, DM> {
+public abstract class GameHistory<Piece,
+		Coordinate,
+		Board extends IBoard<Piece, Coordinate>,
+		BoardProxy extends IBoardProxy<Piece, Coordinate>,
+		Avatar,
+		Game extends IGame<Piece, Coordinate, Board, BoardProxy, Avatar>,
+		Move extends IMove<Piece, Coordinate, Board, BoardProxy, Avatar, Game>>
+	implements IGame<Piece, Coordinate, Board, BoardProxy, Avatar> {
 
-	private final List<DM> players;
-	private final List<M> moves;
+	private final List<Avatar> players;
+	private final List<Move> moves;
 
 	/**
 	 * Constructs a game with an empty history of played moves.
 	 * 
 	 * @param players
 	 */
-	public GameHistory(List<DM> players) {
+	public GameHistory(List<Avatar> players) {
 		this.players = players;
 		this.moves = new ArrayList<>();
 	}
 
 	@Override
-	public List<DM> getPlayers() {
-		return players; // Remember that the Game instance will not be passed to
-						// the players (hence they can not alter this list, and
-						// there is no need to protect it).
+	public List<Avatar> getPlayers() {
+		return players;
 	}
-
-	@Override
-	public void applyMove(M m) {
-		Game.super.applyMove(m);
-		addMove(m);
+	
+	public void registerMove(Move m) {
+		moves.add(m);
+	}
+	
+	public void forgetLastMove() {
+		moves.remove(moves.size() - 1);
 	}
 
 	/**
@@ -71,18 +78,8 @@ public abstract class GameHistory<B extends IBoard<?, ?>, M extends IMove<B>, DM
 	}
 
 	@Override
-	public DM getCurrentPlayer() {
+	public Avatar getCurrentPlayer() {
 		return players.get(getTurn() % players.size());
-	}
-
-	/**
-	 * Reverses the last move played.
-	 */
-	public void cancelLastMove() {
-		if (!moves.isEmpty()) {
-			M lastMove = moves.remove(moves.size() - 1);
-			lastMove.cancel(getBoard());
-		}
 	}
 
 	/**
@@ -94,25 +91,15 @@ public abstract class GameHistory<B extends IBoard<?, ?>, M extends IMove<B>, DM
 	 *            a positive or negative number.
 	 * @return the ith move played.
 	 */
-	public M getMove(int i) {
+	public Move getMove(int i) {
 		int index = i < 0 ? moves.size() + i : i;
 		return (index < 0 || index >= getTurn()) ? null : moves.get(index);
 	}
 
 	/**
-	 * Adds a move to the list of played moves. By default this method is
-	 * already called by applyMove.
-	 * 
-	 * @param m
-	 */
-	public void addMove(M m) {
-		moves.add(m);
-	}
-
-	/**
 	 * @return the complete read-only list of played moves.
 	 */
-	public List<M> getMoves() {
+	public List<Move> getMoves() {
 		return Collections.unmodifiableList(moves);
 	}
 
