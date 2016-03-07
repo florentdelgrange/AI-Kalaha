@@ -20,6 +20,7 @@
 package Move.Movement;
 
 import Board.IBoard;
+import Core.IGame;
 import Core.IMove;
 
 /**
@@ -32,10 +33,15 @@ import Core.IMove;
  * @param <P>
  * @param <D>
  */
-public class MovementMove<P, C, D extends IBoard<P, C>> implements IMove<D> {
+public abstract class MovementMove<Piece,
+		Coordinate,
+		Board extends IBoard<Piece, Coordinate>,
+		Avatar,
+		Game extends IGame<Piece, Coordinate, Board, Avatar>>
+	implements IMove<Piece, Coordinate, Board, Avatar, Game> {
 
-	private final C start, destination;
-	private P startPiece, destinationPiece;
+	private final Coordinate start, destination;
+	private Piece startPiece, destinationPiece;
 
 	/**
 	 * Constructs a basic movement move.
@@ -43,7 +49,7 @@ public class MovementMove<P, C, D extends IBoard<P, C>> implements IMove<D> {
 	 * @param start
 	 * @param destination
 	 */
-	public MovementMove(C start, C destination) {
+	public MovementMove(Coordinate start, Coordinate destination) {
 		this.start = start;
 		this.destination = destination;
 	}
@@ -51,29 +57,29 @@ public class MovementMove<P, C, D extends IBoard<P, C>> implements IMove<D> {
 	/**
 	 * @return the start position of the move.
 	 */
-	public C getStart() {
+	public Coordinate getStart() {
 		return start;
 	}
 
 	/**
 	 * @return the destination position of the move.
 	 */
-	public C getDestination() {
+	public Coordinate getDestination() {
 		return destination;
 	}
 
 	@Override
-	public void apply(D board) {
-		startPiece = board.getPieceAt(getStart());
-		destinationPiece = board.getPieceAt(getDestination());
-		board.setPieceAt(getStart(), null);
-		board.setPieceAt(getDestination(), startPiece);
+	public void apply(Game game) {
+		startPiece = game.getBoard().getPieceAt(getStart());
+		destinationPiece = game.getBoard().getPieceAt(getDestination());
+		game.getBoard().setPieceAt(getStart(), null);
+		game.getBoard().setPieceAt(getDestination(), startPiece);
 	}
-
+	
 	@Override
-	public void cancel(D board) {
-		board.setPieceAt(getDestination(), destinationPiece);
-		board.setPieceAt(getStart(), startPiece);
+	public void cancel(Game game) {
+		game.getBoard().setPieceAt(getDestination(), destinationPiece);
+		game.getBoard().setPieceAt(getStart(), startPiece);
 	}
-
+	
 }

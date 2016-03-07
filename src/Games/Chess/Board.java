@@ -19,12 +19,12 @@
 
 package Games.Chess;
 
-import Board.Grid.InversibleMap2D;
+import Board.Grid.InversibleGrid;
 
 /**
  * @author Fabian Pijcke
  */
-public class Board extends InversibleMap2D<Piece, Coordinate> implements IBoard {
+public class Board extends InversibleGrid<Piece, Coordinate> implements IBoard {
     
     public Board() {
         super(8, 8);

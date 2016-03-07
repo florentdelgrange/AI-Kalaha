@@ -20,17 +20,17 @@
 package Games.Chess;
 
 import Games.Chess.Moves.BasicMove;
-import Board.Grid.InversibleMap2D;
-import Board.Grid.InversibleMap2DProxy;
+import Board.Grid.InversibleGrid;
+import Board.Grid.InversibleGridProxy;
 
 /**
  * @author Fabian Pijcke
  */
-public class BoardProxy extends InversibleMap2DProxy<Piece, Coordinate, InversibleMap2D<Piece, Coordinate>> implements IBoard {
+public class BoardProxy extends InversibleGridProxy<Piece, Coordinate, InversibleGrid<Piece, Coordinate>> implements IBoard {
     
     private BasicMove lastMove = null;
 
-    public BoardProxy(InversibleMap2D pieces) {
+    public BoardProxy(InversibleGrid pieces) {
         super(pieces);
     }
     

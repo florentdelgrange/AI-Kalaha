@@ -32,7 +32,7 @@ import Utils.IConsumer;
  * @param <P> 
  * @param <C> 
  */
-public class Map2D<P, C extends GridCoordinate> implements IBoard<P, C>, IMap2D<P, C> {
+public class Grid<P, C extends GridCoordinate> implements IBoard<P, C>, IGrid<P, C> {
     
     private final ArrayList<P> elements;
     private final int width, height;
@@ -43,7 +43,7 @@ public class Map2D<P, C extends GridCoordinate> implements IBoard<P, C>, IMap2D<
      * @param width
      * @param height
      */
-    public Map2D(int width, int height) {
+    public Grid(int width, int height) {
     	elements = new ArrayList<>(width * height);
     	for (int i = width * height; i > 0; --i) {
     		elements.add(null);

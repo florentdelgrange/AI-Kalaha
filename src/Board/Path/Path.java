@@ -22,20 +22,37 @@ package Board.Path;
 import java.util.ArrayList;
 
 import Board.IBoard;
+import Board.ReadOnlyBoardException;
 import Utils.IConsumer;
 
 /**
- * The complete implementation of a Path board. Instances of this class are meant to be passed to the game
- * implementation, not to the users or AIs.
+ * The complete implementation of a Path board. Instances of this class are
+ * meant to be passed to the game implementation, not to the users or AIs.
  * 
  * @author Fabian Pijcke
- * @param <P> 
+ * @param
+ * 			<Piece>
  */
-public class Path<P> implements IBoard<P, Integer>, IPath<P> {
-	
-	private final ArrayList<P> elements;
+public class Path<Piece> implements IBoard<Piece, Integer> {
+
+	private final ArrayList<Piece> elements;
 	private final int length;
-	
+	private final boolean readOnly;
+
+	/**
+	 * Constructs a path that is a copy of the original one. A copy is meant to
+	 * be passed to players, so that they can not alter the content of the
+	 * board. Note that if there are informations on the board the player need
+	 * not have access to, this constructor should not be used directly.
+	 * 
+	 * @param path
+	 */
+	public Path(Path<Piece> path) {
+		elements = path.elements;
+		length = path.length;
+		readOnly = true;
+	}
+
 	/**
 	 * Constructs an empty path.
 	 * 
@@ -46,41 +63,52 @@ public class Path<P> implements IBoard<P, Integer>, IPath<P> {
 		for (int i = 0; i < length; ++i) {
 			elements.add(null);
 		}
-		
+
 		this.length = length;
+		this.readOnly = false;
 	}
-	
+
 	@Override
-	public P getPieceAt(Integer c) {
+	public Piece getPieceAt(Integer c) {
 		if (has(c)) {
 			return elements.get(c);
 		}
 		return null;
 	}
-	
-	@Override
+
+	/**
+	 * @return the length of the path.
+	 */
 	public int getLength() {
 		return length;
 	}
-	
+
 	@Override
-	public void setPieceAt(Integer c, P e) {
+	public void setPieceAt(Integer c, Piece e) {
+		if (readOnly) {
+			throw new ReadOnlyBoardException();
+		}
+		
 		if (has(c)) {
 			elements.set(c, e);
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException();
 		}
 	}
-	
+
 	@Override
-	public void forEach(IConsumer<P> c) {
+	public void forEach(IConsumer<Piece> c) {
 		elements.forEach(c.filter((v) -> v != null));
 	}
-	
+
 	@Override
 	public boolean has(Integer c) {
 		return c >= 0 && c < length;
 	}
 	
+	@Override
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
 }

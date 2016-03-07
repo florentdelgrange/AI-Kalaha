@@ -19,29 +19,36 @@
 
 package Board.Grid;
 
-import Board.IBoardProxy;
+import java.util.List;
 
 /**
- * Common interface to Map2D and Map2DProxy, meant to be passed to both the user (AI) and to the Game implementation.
+ * Proxy for the InversibleMap2D {@link GridProxy}
  * 
  * @author Fabian Pijcke
  * @param <P>
- * @param <C> A 2D Coordinate type.
+ * @param <C>
+ * @param <D>
  */
-public interface IMap2D<P, C extends GridCoordinate> extends IBoardProxy<P, C> {
-	/**
-	 * @return the width of the board.
-	 */
-    int getWidth();
+public class InversibleGridProxy<P, C extends GridCoordinate, D extends InversibleGrid<P, C>> extends GridProxy<P, C, D> implements IInversibleGrid<P, C> {
     
+    private final D pieces;
+
     /**
-     * @return the height of the board.
+     * Creates a read-only version of a Map2DProxy.
+     * @param pieces
      */
-    int getHeight();
+    public InversibleGridProxy(D pieces) {
+        super(pieces);
+        this.pieces = pieces;
+    }
     
-    /**
-     * @param c
-     * @return true if the coordinate belongs to the limits of the board.
-     */
-    boolean has(C c);
+    @Override
+    public C getCoordinate(P piece) {
+        return pieces.getCoordinate(piece);
+    }
+
+    @Override
+    public List<P> getPieces() {
+        return pieces.getPieces();
+    }
 }

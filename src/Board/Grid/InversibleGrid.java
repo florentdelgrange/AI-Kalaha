@@ -30,7 +30,7 @@ import Utils.IConsumer;
  * @param <P> 
  * @param <C> 
  */
-public class InversibleMap2D<P, C extends GridCoordinate> extends Map2D<P, C> {
+public class InversibleGrid<P, C extends GridCoordinate> extends Grid<P, C> {
     private final HashMap<P, C> inverse;
     
     /**
@@ -39,7 +39,7 @@ public class InversibleMap2D<P, C extends GridCoordinate> extends Map2D<P, C> {
      * @param width
      * @param height
      */
-    public InversibleMap2D(int width, int height) {
+    public InversibleGrid(int width, int height) {
         super(width, height);
         this.inverse = new HashMap<>();
     }

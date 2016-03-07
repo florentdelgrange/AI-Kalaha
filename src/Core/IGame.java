@@ -22,7 +22,6 @@ package Core;
 import java.util.List;
 
 import Board.IBoard;
-import Board.IBoardProxy;
 
 /**
  * This class defines the rules of the game. The DecisionMaker need not have
@@ -40,19 +39,18 @@ import Board.IBoardProxy;
 public interface IGame<Piece,
 		Coordinate,
 		Board extends IBoard<Piece, Coordinate>,
-		BoardProxy extends IBoardProxy<Piece, Coordinate>,
 		Avatar> {
 
 	/**
 	 * @return the game board.
 	 */
 	Board getBoard();
-
-	/**
-	 * @return a proxy for the board of the game.
-	 */
-	BoardProxy getBoardProxy();
 	
+	/**
+	 * @return a clone of the board (to be passed to players).
+	 */
+	Board getBoardClone();
+
 	/**
 	 * The players list may vary as the game goes on.
 	 * 

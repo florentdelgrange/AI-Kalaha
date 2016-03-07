@@ -17,35 +17,44 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Board.Path;
+package Board.Grid;
 
 import Utils.IConsumer;
 
 /**
+ * When asking to the user/AI what action to take, we want to give him read-only information.
+ * This wrapper allows the game to create a read-only version of the board using the proxy design pattern.
+ * Instances of this class are meant to be passed to the user/AI instead of Map2D instances.
  * 
  * @author Fabian Pijcke
- *
- * @param <P>
+ * @param <P> 
+ * @param <C> 
+ * @param <D> 
  */
-public class PathProxy<P> implements IPath<P> {
+public class GridProxy<P, C extends GridCoordinate, D extends Grid<P, C>> implements IGrid<P, C> {
 
-	private final Path<P> pieces;
-
-	/**
-	 * Constructs a read-only version of a Path board.
-	 * @param pieces
-	 */
-	public PathProxy(Path<P> pieces) {
-		this.pieces = pieces;
-	}
-	
-    @Override
-    public int getLength() {
-        return pieces.getLength();
+    private final D pieces;
+    
+    /**
+     * Constructs a read-only version of a Map2D board. 
+     * @param pieces
+     */
+    public GridProxy(D pieces) { // Game should keep control over the pieces variable, as GridBoard will not alter it.
+        this.pieces = pieces;
     }
     
     @Override
-    public P getPieceAt(Integer c) {
+    public int getWidth() {
+        return pieces.getWidth();
+    }
+    
+    @Override
+    public int getHeight() {
+        return pieces.getHeight();
+    }
+    
+    @Override
+    public P getPieceAt(C c) {
         return pieces.getPieceAt(c);
     }
     
@@ -55,7 +64,7 @@ public class PathProxy<P> implements IPath<P> {
     }
     
     @Override
-    public boolean has(Integer c) {
+    public boolean has(C c) {
         return pieces.has(c);
     }
 }

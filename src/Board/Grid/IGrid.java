@@ -17,22 +17,31 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Games.Nim;
+package Board.Grid;
 
-import Board.Path.IPath;
-import Piece.AnonymousToken;
+import Board.IBoardProxy;
 
 /**
- * As the game of Nim involves only one token, we provide a facility to retrieve
- * the position of the token in constant time.
+ * Common interface to Map2D and Map2DProxy, meant to be passed to both the user (AI) and to the Game implementation.
  * 
  * @author Fabian Pijcke
+ * @param <P>
+ * @param <C> A 2D Coordinate type.
  */
-public interface IBoard extends IPath<AnonymousToken> {
-	
+public interface IGrid<P, C extends GridCoordinate> extends IBoardProxy<P, C> {
 	/**
-	 * @return the current position of the token.
+	 * @return the width of the board.
 	 */
-	Integer getTokenPosition();
-	
+    int getWidth();
+    
+    /**
+     * @return the height of the board.
+     */
+    int getHeight();
+    
+    /**
+     * @param c
+     * @return true if the coordinate belongs to the limits of the board.
+     */
+    boolean has(C c);
 }

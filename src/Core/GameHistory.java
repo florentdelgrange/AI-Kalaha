@@ -24,7 +24,6 @@ import java.util.Collections;
 import java.util.List;
 
 import Board.IBoard;
-import Board.IBoardProxy;
 
 /**
  * A game in which the list of played moves matters. For example a Chess game
@@ -38,11 +37,10 @@ import Board.IBoardProxy;
 public abstract class GameHistory<Piece,
 		Coordinate,
 		Board extends IBoard<Piece, Coordinate>,
-		BoardProxy extends IBoardProxy<Piece, Coordinate>,
 		Avatar,
-		Game extends IGame<Piece, Coordinate, Board, BoardProxy, Avatar>,
-		Move extends IMove<Piece, Coordinate, Board, BoardProxy, Avatar, Game>>
-	implements IGame<Piece, Coordinate, Board, BoardProxy, Avatar> {
+		Game extends IGame<Piece, Coordinate, Board, Avatar>,
+		Move extends IMove<Piece, Coordinate, Board, Avatar, Game>>
+	implements IGame<Piece, Coordinate, Board, Avatar> {
 
 	private final List<Avatar> players;
 	private final List<Move> moves;

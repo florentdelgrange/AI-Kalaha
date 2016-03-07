@@ -20,11 +20,10 @@
 package Games.Nim;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import Games.Nim.Players.Player;
-import Move.Movement.IllegalMovementException;
+import Core.IGame;
+import Piece.AnonymousToken;
 
 /**
  * The game of Nim is played on a path with a token. The players move in turn
@@ -39,10 +38,10 @@ import Move.Movement.IllegalMovementException;
  * 
  * @author Fabian Pijcke
  */
-public class Game implements Core.Game<Board, Move, String, Player> {
+public class Game implements IGame<AnonymousToken, Integer, Board, String> {
 
 	private Board board;
-	private ArrayList<Player> players;
+	private ArrayList<String> players;
 	private int maxLeap;
 
 	/**
@@ -54,17 +53,10 @@ public class Game implements Core.Game<Board, Move, String, Player> {
 	 * @param maxLeap
 	 * @param initialPosition
 	 */
-	public Game(ArrayList<Player> players, int maxLeap, int initialPosition) {
+	public Game(ArrayList<String> players, int maxLeap, int initialPosition) {
 		this.players = players;
 		this.maxLeap = maxLeap;
 		this.board = new Board(initialPosition + 1);
-
-		for (Player p : players) {
-			p.informBoard(new BoardProxy(this.board));
-			p.informMaxLeap(maxLeap);
-		}
-		
-		printStatus();
 	}
 
 	/**
@@ -78,14 +70,19 @@ public class Game implements Core.Game<Board, Move, String, Player> {
 	public Board getBoard() {
 		return board;
 	}
+	
+	@Override
+	public Board getBoardClone() {
+		return new Board(getBoard());
+	}
 
 	@Override
-	public List<Player> getPlayers() {
+	public List<String> getPlayers() {
 		return players;
 	}
 
 	@Override
-	public Player getCurrentPlayer() {
+	public String getCurrentPlayer() {
 		return getPlayers().get(0);
 	}
 
@@ -95,28 +92,8 @@ public class Game implements Core.Game<Board, Move, String, Player> {
 	}
 
 	@Override
-	public List<Player> getWinners() {
-		int winner = (board.getTokenPosition() == 0) ? players.size() - 1 : 0;
-		return Collections.singletonList(getPlayers().get(winner));
-	}
-
-	@Override
-	public void applyMove(Move move) {
-		if (!move.isLegal(this)) {
-			throw new IllegalMovementException();
-		}
-		move.apply(getBoard());
-		players.add(players.remove(0));
-
-		if (isGameEnded()) {
-			List<String> avatars = new ArrayList<>();
-			for (Player p : getWinners()) {
-				avatars.add(p.getAvatar());
-			}
-			players.forEach((player) -> player.informEnd(avatars));
-		}
-		
-		printStatus();
+	public List<String> getWinners() {
+		return players.subList(players.size() - 1, players.size());
 	}
 
 	/**
@@ -124,17 +101,17 @@ public class Game implements Core.Game<Board, Move, String, Player> {
 	 */
 	public void printStatus() {
 		if (isGameEnded()) {
-			System.out.println("Winner : " + getWinners().get(0).getAvatar());
+			System.out.println("Winner : " + getWinners().get(0));
 		} else {
 			System.out.println("Token position : " + board.getTokenPosition());
-			System.out.println("Player in hand : " + getCurrentPlayer().getAvatar());
+			System.out.println("Player in hand : " + getCurrentPlayer());
 			System.out.println();
 		}
 	}
 	
 	@Override
-	public void disqualify(Player player) {
-		// TODO
+	public void disqualify(String player) {
+		players.remove(player);
 	}
 
 }

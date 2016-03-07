@@ -30,8 +30,7 @@ import Move.Movement.MovementMove;
  * @author Fabian Pijcke
  */
 public class BasicMove
-        extends MovementMove<Piece, Coordinate, Board>
-        implements Move, GridMove<Board> {
+        extends MovementMove<Piece, Coordinate, Board> {
     
     private final Piece captured;
     private final Piece movingPiece;

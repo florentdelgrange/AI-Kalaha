@@ -1,10 +1,10 @@
 package Games.Kalaha.Players;
 
-import Core.IDecisionMaker;
+import Core.Player;
 import Games.Kalaha.Move;
 import Games.Kalaha.Boards.IBoard;
 
-public abstract class Player implements IDecisionMaker<IBoard, Move, String> {
+public abstract class Player implements Player<IBoard, Move, String> {
 	
 	private final String avatar;
 	private IBoard board;

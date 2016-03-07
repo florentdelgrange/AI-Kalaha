@@ -19,11 +19,11 @@
 
 package Games.Chess;
 
-import Board.Grid.IInversibleMap2D;
+import Board.Grid.IInversibleGrid;
 
 /**
  * @author Fabian Pijcke
  */
-public interface IBoard extends IInversibleMap2D<Piece, Coordinate> {
+public interface IBoard extends IInversibleGrid<Piece, Coordinate> {
     
 }

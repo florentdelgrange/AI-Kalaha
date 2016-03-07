@@ -38,8 +38,7 @@ public class RandomAI extends Player {
 	 * 
 	 * @param avatar
 	 */
-	public RandomAI(String avatar) {
-		super(avatar);
+	public RandomAI() {
 		randomizer = new Random();
 	}
 
@@ -51,6 +50,11 @@ public class RandomAI extends Player {
 	@Override
 	public void informEnd(List<String> winners) {
 		// "I don't care, let's just start another game!"
+	}
+
+	@Override
+	public void informAvatar(String avatar) {
+		// I don't care about that trivial information.
 	}
 
 }

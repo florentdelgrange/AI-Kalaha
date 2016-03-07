@@ -19,9 +19,10 @@
 
 package Games.Nim.Players;
 
-import Core.IDecisionMaker;
-import Games.Nim.IBoard;
+import Games.Nim.Board;
+import Games.Nim.Game;
 import Games.Nim.Move;
+import Piece.AnonymousToken;
 
 /**
  * Implementation of a basic Nim player. The additional methods provide
@@ -33,44 +34,15 @@ import Games.Nim.Move;
  * 
  * @author Fabian Pijcke
  */
-public abstract class Player implements IDecisionMaker<IBoard, Move, String> {
+public abstract class Player extends Core.Player<AnonymousToken, Integer, Board, String, Game, Move> {
 
-	private final String avatar;
-
-	private IBoard board;
 	private int maxLeap;
-
-	/**
-	 * Creates a player the standard way.
-	 * 
-	 * @param avatar
-	 */
-	public Player(String avatar) {
-		this.avatar = avatar;
-	}
-
-	@Override
-	public final String getAvatar() {
-		return avatar;
-	}
-
-	/**
-	 * @return the board.
-	 */
-	public IBoard getBoard() {
-		return board;
-	}
 
 	/**
 	 * @return the maximum leap allowed.
 	 */
 	public int getMaxLeap() {
 		return maxLeap;
-	}
-
-	@Override
-	public void informBoard(IBoard board) {
-		this.board = board;
 	}
 
 	/**

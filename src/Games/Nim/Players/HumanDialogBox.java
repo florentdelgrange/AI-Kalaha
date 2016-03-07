@@ -19,12 +19,9 @@
 
 package Games.Nim.Players;
 
-import java.util.List;
 import java.util.Optional;
 
 import Games.Nim.Move;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 
 /**
@@ -33,15 +30,6 @@ import javafx.scene.control.TextInputDialog;
  * @author Fabian Pijcke
  */
 public class HumanDialogBox extends Player {
-
-	/**
-	 * Standard Player constructor.
-	 * 
-	 * @param avatar
-	 */
-	public HumanDialogBox(String avatar) {
-		super(avatar);
-	}
 
 	@Override
 	public Move pickMove() {
@@ -54,20 +42,6 @@ public class HumanDialogBox extends Player {
 			return new Move(Integer.parseInt(result.get()));
 		}
 		return pickMove();
-	}
-
-	@Override
-	public void informEnd(List<String> winners) {
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeaderText(null);
-		alert.setTitle("The game has ended");
-		if (winners.get(0) == getAvatar()) {
-			alert.setContentText("You won! Congratulations!");
-		}
-		else {
-			alert.setContentText("You lost. Let's win the next one!");
-		}
-		alert.showAndWait();
 	}
 
 }

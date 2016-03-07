@@ -19,13 +19,10 @@
 
 package Board;
 
+import Utils.IConsumer;
+
 /**
  * The board contains the current state of the game.
- * 
- * The board uses the Proxy design pattern. That is, a subset of the methods
- * defined here are also defined in a proxy class, which is meant to be given to
- * the players. The complete board is meant to be used by the game engine, which
- * needs to be able to alter its state directly.
  * 
  * @author Fabian Pijcke
  * @param <P>
@@ -33,7 +30,7 @@ package Board;
  * @param <C>
  *            The coordinates used on the board.
  */
-public interface IBoard<P, C> extends IBoardProxy<P, C> {
+public interface IBoard<P, C> {
 
 	/**
 	 * Puts the given piece at the given coordinate. The behaviour is not
@@ -43,5 +40,31 @@ public interface IBoard<P, C> extends IBoardProxy<P, C> {
 	 * @param piece
 	 */
 	void setPieceAt(C coord, P piece);
+	
+	/**
+	 * @param coord
+	 * @return the piece at coordinate coord.
+	 */
+	P getPieceAt(C coord);
+	
+	/**
+	 * @param coord
+	 * @return true if and only if the coordinate coord belongs to the board.
+	 */
+	boolean has(C coord);
+	
+	/**
+	 * applies a function to each of the piece on the board (skipping nulls).
+	 * @param consumer
+	 */
+	void forEach(IConsumer<P> consumer);
 
+	/**
+	 * @return true if this board is read only. This should be the case for
+	 *         boards passed to players so that they can choose their next move.
+	 *         When a board is read only, the method setPieceAt will throw a
+	 *         ReadOnlyBoardException if called.
+	 */
+	boolean isReadOnly();
+	
 }

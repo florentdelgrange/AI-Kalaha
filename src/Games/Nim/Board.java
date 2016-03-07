@@ -19,6 +19,8 @@
 
 package Games.Nim;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import Board.Path.Path;
 import Piece.AnonymousToken;
 
@@ -29,11 +31,11 @@ import Piece.AnonymousToken;
  * 
  * @author Fabian Pijcke
  */
-public class Board extends Path<AnonymousToken> implements IBoard {
+public class Board extends Path<AnonymousToken> {
 
 	private AnonymousToken token;
-	private Integer tokenPosition;
-
+	private AtomicInteger tokenPosition;
+	
 	/**
 	 * Constructs a path of a given length and places the token on the last
 	 * cell.
@@ -43,19 +45,27 @@ public class Board extends Path<AnonymousToken> implements IBoard {
 	public Board(int length) {
 		super(length);
 		token = new AnonymousToken();
-		tokenPosition = length - 1;
-		setPieceAt(tokenPosition, token);
+		tokenPosition = new AtomicInteger();
+		setPieceAt(length - 1, token);
+	}
+	
+	public Board(Board board) {
+		super(board);
+		token = board.token;
+		tokenPosition = board.tokenPosition;
 	}
 
-	@Override
+	/**
+	 * @return the token position.
+	 */
 	public Integer getTokenPosition() {
-		return tokenPosition;
+		return tokenPosition.get();
 	}
 
 	@Override
 	public void setPieceAt(Integer c, AnonymousToken dummy) {
 		super.setPieceAt(c, token);
-		tokenPosition = c;
+		tokenPosition.set(c);
 	}
 
 }

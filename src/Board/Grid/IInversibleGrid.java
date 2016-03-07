@@ -17,12 +17,20 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Move.Picking;
+package Board.Grid;
 
 /**
- *
- * @author shepard
+ * Extends the 2D map interface with an operation returning the coordinates of a given piece.
+ * This common interface is meant to be passed both to the user (or AI) and to the game implementation.
+ * 
+ * @author Fabian Pijcke
+ * @param <P> A piece, as in IMap2D.
+ * @param <C> A 2D coordinate.
  */
-public interface IAuxiliaryMove {
-    
+public interface IInversibleGrid<P, C extends GridCoordinate> extends IGrid<P, C> {
+	/**
+	 * @param piece
+	 * @return the coordinate of the given piece.
+	 */
+    C getCoordinate(P piece);
 }

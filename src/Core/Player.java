@@ -19,10 +19,10 @@
 
 package Core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Board.IBoard;
-import Board.IBoardProxy;
 
 /**
  * An entity making decisions. This can be either an AI or a user interface a
@@ -35,13 +35,15 @@ import Board.IBoardProxy;
  * @param <Avatar>
  * @param <Move>
  */
-public interface IDecisionMaker<Piece,
+public abstract class Player<Piece,
 		Coordinate,
 		Board extends IBoard<Piece, Coordinate>,
-		BoardProxy extends IBoardProxy<Piece, Coordinate>,
 		Avatar,
-		Game extends IGame<Piece, Coordinate, Board, BoardProxy, Avatar>,
-		Move extends IMove<Piece, Coordinate, Board, BoardProxy, Avatar, Game>> {
+		Game extends IGame<Piece, Coordinate, Board, Avatar>,
+		Move extends IMove<Piece, Coordinate, Board, Avatar, Game>> {
+	
+	private Board board;
+	private ArrayList<Avatar> avatars;
 
 	/**
 	 * This method will be called at the beginning of each game to inform the
@@ -49,7 +51,25 @@ public interface IDecisionMaker<Piece,
 	 * 
 	 * @param board
 	 */
-	void informBoard(BoardProxy board);
+	public void informBoard(Board board) {
+		this.board = board;
+	}
+	
+	public Board getBoard() {
+		return board;
+	}
+	
+	/**
+	 * This method will be called at the beginning of each game to inform the
+	 * player which avatar he is playing with. Nothing excludes that a player
+	 * might play with several avatars. The player has to store this information
+	 * in order to use the informEnd method.
+	 * 
+	 * @param avatar
+	 */
+	public void informAvatar(Avatar avatar) {
+		avatars.add(avatar);
+	}
 
 	/**
 	 * This method will be called when the decision maker has to pick a move. He
@@ -57,7 +77,7 @@ public interface IDecisionMaker<Piece,
 	 * 
 	 * @return the move chosen by the decision maker.
 	 */
-	Move pickMove();
+	public abstract Move pickMove();
 
 	/**
 	 * When the game is over, this method is called so that the decision maker
@@ -65,6 +85,12 @@ public interface IDecisionMaker<Piece,
 	 * 
 	 * @param winners
 	 */
-	void informEnd(List<Avatar> winners);
+	public void informEnd(List<Avatar> winners) {
+		for (Avatar avatar : winners) {
+			if (avatars.contains(avatar)) {
+				System.out.println("Your avatar " + avatar + " has won !");
+			}
+		}
+	}
 
 }

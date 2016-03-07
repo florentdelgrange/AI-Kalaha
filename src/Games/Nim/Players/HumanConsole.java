@@ -19,8 +19,6 @@
 
 package Games.Nim.Players;
 
-import java.util.List;
-
 import Games.Nim.Move;
 
 /**
@@ -30,30 +28,11 @@ import Games.Nim.Move;
  */
 public class HumanConsole extends Player {
 	
-	/**
-	 * Standard Player constructor.
-	 * 
-	 * @param avatar
-	 */
-	public HumanConsole(String avatar) {
-		super(avatar);
-	}
-
 	@Override
 	public Move pickMove() {
 		System.out.println("Move token of how many places? ");
 		String s = System.console().readLine();
 		return new Move(Integer.parseInt(s));
-	}
-
-	@Override
-	public void informEnd(List<String> winners) {
-		if (winners.get(0) == getAvatar()) {
-			System.out.println("Won!");
-		}
-		else {
-			System.out.println("Lost :-(");
-		}
 	}
 
 }

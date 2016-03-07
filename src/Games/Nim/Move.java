@@ -20,6 +20,7 @@
 package Games.Nim;
 
 import Core.IMove;
+import Piece.AnonymousToken;
 
 /**
  * This move moves the token towards the position 0 of a given number of
@@ -27,7 +28,7 @@ import Core.IMove;
  * 
  * @author Fabian Pijcke
  */
-public final class Move implements IMove<Board> {
+public final class Move implements IMove<AnonymousToken, Integer, Board, String, Game> {
 
 	final int leapLength;
 
@@ -41,23 +42,21 @@ public final class Move implements IMove<Board> {
 	}
 
 	@Override
-	public void apply(final Board board) {
-		Integer curC = board.getTokenPosition();
+	public void apply(final Game game) {
+		System.out.println("Token position : " + game.getBoard().getTokenPosition() + " - picked : " + leapLength);
+		Integer curC = game.getBoard().getTokenPosition();
 		Integer newC = curC - leapLength;
-		board.setPieceAt(newC, null);
+		game.getBoard().setPieceAt(newC, null);
 	}
 
 	@Override
-	public void cancel(final Board board) {
-		Integer curC = board.getTokenPosition();
+	public void cancel(final Game game) {
+		Integer curC = game.getBoard().getTokenPosition();
 		Integer newC = curC + leapLength;
-		board.setPieceAt(newC, null);
+		game.getBoard().setPieceAt(newC, null);
 	}
 
-	/**
-	 * @param game
-	 * @return true if the move picked is legal regarding the parameters of the running game.
-	 */
+	@Override
 	public boolean isLegal(Game game) {
 		return leapLength > 0 && leapLength <= game.getMaxLeap();
 	}

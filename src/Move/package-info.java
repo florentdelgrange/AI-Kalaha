@@ -23,10 +23,5 @@
  * 
  * These two move models are factored here. More specialized move models can be
  * implemented by extending the Core.IMove interface.
- * 
- * An alternative to move models is to provide the player with a list of allowed
- * moves. This way one has not to bother explaining rules, just to compute the
- * possibilites in a given board state. This behaviour is captured by the
- * package Move.Picking.
  */
 package Move;

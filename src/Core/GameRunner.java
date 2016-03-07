@@ -3,17 +3,15 @@ package Core;
 import java.util.Map;
 
 import Board.IBoard;
-import Board.IBoardProxy;
 import Move.Movement.IllegalMovementException;
 
 public class GameRunner<Piece,
 		Coordinate,
 		Board extends IBoard<Piece, Coordinate>,
-		BoardProxy extends IBoardProxy<Piece, Coordinate>,
 		Avatar,
-		Game extends IGame<Piece, Coordinate, Board, BoardProxy, Avatar>,
-		Move extends IMove<Piece, Coordinate, Board, BoardProxy, Avatar, Game>,
-		DM extends IDecisionMaker<Piece, Coordinate, Board, BoardProxy, Avatar, Game, Move>> {
+		Game extends IGame<Piece, Coordinate, Board, Avatar>,
+		Move extends IMove<Piece, Coordinate, Board, Avatar, Game>,
+		DM extends Player<Piece, Coordinate, Board, Avatar, Game, Move>> {
 	
 	private final Game game;
 	private final Map<Avatar, DM> players;
@@ -24,7 +22,8 @@ public class GameRunner<Piece,
 	}
 	
 	public void init() {
-		players.values().forEach(player -> player.informBoard(game.getBoardProxy()));
+		players.values().forEach(player -> player.informBoard(game.getBoardClone()));
+		game.getPlayers().forEach(avatar -> players.get(avatar).informAvatar(avatar));
 	}
 	
 	public void step() {

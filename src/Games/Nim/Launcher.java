@@ -22,15 +22,34 @@ package Games.Nim;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Map;
 
+import Core.GameRunner;
 import Games.Nim.Players.Player;
+import Piece.AnonymousToken;
 
 /**
  * Terminal-oriented launcher for the game.
  * 
  * @author Fabian Pijcke
  */
-public class Launcher {
+public class Launcher extends GameRunner<AnonymousToken, Integer, Board, String, Game, Move, Player> {
+	
+	private final Map<String, Player> players;
+	private final Game game;
+	
+	@Override
+	public void init() {
+		super.init();
+		players.values().forEach(player -> player.informMaxLeap(game.getMaxLeap()));
+	}
+	
+	public Launcher(Game game, Map<String, Player> players) {
+		super(game, players);
+		this.game = game;
+		this.players = players;
+	}
 
 	/**
 	 * Usage: java Games.Nim.Launcher maxLeap initialPosition class1 ... classN
@@ -43,14 +62,17 @@ public class Launcher {
 	public static void main(String[] args) {
 		int maxLeap = Integer.parseInt(args[0]);
 		int initialPosition = Integer.parseInt(args[1]);
-		ArrayList<Player> players = new ArrayList<>();
+		Hashtable<String, Player> players = new Hashtable<>();
+		ArrayList<String> avatars = new ArrayList<>();
 		for (int i = 2; i < args.length; ++i) {
 			try {
 				final int n = i;
 				String className = "Games.Nim.Players." + args[i];
 				Class<? extends Player> c = Class.forName(className).asSubclass(Player.class);
-				Constructor<? extends Player> constructor = c.getConstructor(String.class);
-				players.add(constructor.newInstance("Player " + (n - 2)));
+				Constructor<? extends Player> constructor = c.getConstructor();
+				String avatar = "Player " + (n - 2);
+				players.put(avatar, constructor.newInstance());
+				avatars.add(avatar);
 			} catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException
 					| InstantiationException e) {
 				System.err.println(e.toString());
@@ -58,7 +80,8 @@ public class Launcher {
 			}
 		}
 
-		new Game(players, maxLeap, initialPosition).start();
+		Game game = new Game(avatars, maxLeap, initialPosition);
+		new Launcher(game, players).start();
 	}
 
 }

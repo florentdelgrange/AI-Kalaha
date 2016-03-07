@@ -20,7 +20,6 @@
 package Core;
 
 import Board.IBoard;
-import Board.IBoardProxy;
 
 /**
  * A move is made of two actions. One going forward and the other backward.
@@ -31,23 +30,30 @@ import Board.IBoardProxy;
 public interface IMove<Piece,
 		Coordinate,
 		Board extends IBoard<Piece, Coordinate>,
-		BoardProxy extends IBoardProxy<Piece, Coordinate>,
 		Avatar,
-		Game extends IGame<Piece, Coordinate, Board, BoardProxy, Avatar>> {
-	
+		Game extends IGame<Piece, Coordinate, Board, Avatar>> {
+
 	/**
 	 * Applies the move on the board.
 	 * 
 	 * @param board
 	 */
-    void apply(Game game);
-    
-    /**
-     * Cancels the move.
-     * Assuming the state of the board is the one after apply has been called, the board should be in its state just before after this method is applied.
-     * As the framework is built with the construction of AIs in mind, the cancelling of a movement is mandatory if we don't want the AI to reimplement the game.
-     * 
-     * @param board
-     */
-    void cancel(Game game);
+	void apply(Game game);
+
+	/**
+	 * Cancels the move. Assuming the state of the board is the one after apply
+	 * has been called, the board should be in its state just before after this
+	 * method is applied. As the framework is built with the construction of AIs
+	 * in mind, the cancelling of a movement is mandatory if we don't want the
+	 * AI to reimplement the game.
+	 * 
+	 * @param board
+	 */
+	void cancel(Game game);
+	
+	/**
+	 * @param game
+	 * @return true if and only if the move is legal according to the game rules.
+	 */
+	boolean isLegal(Game game);
 }
