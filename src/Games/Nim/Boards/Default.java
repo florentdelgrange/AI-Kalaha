@@ -17,12 +17,16 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Games.Nim;
+package Games.Nim.Boards;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 import Board.Path.Path;
+import FX.BoardMaker;
 import Piece.AnonymousToken;
+import javafx.scene.Node;
+import javafx.scene.control.Spinner;
+import javafx.scene.layout.VBox;
 
 /**
  * The Nim board is a simple path on which a token is moved towards position 0.
@@ -31,7 +35,28 @@ import Piece.AnonymousToken;
  * 
  * @author Fabian Pijcke
  */
-public class Board extends Path<AnonymousToken> {
+public class Default extends Path<AnonymousToken> {
+	
+	public static class Maker implements BoardMaker<AnonymousToken, Integer, Default> {
+	
+		private final Spinner<Integer> initialPositionSpinner = new Spinner<>(1, Integer.MAX_VALUE, 20);
+
+		@Override
+		public Node getConfigPane() {
+			return new VBox(initialPositionSpinner);
+		}
+		
+		@Override
+		public String toString() {
+			return "Default";
+		}
+		
+		@Override
+		public Default getBoard() {
+			return new Default(initialPositionSpinner.getValue());
+		}
+		
+	}
 
 	private AnonymousToken token;
 	private AtomicInteger tokenPosition;
@@ -42,14 +67,14 @@ public class Board extends Path<AnonymousToken> {
 	 * 
 	 * @param length
 	 */
-	public Board(int length) {
+	public Default(int length) {
 		super(length);
 		token = new AnonymousToken();
 		tokenPosition = new AtomicInteger();
 		setPieceAt(length - 1, token);
 	}
 	
-	public Board(Board board) {
+	public Default(Default board) {
 		super(board);
 		token = board.token;
 		tokenPosition = board.tokenPosition;

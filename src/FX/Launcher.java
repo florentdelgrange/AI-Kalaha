@@ -1,29 +1,72 @@
 package FX;
 
-import Board.IBoard;
-import Core.IGame;
-import Core.Player;
-import Core.IMove;
 import javafx.application.Application;
-import javafx.scene.Node;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public abstract class Launcher<B extends IBoard<?, ?>, M extends IMove<B>, A, DM extends Player<B, M, A>> extends Application {
-	abstract public String getGameTitle();
-	abstract public Node configPane();
-	abstract public IGame<B, M, A, DM> construct();
+public class Launcher extends Application {
+
+	private final GridPane gamePane = new GridPane();
+	private final GridPane boardPane = new GridPane();
+	private final BorderPane playersPane = new BorderPane();
 	
-	public static void main(String[] args) {
-		launch(args);
+	private final ComboBox<GameMaker> gameCombo = new ComboBox<>();
+	private final ComboBox<BoardMaker> boardCombo = new ComboBox<>();
+	
+	public Launcher() {
+		addGameMaker(new Games.Nim.GameMaker());
 	}
 	
+	public void addGameMaker(GameMaker maker) {
+		gameCombo.getItems().add(maker);
+	}
+	
+	public static void main(String[] args) {
+		Launcher.launch(args);
+	}
+
 	@Override
-	public void start(Stage primaryStage) {
-		primaryStage.setTitle(getGameTitle());
+	public void start(Stage primaryStage) throws Exception {
 		
-		VBox mainPane = new VBox();
-		mainPane.getChildren().add(new TitledPane("Game configuration", configPane()));
+		primaryStage.setTitle("MetaBoard");
+		
+		gamePane.add(gameCombo, 0, 0);
+		gameCombo.setOnAction(this::changeGame);
+		
+		boardPane.add(boardCombo, 0, 0);
+		boardCombo.setOnAction(this::changeBoard);
+		
+		
+		Button launchButton = new Button("Start game !");
+		
+		VBox root = new VBox();
+		root.setAlignment(Pos.TOP_CENTER);
+		root.setSpacing(10);
+		root.getChildren().add(new TitledPane("Game", gamePane));
+		root.getChildren().add(new TitledPane("Board", boardPane));
+		root.getChildren().add(new TitledPane("Players", playersPane));
+		root.getChildren().add(launchButton);
+		
+		primaryStage.setScene(new Scene(root, 640, 480));
+		primaryStage.show();
+		
+	}
+	
+	public void changeGame(ActionEvent e) {
+		boardCombo.getItems().clear();
+		boardCombo.getItems().addAll(gameCombo.getValue().getBoardMakers());
+		gamePane.add(gameCombo.getValue().getConfigPane(), 0, 1);
+	}
+	
+	public void changeBoard(ActionEvent e) {
+		boardPane.add(boardCombo.getValue().getConfigPane(), 0, 1);
 	}
 }

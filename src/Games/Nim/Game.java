@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Core.IGame;
+import Games.Nim.Boards.Default;
 import Piece.AnonymousToken;
 
 /**
@@ -38,10 +39,10 @@ import Piece.AnonymousToken;
  * 
  * @author Fabian Pijcke
  */
-public class Game implements IGame<AnonymousToken, Integer, Board, String> {
+public class Game implements IGame<AnonymousToken, Integer, Default, String> {
 
-	private Board board;
-	private ArrayList<String> players;
+	private Default board;
+	private List<String> players;
 	private int maxLeap;
 
 	/**
@@ -53,10 +54,10 @@ public class Game implements IGame<AnonymousToken, Integer, Board, String> {
 	 * @param maxLeap
 	 * @param initialPosition
 	 */
-	public Game(ArrayList<String> players, int maxLeap, int initialPosition) {
+	public Game(List<String> players, Default board, int maxLeap) {
 		this.players = players;
 		this.maxLeap = maxLeap;
-		this.board = new Board(initialPosition + 1);
+		this.board = board;
 	}
 
 	/**
@@ -67,13 +68,13 @@ public class Game implements IGame<AnonymousToken, Integer, Board, String> {
 	}
 
 	@Override
-	public Board getBoard() {
+	public Default getBoard() {
 		return board;
 	}
 	
 	@Override
-	public Board getBoardClone() {
-		return new Board(getBoard());
+	public Default getBoardClone() {
+		return new Default(getBoard());
 	}
 
 	@Override

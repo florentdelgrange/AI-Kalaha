@@ -5,7 +5,7 @@ import java.util.Map;
 import Board.IBoard;
 import Move.Movement.IllegalMovementException;
 
-public class GameRunner<Piece,
+public class Launcher<Piece,
 		Coordinate,
 		Board extends IBoard<Piece, Coordinate>,
 		Avatar,
@@ -16,7 +16,7 @@ public class GameRunner<Piece,
 	private final Game game;
 	private final Map<Avatar, DM> players;
 	
-	public GameRunner(Game game, Map<Avatar, DM> players) {
+	public Launcher(Game game, Map<Avatar, DM> players) {
 		this.players = players;
 		this.game = game;
 	}

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 
-import Core.GameRunner;
+import Games.Nim.Boards.Default;
 import Games.Nim.Players.Player;
 import Piece.AnonymousToken;
 
@@ -34,7 +34,7 @@ import Piece.AnonymousToken;
  * 
  * @author Fabian Pijcke
  */
-public class Launcher extends GameRunner<AnonymousToken, Integer, Board, String, Game, Move, Player> {
+public class Launcher extends Core.Launcher<AnonymousToken, Integer, Default, String, Game, Move, Player> {
 	
 	private final Map<String, Player> players;
 	private final Game game;
@@ -80,7 +80,8 @@ public class Launcher extends GameRunner<AnonymousToken, Integer, Board, String,
 			}
 		}
 
-		Game game = new Game(avatars, maxLeap, initialPosition);
+		Default board = new Default(initialPosition);
+		Game game = new Game(avatars, board, maxLeap);
 		new Launcher(game, players).start();
 	}
 

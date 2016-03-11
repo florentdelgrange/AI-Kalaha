@@ -20,6 +20,7 @@
 package Games.Nim;
 
 import Core.IMove;
+import Games.Nim.Boards.Default;
 import Piece.AnonymousToken;
 
 /**
@@ -28,7 +29,7 @@ import Piece.AnonymousToken;
  * 
  * @author Fabian Pijcke
  */
-public final class Move implements IMove<AnonymousToken, Integer, Board, String, Game> {
+public final class Move implements IMove<AnonymousToken, Integer, Default, String, Game> {
 
 	final int leapLength;
 

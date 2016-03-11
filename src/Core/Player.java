@@ -43,7 +43,7 @@ public abstract class Player<Piece,
 		Move extends IMove<Piece, Coordinate, Board, Avatar, Game>> {
 	
 	private Board board;
-	private ArrayList<Avatar> avatars;
+	private final ArrayList<Avatar> avatars = new ArrayList<>();
 
 	/**
 	 * This method will be called at the beginning of each game to inform the

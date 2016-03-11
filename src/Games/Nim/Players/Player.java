@@ -19,9 +19,9 @@
 
 package Games.Nim.Players;
 
-import Games.Nim.Board;
 import Games.Nim.Game;
 import Games.Nim.Move;
+import Games.Nim.Boards.Default;
 import Piece.AnonymousToken;
 
 /**
@@ -34,7 +34,7 @@ import Piece.AnonymousToken;
  * 
  * @author Fabian Pijcke
  */
-public abstract class Player extends Core.Player<AnonymousToken, Integer, Board, String, Game, Move> {
+public abstract class Player extends Core.Player<AnonymousToken, Integer, Default, String, Game, Move> {
 
 	private int maxLeap;
 
