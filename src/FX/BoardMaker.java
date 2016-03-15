@@ -11,4 +11,7 @@ public interface BoardMaker<Piece, Coordinate, Board extends IBoard<Piece, Coord
 	Node getConfigPane();
 	
 	Board getBoard();
+	
+	int getMinPlayers();
+	int getMaxPlayers();
 }

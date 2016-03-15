@@ -1,13 +1,14 @@
 package FX;
 
+import Core.Player;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -16,10 +17,12 @@ public class Launcher extends Application {
 
 	private final GridPane gamePane = new GridPane();
 	private final GridPane boardPane = new GridPane();
-	private final BorderPane playersPane = new BorderPane();
+	private final VBox playerPanes = new VBox();
 	
 	private final ComboBox<GameMaker> gameCombo = new ComboBox<>();
 	private final ComboBox<BoardMaker> boardCombo = new ComboBox<>();
+	
+	private int playerId = 1;
 	
 	public Launcher() {
 		addGameMaker(new Games.Nim.GameMaker());
@@ -44,6 +47,14 @@ public class Launcher extends Application {
 		boardPane.add(boardCombo, 0, 0);
 		boardCombo.setOnAction(this::changeBoard);
 		
+		GridPane playersPane = new GridPane();
+		Button addPlayerButton = new Button("Add player");
+		Button resetPlayersButton = new Button("Reset players");
+		addPlayerButton.setOnAction(this::addPlayer);
+		resetPlayersButton.setOnAction(this::resetPlayers);
+		playersPane.add(addPlayerButton, 0, 0);
+		playersPane.add(resetPlayersButton, 1, 0);
+		playersPane.add(playerPanes, 0, 1, 2, 1);
 		
 		Button launchButton = new Button("Start game !");
 		
@@ -61,12 +72,63 @@ public class Launcher extends Application {
 	}
 	
 	public void changeGame(ActionEvent e) {
+		gamePane.add(gameCombo.getValue().getConfigPane(), 0, 1);
 		boardCombo.getItems().clear();
 		boardCombo.getItems().addAll(gameCombo.getValue().getBoardMakers());
-		gamePane.add(gameCombo.getValue().getConfigPane(), 0, 1);
 	}
 	
 	public void changeBoard(ActionEvent e) {
 		boardPane.add(boardCombo.getValue().getConfigPane(), 0, 1);
+		resetPlayers(null);
 	}
+	
+	public void resetPlayers(ActionEvent e) {
+		playerPanes.getChildren().clear();
+		playerId = 1;
+		for (int i = 0; i < boardCombo.getValue().getMinPlayers(); ++i) {
+			addPlayer(null);
+		}
+	}
+
+	public void addPlayer(ActionEvent e) {
+		if (playerPanes.getChildren().size() < boardCombo.getValue().getMaxPlayers()) {
+			playerPanes.getChildren().add(new PlayerPane());
+		}
+	}
+	
+	public class PlayerPane extends GridPane {
+		
+		private TextField nameField = new TextField();
+		private ComboBox<PlayerMaker> playerCombo = new ComboBox<>();
+		
+		public PlayerPane() {
+			super();
+			
+			nameField.setText("Player " + playerId++);
+			playerCombo.getItems().addAll(gameCombo.getValue().getPlayerMakers());
+			playerCombo.setOnAction(this::changePlayer);
+			Button dropButton = new Button("drop player");
+			dropButton.setOnAction(this::drop);
+			
+			this.add(nameField, 0, 0);
+			this.add(playerCombo, 1, 0);
+			this.add(dropButton, 2, 0);
+		}
+		
+		public Player getPlayer() {
+			return playerCombo.getValue().getPlayer();
+		}
+		
+		public void changePlayer(ActionEvent e) {
+			this.add(playerCombo.getValue().getConfigPane(), 0, 1, 3, 1);
+		}
+		
+		public void drop(ActionEvent e) {
+			if (playerPanes.getChildren().size() > boardCombo.getValue().getMinPlayers()) {
+				playerPanes.getChildren().remove(this);
+			}
+		}
+		
+	}
+	
 }

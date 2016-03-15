@@ -5,8 +5,11 @@ import java.util.List;
 
 import FX.BoardMaker;
 import FX.PlayerMaker;
+import FX.SimplePlayerMaker;
 import Games.Nim.Boards.Default;
+import Games.Nim.Players.HumanDialogBox;
 import Games.Nim.Players.Player;
+import Games.Nim.Players.RandomAI;
 import Piece.AnonymousToken;
 import javafx.scene.Node;
 import javafx.scene.control.Spinner;
@@ -39,9 +42,11 @@ public class GameMaker implements FX.GameMaker<AnonymousToken, Integer, Default,
 	}
 
 	@Override
-	public List<PlayerMaker> getPlayerMakers() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player>> getPlayerMakers() {
+		ArrayList<PlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player>> ret = new ArrayList<>();
+		ret.add(new SimplePlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player>("Human", HumanDialogBox.class));
+		ret.add(new SimplePlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player>("Random AI", RandomAI.class));
+		return ret;
 	}
 
 }

@@ -20,7 +20,7 @@ public interface GameMaker<Piece,
 	
 	Node getConfigPane();
 	List<BoardMaker<Piece, Coordinate, Board>> getBoardMakers();
-	List<PlayerMaker> getPlayerMakers();
+	List<PlayerMaker<Piece, Coordinate, Board, Avatar, Game, Move, Player>> getPlayerMakers();
 	
 	Game getGame(Board board, List<Avatar> players);
 	

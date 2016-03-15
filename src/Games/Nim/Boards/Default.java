@@ -56,6 +56,16 @@ public class Default extends Path<AnonymousToken> {
 			return new Default(initialPositionSpinner.getValue());
 		}
 		
+		@Override
+		public int getMinPlayers() {
+			return 2;
+		}
+		
+		@Override
+		public int getMaxPlayers() {
+			return Integer.MAX_VALUE;
+		}
+		
 	}
 
 	private AnonymousToken token;
