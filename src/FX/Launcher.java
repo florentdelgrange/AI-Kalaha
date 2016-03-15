@@ -22,7 +22,8 @@ public class Launcher extends Application {
 	private final ComboBox<GameMaker> gameCombo = new ComboBox<>();
 	private final ComboBox<BoardMaker> boardCombo = new ComboBox<>();
 	
-	private int playerId = 1;
+	private final Button addPlayerButton = new Button("Add player");
+	private final Button resetPlayersButton = new Button("Reset players");
 	
 	public Launcher() {
 		addGameMaker(new Games.Nim.GameMaker());
@@ -48,9 +49,11 @@ public class Launcher extends Application {
 		boardCombo.setOnAction(this::changeBoard);
 		
 		GridPane playersPane = new GridPane();
-		Button addPlayerButton = new Button("Add player");
-		Button resetPlayersButton = new Button("Reset players");
+		playersPane.setHgap(10);
+		playersPane.setVgap(20);
+		addPlayerButton.setDisable(true);
 		addPlayerButton.setOnAction(this::addPlayer);
+		resetPlayersButton.setDisable(true);
 		resetPlayersButton.setOnAction(this::resetPlayers);
 		playersPane.add(addPlayerButton, 0, 0);
 		playersPane.add(resetPlayersButton, 1, 0);
@@ -78,13 +81,14 @@ public class Launcher extends Application {
 	}
 	
 	public void changeBoard(ActionEvent e) {
+		addPlayerButton.setDisable(false);
+		resetPlayersButton.setDisable(false);
 		boardPane.add(boardCombo.getValue().getConfigPane(), 0, 1);
 		resetPlayers(null);
 	}
 	
 	public void resetPlayers(ActionEvent e) {
 		playerPanes.getChildren().clear();
-		playerId = 1;
 		for (int i = 0; i < boardCombo.getValue().getMinPlayers(); ++i) {
 			addPlayer(null);
 		}
@@ -98,21 +102,25 @@ public class Launcher extends Application {
 	
 	public class PlayerPane extends GridPane {
 		
-		private TextField nameField = new TextField();
-		private ComboBox<PlayerMaker> playerCombo = new ComboBox<>();
+		private final AvatarMaker avatarMaker;
+		private final ComboBox<PlayerMaker> playerCombo = new ComboBox<>();
 		
 		public PlayerPane() {
 			super();
 			
-			nameField.setText("Player " + playerId++);
+			avatarMaker = gameCombo.getValue().getNewAvatarMaker();
+			
 			playerCombo.getItems().addAll(gameCombo.getValue().getPlayerMakers());
 			playerCombo.setOnAction(this::changePlayer);
 			Button dropButton = new Button("drop player");
 			dropButton.setOnAction(this::drop);
 			
-			this.add(nameField, 0, 0);
-			this.add(playerCombo, 1, 0);
-			this.add(dropButton, 2, 0);
+			this.add(playerCombo, 0, 0);
+			this.add(dropButton, 1, 0);
+		}
+		
+		public Object getAvatar() {
+			return avatarMaker.getAvatar();
 		}
 		
 		public Player getPlayer() {
@@ -120,7 +128,8 @@ public class Launcher extends Application {
 		}
 		
 		public void changePlayer(ActionEvent e) {
-			this.add(playerCombo.getValue().getConfigPane(), 0, 1, 3, 1);
+			this.add(avatarMaker.getConfigPane(), 0, 1, 2, 1);
+			this.add(playerCombo.getValue().getConfigPane(), 0, 2, 2, 1);
 		}
 		
 		public void drop(ActionEvent e) {

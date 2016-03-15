@@ -3,9 +3,11 @@ package Games.Nim;
 import java.util.ArrayList;
 import java.util.List;
 
+import FX.AvatarMaker;
 import FX.BoardMaker;
 import FX.PlayerMaker;
 import FX.SimplePlayerMaker;
+import FX.StringAvatarMaker;
 import Games.Nim.Boards.Default;
 import Games.Nim.Players.HumanDialogBox;
 import Games.Nim.Players.Player;
@@ -47,6 +49,11 @@ public class GameMaker implements FX.GameMaker<AnonymousToken, Integer, Default,
 		ret.add(new SimplePlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player>("Human", HumanDialogBox.class));
 		ret.add(new SimplePlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player>("Random AI", RandomAI.class));
 		return ret;
+	}
+	
+	@Override
+	public AvatarMaker<String> getNewAvatarMaker() {
+		return new StringAvatarMaker();
 	}
 
 }

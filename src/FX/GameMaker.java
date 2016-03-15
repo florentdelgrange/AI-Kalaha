@@ -21,6 +21,7 @@ public interface GameMaker<Piece,
 	Node getConfigPane();
 	List<BoardMaker<Piece, Coordinate, Board>> getBoardMakers();
 	List<PlayerMaker<Piece, Coordinate, Board, Avatar, Game, Move, Player>> getPlayerMakers();
+	AvatarMaker getNewAvatarMaker();
 	
 	Game getGame(Board board, List<Avatar> players);
 	
