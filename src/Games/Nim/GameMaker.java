@@ -2,6 +2,7 @@ package Games.Nim;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import FX.AvatarMaker;
 import FX.BoardMaker;
@@ -17,7 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 
-public class GameMaker implements FX.GameMaker<AnonymousToken, Integer, Default, String, Game, Move, Player> {
+public class GameMaker implements FX.GameMaker<AnonymousToken, Integer, Default, String, Game, Move, Player, GameRunner> {
 	
 	private final Spinner<Integer> maxLeapSpinner = new Spinner<>(1, Integer.MAX_VALUE, 3);
 	
@@ -32,8 +33,13 @@ public class GameMaker implements FX.GameMaker<AnonymousToken, Integer, Default,
 	}
 
 	@Override
-	public Game getGame(Default board, List<String> players) {
-		return new Game(players, board, maxLeapSpinner.getValue());
+	public Game getGame(Default board, List<String> avatars) {
+		return new Game(avatars, board, maxLeapSpinner.getValue());
+	}
+	
+	@Override
+	public GameRunner getGameRunner(Game game, Map<String, Player> players) {
+		return new GameRunner(game, players);
 	}
 
 	@Override

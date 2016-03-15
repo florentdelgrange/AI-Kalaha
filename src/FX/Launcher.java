@@ -1,5 +1,13 @@
 package FX;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import Board.IBoard;
+import Core.GameRunner;
+import Core.IGame;
 import Core.Player;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -7,7 +15,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -60,6 +67,7 @@ public class Launcher extends Application {
 		playersPane.add(playerPanes, 0, 1, 2, 1);
 		
 		Button launchButton = new Button("Start game !");
+		launchButton.setOnAction(this::launchGame);
 		
 		VBox root = new VBox();
 		root.setAlignment(Pos.TOP_CENTER);
@@ -98,6 +106,18 @@ public class Launcher extends Application {
 		if (playerPanes.getChildren().size() < boardCombo.getValue().getMaxPlayers()) {
 			playerPanes.getChildren().add(new PlayerPane());
 		}
+	}
+	
+	public void launchGame(ActionEvent e) {
+		IBoard board = boardCombo.getValue().getBoard();
+		List avatars = new ArrayList();
+		playerPanes.getChildren().forEach(pp -> avatars.add(((PlayerPane) pp).getAvatar()));
+		IGame game = gameCombo.getValue().getGame(board, avatars);
+		
+		Map players = new HashMap();
+		playerPanes.getChildren().forEach(pp -> players.put(((PlayerPane) pp).getAvatar(), ((PlayerPane) pp).getPlayer()));
+		GameRunner runner = gameCombo.getValue().getGameRunner(game, players);
+		runner.start();
 	}
 	
 	public class PlayerPane extends GridPane {

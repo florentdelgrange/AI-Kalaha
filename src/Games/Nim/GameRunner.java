@@ -34,7 +34,7 @@ import Piece.AnonymousToken;
  * 
  * @author Fabian Pijcke
  */
-public class Launcher extends Core.Launcher<AnonymousToken, Integer, Default, String, Game, Move, Player> {
+public class GameRunner extends Core.GameRunner<AnonymousToken, Integer, Default, String, Game, Move, Player> {
 	
 	private final Map<String, Player> players;
 	private final Game game;
@@ -45,7 +45,7 @@ public class Launcher extends Core.Launcher<AnonymousToken, Integer, Default, St
 		players.values().forEach(player -> player.informMaxLeap(game.getMaxLeap()));
 	}
 	
-	public Launcher(Game game, Map<String, Player> players) {
+	public GameRunner(Game game, Map<String, Player> players) {
 		super(game, players);
 		this.game = game;
 		this.players = players;
@@ -82,7 +82,7 @@ public class Launcher extends Core.Launcher<AnonymousToken, Integer, Default, St
 
 		Default board = new Default(initialPosition);
 		Game game = new Game(avatars, board, maxLeap);
-		new Launcher(game, players).start();
+		new GameRunner(game, players).start();
 	}
 
 }
