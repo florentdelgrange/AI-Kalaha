@@ -4,6 +4,7 @@ import Board.IBoard;
 import Core.IGame;
 import Core.IMove;
 import javafx.scene.Node;
+import javafx.scene.text.Text;
 
 public interface PlayerMaker<Piece,
 		Coordinate,
@@ -16,7 +17,9 @@ public interface PlayerMaker<Piece,
 	@Override
 	String toString();
 	
-	Node getConfigPane();
+	default Node getConfigPane() {
+		return new Text("");
+	}
 	
 	Player getPlayer();
 

@@ -36,14 +36,7 @@ import Piece.AnonymousToken;
  */
 public abstract class Player extends Core.Player<AnonymousToken, Integer, Default, String, Game, Move> {
 
-	private int maxLeap;
-
-	/**
-	 * @return the maximum leap allowed.
-	 */
-	public int getMaxLeap() {
-		return maxLeap;
-	}
+	protected int maxLeap;
 
 	/**
 	 * Will be called at the beginning of a game.

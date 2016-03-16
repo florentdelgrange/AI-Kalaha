@@ -1,17 +1,25 @@
 package FX;
 
+import java.util.List;
+
 import Board.IBoard;
 import javafx.scene.Node;
+import javafx.scene.text.Text;
 
-public interface BoardMaker<Piece, Coordinate, Board extends IBoard<Piece, Coordinate>> {
+public interface BoardMaker<Piece, Coordinate, Board extends IBoard<Piece, Coordinate>, Avatar> {
 
-	@Override
-	String toString();
+	default Node getConfigPane() {
+		return new Text("");
+	}
 	
-	Node getConfigPane();
+	Board getBoard(List<Avatar> avatars);
 	
-	Board getBoard();
+	default int getMinPlayers() {
+		return 2;
+	}
 	
-	int getMinPlayers();
-	int getMaxPlayers();
+	default int getMaxPlayers() {
+		return Integer.MAX_VALUE;
+	}
+
 }

@@ -19,10 +19,6 @@
 
 package Games.Nim;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Map;
 
 import Games.Nim.Boards.Default;
@@ -49,40 +45,6 @@ public class GameRunner extends Core.GameRunner<AnonymousToken, Integer, Default
 		super(game, players);
 		this.game = game;
 		this.players = players;
-	}
-
-	/**
-	 * Usage: java Games.Nim.Launcher maxLeap initialPosition class1 ... classN
-	 * 
-	 * The player classes are just the unqualified names of the classes; for
-	 * example RandomAI or HumanConsole.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		int maxLeap = Integer.parseInt(args[0]);
-		int initialPosition = Integer.parseInt(args[1]);
-		Hashtable<String, Player> players = new Hashtable<>();
-		ArrayList<String> avatars = new ArrayList<>();
-		for (int i = 2; i < args.length; ++i) {
-			try {
-				final int n = i;
-				String className = "Games.Nim.Players." + args[i];
-				Class<? extends Player> c = Class.forName(className).asSubclass(Player.class);
-				Constructor<? extends Player> constructor = c.getConstructor();
-				String avatar = "Player " + (n - 2);
-				players.put(avatar, constructor.newInstance());
-				avatars.add(avatar);
-			} catch (ClassNotFoundException | NoSuchMethodException | InvocationTargetException | IllegalAccessException
-					| InstantiationException e) {
-				System.err.println(e.toString());
-				System.out.println("Player skipped");
-			}
-		}
-
-		Default board = new Default(initialPosition);
-		Game game = new Game(avatars, board, maxLeap);
-		new GameRunner(game, players).start();
 	}
 
 }

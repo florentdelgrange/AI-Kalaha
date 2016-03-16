@@ -12,6 +12,7 @@ import Core.Player;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -34,6 +35,7 @@ public class Launcher extends Application {
 	
 	public Launcher() {
 		addGameMaker(new Games.Nim.GameMaker());
+		addGameMaker(new Games.Kalaha.GameMaker());
 	}
 	
 	public void addGameMaker(GameMaker maker) {
@@ -82,16 +84,30 @@ public class Launcher extends Application {
 		
 	}
 	
+	private Node gameConfigPane;
+	
 	public void changeGame(ActionEvent e) {
-		gamePane.add(gameCombo.getValue().getConfigPane(), 0, 1);
+		if (gameConfigPane != null) {
+			gamePane.getChildren().remove(gameConfigPane);
+		}
+		gameConfigPane = gameCombo.getValue().getConfigPane();
+		gamePane.add(gameConfigPane, 0, 1);
 		boardCombo.getItems().clear();
 		boardCombo.getItems().addAll(gameCombo.getValue().getBoardMakers());
 	}
 	
+	private Node boardConfigPane;
+	
 	public void changeBoard(ActionEvent e) {
-		addPlayerButton.setDisable(false);
-		resetPlayersButton.setDisable(false);
-		boardPane.add(boardCombo.getValue().getConfigPane(), 0, 1);
+		if (boardConfigPane == null) {
+			addPlayerButton.setDisable(false);
+			resetPlayersButton.setDisable(false);
+		}
+		else {
+			boardPane.getChildren().remove(boardConfigPane);
+		}
+		boardConfigPane = boardCombo.getValue().getConfigPane();
+		boardPane.add(boardConfigPane, 0, 1);
 		resetPlayers(null);
 	}
 	
@@ -109,9 +125,9 @@ public class Launcher extends Application {
 	}
 	
 	public void launchGame(ActionEvent e) {
-		IBoard board = boardCombo.getValue().getBoard();
 		List avatars = new ArrayList();
 		playerPanes.getChildren().forEach(pp -> avatars.add(((PlayerPane) pp).getAvatar()));
+		IBoard board = boardCombo.getValue().getBoard(avatars);
 		IGame game = gameCombo.getValue().getGame(board, avatars);
 		
 		Map players = new HashMap();
@@ -147,9 +163,18 @@ public class Launcher extends Application {
 			return playerCombo.getValue().getPlayer();
 		}
 		
+		Node avatarConfigPane;
+		Node playerConfigPane;
+		
 		public void changePlayer(ActionEvent e) {
-			this.add(avatarMaker.getConfigPane(), 0, 1, 2, 1);
-			this.add(playerCombo.getValue().getConfigPane(), 0, 2, 2, 1);
+			if (avatarConfigPane != null) {
+				getChildren().remove(avatarConfigPane);
+				getChildren().remove(playerConfigPane);
+			}
+			avatarConfigPane = avatarMaker.getConfigPane();
+			playerConfigPane = playerCombo.getValue().getConfigPane();
+			this.add(avatarConfigPane, 0, 1, 2, 1);
+			this.add(playerConfigPane, 0, 2, 2, 1);
 		}
 		
 		public void drop(ActionEvent e) {

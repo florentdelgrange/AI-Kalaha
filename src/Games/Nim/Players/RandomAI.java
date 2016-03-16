@@ -22,7 +22,11 @@ package Games.Nim.Players;
 import java.util.List;
 import java.util.Random;
 
+import FX.PlayerMaker;
+import Games.Nim.Game;
 import Games.Nim.Move;
+import Games.Nim.Boards.Default;
+import Piece.AnonymousToken;
 
 /**
  * This AI plays randomly, but ensures to play a valid move in the endgame.
@@ -30,6 +34,13 @@ import Games.Nim.Move;
  * @author Fabian Pijcke
  */
 public class RandomAI extends Player {
+	
+	public static class Maker implements PlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player> {
+		@Override
+		public Player getPlayer() {
+			return new RandomAI();
+		}
+	}
 	
 	private Random randomizer;
 	
@@ -43,8 +54,8 @@ public class RandomAI extends Player {
 	}
 
 	@Override
-	public Move pickMove() {
-		return new Move(randomizer.nextInt(Math.min(getBoard().getTokenPosition(), getMaxLeap())) + 1);
+	public Move pickMove(String avatar) {
+		return new Move(randomizer.nextInt(Math.min(board.getTokenPosition(), maxLeap)) + 1);
 	}
 
 	@Override

@@ -19,41 +19,50 @@
 package Games.Kalaha;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import Core.IGame;
 import Games.Kalaha.Boards.Board;
-import Games.Kalaha.Players.Player;
-import Move.Movement.IllegalMovementException;
 
-enum LeftTokensGrantee { OPPONENT, OWNER, NOBODY };
 
-public class Game implements Core.Game<Board, Move, String, Player> {
+public class Game implements IGame<Integer, Integer, Board, String> {
+	
+	public static enum LeftTokensGrantee { ENDER, OWNER, NOBODY };
 	
 	private final Board board;
-	private Player currentPlayer;
-	private ArrayList<Player> players;
+	private ArrayList<String> avatars;
 	
 	private final LeftTokensGrantee leftTokensGrantee;
 	private final boolean emptyCapture;
 	
-	public Game(Player player1, Player player2, Board board, LeftTokensGrantee leftTokensGrantee, boolean emptyCapture) {
-		this.players = new ArrayList<>(Arrays.asList(player1, player2));
+	public Game(Board board, LeftTokensGrantee leftTokensGrantee, boolean emptyCapture, List<String> avatars) {
+		this.avatars = new ArrayList<>();
+		this.avatars.addAll(avatars);
 		
 		this.board = board;
-		player1.informBoard(board);
-		player2.informBoard(board);
-		this.currentPlayer = player1;
 		
 		this.leftTokensGrantee = leftTokensGrantee;
 		this.emptyCapture = emptyCapture;
 	}
 	
 	@Override
-	public List<Player> getPlayers() {
-		return players;
+	public Board getBoardClone() {
+		return getBoard().clone();
+	}
+	
+	public boolean getEmptyCapture() {
+		return emptyCapture;
+	}
+	
+	public LeftTokensGrantee getLeftTokensGrantee() {
+		return leftTokensGrantee;
+	}
+	
+	@Override
+	public List<String> getPlayers() {
+		return avatars;
 	}
 
 	@Override
@@ -62,32 +71,46 @@ public class Game implements Core.Game<Board, Move, String, Player> {
 	}
 	
 	@Override
-	public Player getCurrentPlayer() {
-		return currentPlayer;
+	public String getCurrentPlayer() {
+		return avatars.get(0);
+	}
+	
+	public void setNextPlayer() {
+		avatars.add(avatars.remove(0));
+	}
+	
+	public void setPreviousPlayer() {
+		avatars.add(0, avatars.remove(avatars.size() - 1));
 	}
 
 	@Override
 	public boolean isGameEnded() {
-		return getBoard().player1Sum() == 0 || getBoard().player2Sum() == 0;
+		return getBoard().getSums(false, true).containsValue(0);
 	}
 
 	@Override
-	public List<Player> getWinners() {
-		int player1Score = getBoard().player1Sum() + getBoard().getPieceAt(getBoard().getLength() / 2 - 1);
-		int player2Score = getBoard().player2Sum() + getBoard().getPieceAt(getBoard().getLength() - 1);
+	public List<String> getWinners() {
+		HashMap<String, Integer> sums;
+		switch (leftTokensGrantee) {
+		case OWNER:
+			sums = getBoard().getSums(true, true);
+			break;
+		case ENDER:
+			sums = getBoard().getSums(true, false);
+			int bonus = getBoard().getSums(false, true).values().stream().reduce(0, (a, b) -> a + b);
+			String ender = avatars.get(avatars.size() - 1);
+			sums.put(ender, sums.get(ender) + bonus);
+			break;
+		default:
+		case NOBODY:
+			sums = getBoard().getSums(true, false);
+		}
 		
-		System.out.println("Player 1 : " + player1Score);
-		System.out.println("Player 2 : " + player2Score);
+		int m = sums.values().stream().reduce(0, Math::max);
+		ArrayList<String> winners = new ArrayList<>();
+		avatars.stream().filter(avatar -> sums.get(avatar) == m).forEach(avatar -> winners.add(avatar));
 		
-		if (player1Score == player2Score) {
-			return getPlayers();
-		}
-		else if (player1Score > player2Score) {
-			return Collections.singletonList(getPlayers().get(0));
-		}
-		else {
-			return Collections.singletonList(getPlayers().get(1));
-		}
+		return Collections.unmodifiableList(winners);
 	}
 	
 	public void printStatus() {
@@ -103,29 +126,12 @@ public class Game implements Core.Game<Board, Move, String, Player> {
 			System.out.print("	" + getBoard().getPieceAt(getBoard().getLength() - 2 - i));
 		}
 		
-		System.out.println("\nNext player : " + getCurrentPlayer().getAvatar());
+		System.out.println("\nNext player : " + getCurrentPlayer());
 		System.out.println();
 	}
 	
 	@Override
-	public void applyMove(Move move) {
-		if (!move.isLegal(this)) {
-			throw new IllegalMovementException();
-		}
-		move.apply(getBoard());
-			
-		if (!move.hasReplay(getBoard())) {
-			currentPlayer = (currentPlayer == getPlayers().get(0) ? getPlayers().get(1) : getPlayers().get(0));
-		}
-		
-		if (isGameEnded()) {
-			List<String> winners = getWinners().stream().map(player -> player.getAvatar()).collect(Collectors.toList());
-			getPlayers().forEach(player -> player.informEnd(winners));
-		}
-	}
-	
-	@Override
-	public void disqualify(Player player) {
-		// TODO
+	public void disqualify(String avatar) {
+		avatars.remove(avatar);
 	}
 }

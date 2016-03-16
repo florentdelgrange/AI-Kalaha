@@ -22,12 +22,24 @@ public class GameRunner<Piece,
 	}
 	
 	public void init() {
-		players.values().forEach(player -> player.informBoard(game.getBoardClone()));
-		game.getPlayers().forEach(avatar -> players.get(avatar).informAvatar(avatar));
+		players.values().forEach(player -> {
+			player.informBoard(game.getBoardClone());
+			player.informAvatars(game.getPlayers());
+		});
+		game.getPlayers().forEach(avatar -> {
+			players.get(avatar).informAvatar(avatar);
+		});
 	}
 	
-	public void step() {
-		players.get(game.getCurrentPlayer()).pickMove().apply(game);
+	public void step() throws IllegalMovementException {
+		Avatar currentPlayer = game.getCurrentPlayer();
+		Move move = players.get(currentPlayer).pickMove(currentPlayer);
+		if (move.isLegal(game)) {
+			move.apply(game);
+		}
+		else {
+			throw new IllegalMovementException();
+		}
 	}
 	
 	public void mainLoop() {

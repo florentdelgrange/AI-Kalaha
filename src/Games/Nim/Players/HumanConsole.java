@@ -29,8 +29,8 @@ import Games.Nim.Move;
 public class HumanConsole extends Player {
 	
 	@Override
-	public Move pickMove() {
-		System.out.println("Move token of how many places? ");
+	public Move pickMove(String avatar) {
+		System.out.println(avatar + ", move token of how many places? ");
 		String s = System.console().readLine();
 		return new Move(Integer.parseInt(s));
 	}

@@ -19,6 +19,7 @@
 
 package Games.Nim.Boards;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import Board.Path.Path;
@@ -37,7 +38,7 @@ import javafx.scene.layout.VBox;
  */
 public class Default extends Path<AnonymousToken> {
 	
-	public static class Maker implements BoardMaker<AnonymousToken, Integer, Default> {
+	public static class Maker implements BoardMaker<AnonymousToken, Integer, Default, String> {
 	
 		private final Spinner<Integer> initialPositionSpinner = new Spinner<>(1, Integer.MAX_VALUE, 20);
 
@@ -52,20 +53,10 @@ public class Default extends Path<AnonymousToken> {
 		}
 		
 		@Override
-		public Default getBoard() {
+		public Default getBoard(List<String> avatars) {
 			return new Default(initialPositionSpinner.getValue());
 		}
-		
-		@Override
-		public int getMinPlayers() {
-			return 2;
-		}
-		
-		@Override
-		public int getMaxPlayers() {
-			return Integer.MAX_VALUE;
-		}
-		
+
 	}
 
 	private AnonymousToken token;

@@ -1,30 +1,20 @@
 package Games.Kalaha.Players;
 
-import Core.Player;
+import Games.Kalaha.Game;
 import Games.Kalaha.Move;
-import Games.Kalaha.Boards.IBoard;
+import Games.Kalaha.Boards.Board;
 
-public abstract class Player implements Player<IBoard, Move, String> {
+public abstract class Player extends Core.Player<Integer, Integer, Board, String, Game, Move> {
 	
-	private final String avatar;
-	private IBoard board;
+	protected Game.LeftTokensGrantee leftTokensGrantee;
+	protected boolean emptyCapture; 
 	
-	public Player(String avatar) {
-		this.avatar = avatar;
-	}
-
-	@Override
-	public final String getAvatar() {
-		return avatar;
-	}
-
-	@Override
-	public void informBoard(IBoard board) {
-		this.board = board;
+	public void informLeftTokensGrantee(Game.LeftTokensGrantee leftTokensGrantee) {
+		this.leftTokensGrantee = leftTokensGrantee;
 	}
 	
-	public IBoard getBoard() {
-		return board;
+	public void informEmptyCapture(boolean emptyCapture) {
+		this.emptyCapture = emptyCapture;
 	}
-
+	
 }

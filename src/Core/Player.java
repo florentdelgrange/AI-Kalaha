@@ -42,8 +42,9 @@ public abstract class Player<Piece,
 		Game extends IGame<Piece, Coordinate, Board, Avatar>,
 		Move extends IMove<Piece, Coordinate, Board, Avatar, Game>> {
 	
-	private Board board;
-	private final ArrayList<Avatar> avatars = new ArrayList<>();
+	protected Board board;
+	protected ArrayList<Avatar> avatars = new ArrayList<>(); // owned avatars
+	protected ArrayList<Avatar> players = new ArrayList<>(); // avatars taking part to the game
 
 	/**
 	 * This method will be called at the beginning of each game to inform the
@@ -53,10 +54,6 @@ public abstract class Player<Piece,
 	 */
 	public void informBoard(Board board) {
 		this.board = board;
-	}
-	
-	public Board getBoard() {
-		return board;
 	}
 	
 	/**
@@ -70,18 +67,33 @@ public abstract class Player<Piece,
 	public void informAvatar(Avatar avatar) {
 		avatars.add(avatar);
 	}
+	
+	/**
+	 * This method will be called at the beginning of each game to inform the
+	 * player which avatars take part to the game, and in which order if this
+	 * makes any sense for the game being played. This can be used for AIs
+	 * cooperating with other AIs, for example.
+	 * 
+	 * @param avatars
+	 */
+	public void informAvatars(List<Avatar> avatars) {
+		players.addAll(avatars);
+	}
 
 	/**
 	 * This method will be called when the decision maker has to pick a move. He
 	 * then has to give back a move that the game will try to apply.
 	 * 
-	 * @return the move chosen by the decision maker.
+	 * @param avatar
+	 *            As a player can handle several avatars, this parameter informs
+	 *            for which avatar the player has to take action this turn.
+	 * @return the move chosen by the player.
 	 */
-	public abstract Move pickMove();
+	public abstract Move pickMove(Avatar avatar);
 
 	/**
-	 * When the game is over, this method is called so that the decision maker
-	 * knows who the winners are.
+	 * When the game is over, this method is called so that the player knows who
+	 * the winners are.
 	 * 
 	 * @param winners
 	 */

@@ -85,6 +85,14 @@ public class Game implements IGame<AnonymousToken, Integer, Default, String> {
 	public String getCurrentPlayer() {
 		return getPlayers().get(0);
 	}
+	
+	public void setNextPlayer() {
+		getPlayers().add(getPlayers().remove(0));
+	}
+	
+	public void setPreviousPlayer() {
+		getPlayers().add(0, getPlayers().remove(getPlayers().size() - 1));
+	}
 
 	@Override
 	public boolean isGameEnded() {

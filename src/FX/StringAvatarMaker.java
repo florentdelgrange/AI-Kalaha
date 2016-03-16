@@ -7,7 +7,9 @@ import javafx.scene.text.Text;
 
 public class StringAvatarMaker implements AvatarMaker<String> {
 	
-	TextField nameField = new TextField();
+	private static int playerId = 0;
+	
+	TextField nameField = new TextField("Player " + ++playerId);
 	
 	@Override
 	public Node getConfigPane() {

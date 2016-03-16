@@ -19,9 +19,16 @@
 
 package Games.Nim.Players;
 
+import java.util.List;
 import java.util.Optional;
 
+import FX.PlayerMaker;
+import Games.Nim.Game;
 import Games.Nim.Move;
+import Games.Nim.Boards.Default;
+import Piece.AnonymousToken;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 
 /**
@@ -30,18 +37,33 @@ import javafx.scene.control.TextInputDialog;
  * @author Fabian Pijcke
  */
 public class HumanDialogBox extends Player {
+	
+	public static class Maker implements PlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player> {
+		@Override
+		public Player getPlayer() {
+			return new HumanDialogBox();
+		}
+	}
 
 	@Override
-	public Move pickMove() {
+	public Move pickMove(String avatar) {
 		TextInputDialog dialog = new TextInputDialog();
-		dialog.setTitle("Your turn to play !");
-		dialog.setHeaderText("The token is on position " + getBoard().getTokenPosition());
+		dialog.setTitle("Your turn to play, " + avatar + " !");
+		dialog.setHeaderText("The token is on position " + board.getTokenPosition());
 		dialog.setContentText("How much do you want to move it?");
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()) {
 			return new Move(Integer.parseInt(result.get()));
 		}
-		return pickMove();
+		return pickMove(avatar);
+	}
+	
+	@Override
+	public void informEnd(List<String> winners) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Game has ended");
+		alert.setContentText("The winners are " + winners.stream().reduce("", (s, t) -> s + " " + t));
+		alert.showAndWait();
 	}
 
 }

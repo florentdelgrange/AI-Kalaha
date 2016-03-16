@@ -7,6 +7,7 @@ import Board.IBoard;
 import Core.IGame;
 import Core.IMove;
 import javafx.scene.Node;
+import javafx.scene.text.Text;
 
 public interface GameMaker<Piece,
 		Coordinate,
@@ -20,8 +21,11 @@ public interface GameMaker<Piece,
 	@Override
 	String toString();
 	
-	Node getConfigPane();
-	List<BoardMaker<Piece, Coordinate, Board>> getBoardMakers();
+	default Node getConfigPane() {
+		return new Text("");
+	}
+	
+	List<BoardMaker<Piece, Coordinate, Board, Avatar>> getBoardMakers();
 	List<PlayerMaker<Piece, Coordinate, Board, Avatar, Game, Move, Player>> getPlayerMakers();
 	AvatarMaker<Avatar> getNewAvatarMaker();
 	

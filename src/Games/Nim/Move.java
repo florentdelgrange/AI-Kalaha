@@ -48,6 +48,7 @@ public final class Move implements IMove<AnonymousToken, Integer, Default, Strin
 		Integer curC = game.getBoard().getTokenPosition();
 		Integer newC = curC - leapLength;
 		game.getBoard().setPieceAt(newC, null);
+		game.setNextPlayer();
 	}
 
 	@Override
@@ -55,6 +56,7 @@ public final class Move implements IMove<AnonymousToken, Integer, Default, Strin
 		Integer curC = game.getBoard().getTokenPosition();
 		Integer newC = curC + leapLength;
 		game.getBoard().setPieceAt(newC, null);
+		game.setPreviousPlayer();
 	}
 
 	@Override
