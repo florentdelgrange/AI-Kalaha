@@ -72,10 +72,17 @@ public class Uniform extends Board {
 	
 	@Override
 	public List<Integer> getCaptures(Integer c) {
-		int oppC = c / playerLength * playerLength - playerLength - 2 - (c % playerLength);
+		if (isKalaha(c)) {
+			return new ArrayList<>();
+		}
+		
+		int baseC = c % playerLength;
+		int baseOpp = (playerLength - 2) - baseC;
+		int opp = c / playerLength * playerLength + baseOpp;
+		
 		ArrayList<Integer> ret = new ArrayList<>();
 		for (int i = 1; i < avatars.size(); ++i) {
-			ret.add(coordinate(oppC + i * playerLength));
+			ret.add(coordinate(opp + i * playerLength));
 		}
 		return ret;
 	}
