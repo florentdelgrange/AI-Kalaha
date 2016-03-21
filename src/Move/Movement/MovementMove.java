@@ -35,7 +35,7 @@ import Core.IMove;
  */
 public abstract class MovementMove<Piece,
 		Coordinate,
-		Board extends IBoard<Piece, Coordinate>,
+		Board extends Board<Piece, Coordinate>,
 		Avatar,
 		Game extends IGame<Piece, Coordinate, Board, Avatar>>
 	implements IMove<Piece, Coordinate, Board, Avatar, Game> {

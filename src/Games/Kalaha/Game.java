@@ -113,23 +113,6 @@ public class Game implements IGame<Integer, Integer, Board, String> {
 		return Collections.unmodifiableList(winners);
 	}
 	
-	public void printStatus() {
-		for (int i = 0; i < getBoard().getLength() / 2 - 1; i++) {
-			System.out.print("	" + getBoard().getPieceAt(i));
-		}
-		System.out.print("\n" + getBoard().getPieceAt(-1));
-		for (int i = 0; i < getBoard().getLength() / 2; i++) {
-			System.out.print("	");
-		}
-		System.out.println(getBoard().getPieceAt(getBoard().getLength() / 2 - 1));
-		for (int i = 0; i < getBoard().getLength() / 2 - 1; i++) {
-			System.out.print("	" + getBoard().getPieceAt(getBoard().getLength() - 2 - i));
-		}
-		
-		System.out.println("\nNext player : " + getCurrentPlayer());
-		System.out.println();
-	}
-	
 	@Override
 	public void disqualify(String avatar) {
 		avatars.remove(avatar);

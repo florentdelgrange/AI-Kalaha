@@ -31,7 +31,7 @@ import Utils.IConsumer;
  *            The coordinates used on the board.
  */
 public interface IBoard<P, C> {
-
+	
 	/**
 	 * Puts the given piece at the given coordinate. The behaviour is not
 	 * specified if the piece was already present on the board.
@@ -39,25 +39,32 @@ public interface IBoard<P, C> {
 	 * @param coord
 	 * @param piece
 	 */
-	void setPieceAt(C coord, P piece);
+	default public void setPieceAt(C coord, P piece) {
+		if (isReadOnly()) {
+			throw new ReadOnlyBoardException();
+		}
+		if (!has(coord)) {
+			throw new IllegalArgumentException();
+		}
+	}
 	
 	/**
 	 * @param coord
 	 * @return the piece at coordinate coord.
 	 */
-	P getPieceAt(C coord);
+	public abstract P getPieceAt(C coord);
 	
 	/**
 	 * @param coord
 	 * @return true if and only if the coordinate coord belongs to the board.
 	 */
-	boolean has(C coord);
+	public abstract boolean has(C coord);
 	
 	/**
 	 * applies a function to each of the piece on the board (skipping nulls).
 	 * @param consumer
 	 */
-	void forEach(IConsumer<P> consumer);
+	public abstract void forEach(IConsumer<P> consumer);
 
 	/**
 	 * @return true if this board is read only. This should be the case for
@@ -65,6 +72,6 @@ public interface IBoard<P, C> {
 	 *         When a board is read only, the method setPieceAt will throw a
 	 *         ReadOnlyBoardException if called.
 	 */
-	boolean isReadOnly();
+	public abstract boolean isReadOnly();
 	
 }

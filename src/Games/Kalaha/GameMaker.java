@@ -11,6 +11,7 @@ import FX.StringAvatarMaker;
 import Games.Kalaha.Boards.Board;
 import Games.Kalaha.Boards.FromFile;
 import Games.Kalaha.Boards.Uniform;
+import Games.Kalaha.Players.HumanGUI;
 import Games.Kalaha.Players.Player;
 import Games.Kalaha.Players.RandomAI;
 import javafx.scene.Node;
@@ -67,6 +68,7 @@ public class GameMaker implements FX.GameMaker<Integer, Integer, Board, String, 
 	public List<PlayerMaker<Integer, Integer, Board, String, Game, Move, Player>> getPlayerMakers() {
 		List<PlayerMaker<Integer, Integer, Board, String, Game, Move, Player>> l = new ArrayList<>();
 		l.add(new RandomAI.Maker());
+		l.add(new HumanGUI.Maker());
 		return l;
 	}
 

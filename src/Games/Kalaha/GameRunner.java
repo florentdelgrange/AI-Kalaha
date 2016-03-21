@@ -28,7 +28,6 @@ public class GameRunner extends Core.GameRunner<Integer, Integer, Board, String,
 	@Override
 	public void step() {
 		super.step();
-		game.printStatus();
 	}
 
 }

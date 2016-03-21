@@ -22,7 +22,7 @@ package Games.Nim.Boards;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import Board.Path.Path;
+import Board.Path;
 import FX.BoardMaker;
 import Piece.AnonymousToken;
 import javafx.scene.Node;

@@ -3,7 +3,7 @@ package Games.Kalaha.Boards;
 import java.util.HashMap;
 import java.util.List;
 
-import Board.Path.Path;
+import Board.Path;
 
 public abstract class Board extends Path<Integer> {
 	

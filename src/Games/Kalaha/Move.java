@@ -1,8 +1,6 @@
 package Games.Kalaha;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.function.Consumer;
 
 import Core.IMove;
 import Games.Kalaha.Boards.Board;

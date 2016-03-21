@@ -17,12 +17,10 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Board.Path;
+package Board;
 
 import java.util.ArrayList;
 
-import Board.IBoard;
-import Board.ReadOnlyBoardException;
 import Utils.IConsumer;
 
 /**
@@ -85,17 +83,10 @@ public class Path<Piece> implements IBoard<Piece, Integer> {
 
 	@Override
 	public void setPieceAt(Integer c, Piece e) {
-		if (readOnly) {
-			throw new ReadOnlyBoardException();
-		}
-		
-		if (has(c)) {
-			elements.set(c, e);
-		} else {
-			throw new IllegalArgumentException();
-		}
-	}
+		IBoard.super.setPieceAt(c, e);
 
+		elements.set(c, e);
+	}
 	@Override
 	public void forEach(IConsumer<Piece> c) {
 		elements.forEach(c.filter((v) -> v != null));
