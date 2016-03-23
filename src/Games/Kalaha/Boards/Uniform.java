@@ -87,14 +87,23 @@ public class Uniform extends Board {
 		return ret;
 	}
 	
-	public Uniform(Board board, List<String> avatars) {
+	protected Uniform(Uniform board) {
 		super(board);
-		this.avatars = avatars;
-		this.playerLength = getLength() / avatars.size();
+		this.avatars = board.avatars;
+		this.playerLength = board.playerLength;
 	}
 	
 	@Override
-	public Board clone() {
-		return new Uniform(this, avatars);
+	public Uniform readOnlyBoard() {
+		return new Uniform(this);
+	}
+	
+	@Override
+	public Uniform clone() {
+		Uniform clone = new Uniform(playerLength - 1, 0, avatars);
+		for (int i = 0; i < clone.getLength(); ++i) {
+			clone.setPieceAt(i, getPieceAt(i));
+		}
+		return clone;
 	}
 }

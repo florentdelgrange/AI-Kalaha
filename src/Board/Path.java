@@ -33,9 +33,9 @@ import Utils.IConsumer;
  */
 public class Path<Piece> implements IBoard<Piece, Integer> {
 
-	private final ArrayList<Piece> elements;
+	private ArrayList<Piece> elements;
 	private final int length;
-	private final boolean readOnly;
+	private boolean readOnly;
 
 	/**
 	 * Constructs a path that is a copy of the original one. A copy is meant to
@@ -45,7 +45,7 @@ public class Path<Piece> implements IBoard<Piece, Integer> {
 	 * 
 	 * @param path
 	 */
-	public Path(Path<Piece> path) {
+	protected Path(Path<Piece> path) {
 		elements = path.elements;
 		length = path.length;
 		readOnly = true;
@@ -100,6 +100,20 @@ public class Path<Piece> implements IBoard<Piece, Integer> {
 	@Override
 	public boolean isReadOnly() {
 		return readOnly;
+	}
+	
+	@Override
+	public Path<Piece> readOnlyBoard() {
+		return new Path<>(this);
+	}
+	
+	@Override
+	public Path<Piece> clone() {
+		Path<Piece> clone = new Path<>(getLength());
+		for (int i = 0; i < getLength(); ++i) {
+			clone.setPieceAt(i, getPieceAt(i));
+		}
+		return clone;
 	}
 
 }

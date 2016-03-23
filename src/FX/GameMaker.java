@@ -16,7 +16,7 @@ public interface GameMaker<Piece,
 		Game extends IGame<Piece, Coordinate, Board, Avatar>,
 		Move extends IMove<Piece, Coordinate, Board, Avatar, Game>,
 		Player extends Core.Player<Piece, Coordinate, Board, Avatar, Game, Move>,
-		GameRunner extends Core.GameRunner<Piece, Coordinate, Board, Avatar, Game, Move, Player>> {
+		GameRunner extends Core.IGameRunner<Piece, Coordinate, Board, Avatar, Game, Move, Player>> {
 
 	@Override
 	String toString();

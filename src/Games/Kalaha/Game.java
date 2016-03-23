@@ -20,12 +20,11 @@ package Games.Kalaha;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Core.IGame;
 import Games.Kalaha.Boards.Board;
-
 
 public class Game implements IGame<Integer, Integer, Board, String> {
 	
@@ -49,7 +48,7 @@ public class Game implements IGame<Integer, Integer, Board, String> {
 	
 	@Override
 	public Board getBoardClone() {
-		return getBoard().clone();
+		return getBoard().readOnlyBoard();
 	}
 	
 	public boolean getEmptyCapture() {
@@ -88,27 +87,14 @@ public class Game implements IGame<Integer, Integer, Board, String> {
 		return getBoard().getSums(false, true).containsValue(0);
 	}
 
+
 	@Override
 	public List<String> getWinners() {
-		HashMap<String, Integer> sums;
-		switch (leftTokensGrantee) {
-		case OWNER:
-			sums = getBoard().getSums(true, true);
-			break;
-		case ENDER:
-			sums = getBoard().getSums(true, false);
-			int bonus = getBoard().getSums(false, true).values().stream().reduce(0, (a, b) -> a + b);
-			String ender = avatars.get(avatars.size() - 1);
-			sums.put(ender, sums.get(ender) + bonus);
-			break;
-		default:
-		case NOBODY:
-			sums = getBoard().getSums(true, false);
-		}
+		Map<String, Integer> scores = board.getScores(leftTokensGrantee);
 		
-		int m = sums.values().stream().reduce(0, Math::max);
+		int m = scores.values().stream().reduce(0, Math::max);
 		ArrayList<String> winners = new ArrayList<>();
-		avatars.stream().filter(avatar -> sums.get(avatar) == m).forEach(avatar -> winners.add(avatar));
+		avatars.stream().filter(avatar -> scores.get(avatar) == m).forEach(avatar -> winners.add(avatar));
 		
 		return Collections.unmodifiableList(winners);
 	}

@@ -69,6 +69,7 @@ public class GameMaker implements FX.GameMaker<Integer, Integer, Board, String, 
 		List<PlayerMaker<Integer, Integer, Board, String, Game, Move, Player>> l = new ArrayList<>();
 		l.add(new RandomAI.Maker());
 		l.add(new HumanGUI.Maker());
+		//l.add(new HeuristicAI.Maker());
 		return l;
 	}
 

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import Board.IBoard;
-import Core.GameRunner;
+import Core.IGameRunner;
 import Core.IGame;
 import Core.Player;
 import javafx.application.Application;
@@ -132,8 +132,8 @@ public class Launcher extends Application {
 		
 		Map players = new HashMap();
 		playerPanes.getChildren().forEach(pp -> players.put(((PlayerPane) pp).getAvatar(), ((PlayerPane) pp).getPlayer()));
-		GameRunner runner = gameCombo.getValue().getGameRunner(game, players);
-		runner.start();
+		IGameRunner runner = gameCombo.getValue().getGameRunner(game, players);
+		runner.gameStart();
 	}
 	
 	public class PlayerPane extends GridPane {

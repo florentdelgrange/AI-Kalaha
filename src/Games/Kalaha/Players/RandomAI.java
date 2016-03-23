@@ -1,7 +1,6 @@
 package Games.Kalaha.Players;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import FX.PlayerMaker;
@@ -36,10 +35,4 @@ public class RandomAI extends Player {
 		int choice = randomizer.nextInt(possibleMoves.size());
 		return new Move(possibleMoves.get(choice));
 	}
-
-	@Override
-	public void informEnd(List<String> winners) {
-		// I don't care !
-	}
-	
 }

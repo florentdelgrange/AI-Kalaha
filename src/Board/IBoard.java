@@ -74,4 +74,7 @@ public interface IBoard<P, C> {
 	 */
 	public abstract boolean isReadOnly();
 	
+	public abstract IBoard<P, C> readOnlyBoard();
+	public abstract IBoard<P, C> clone();
+	
 }

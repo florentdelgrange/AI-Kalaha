@@ -53,12 +53,19 @@ public class FromFile extends Board {
 		
 	}
 	
+	private final List<String> avatars;
+	private final Path path;
+	
 	private final ArrayList<Integer> kalahas = new ArrayList<>();
 	private final Map<Integer, String> owners = new HashMap<>();
 	private final Map<Integer, List<Integer>> captures = new HashMap<>();
 	
 	public FromFile(Path path, List<String> avatars) {
 		super(nbCells(path), avatars);
+		
+		this.path = path;
+		this.avatars = avatars;
+		
 		try (Stream<String> lines = Files.lines(path)) {
 			lines.filter(l -> !l.isEmpty()).forEach(l -> readline(l, avatars));
 		}
@@ -114,8 +121,12 @@ public class FromFile extends Board {
 		return kalahas.contains(coordinate(c));
 	}
 	
-	public FromFile(Board board) {
+	protected FromFile(FromFile board) {
 		super(board);
+		
+		this.path = board.path;
+		this.avatars = board.avatars;
+		
 		for (int i = 0; i < getLength(); ++i) {
 			if (board.isKalaha(i)) {
 				kalahas.add(i);
@@ -126,8 +137,17 @@ public class FromFile extends Board {
 	}
 	
 	@Override
-	public Board clone() {
+	public FromFile readOnlyBoard() {
 		return new FromFile(this);
+	}
+	
+	@Override
+	public FromFile clone() {
+		FromFile clone = new FromFile(path, avatars);
+		for (int i = 0; i < getLength(); ++i) {
+			clone.setPieceAt(i, getPieceAt(i));
+		}
+		return clone;
 	}
 
 }

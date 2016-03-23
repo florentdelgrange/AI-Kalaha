@@ -1,9 +1,12 @@
 package Games.Kalaha.Boards;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Board.Path;
+import Games.Kalaha.Game;
 
 public abstract class Board extends Path<Integer> {
 	
@@ -17,7 +20,12 @@ public abstract class Board extends Path<Integer> {
 		this.avatars = avatars;
 	}
 	
-	public Board(Board board) {
+	/**
+	 * Constructs a read-only board from a given board.
+	 * 
+	 * @param board
+	 */
+	protected Board(Board board) {
 		super(board);
 		this.avatars = board.avatars;
 	}
@@ -35,9 +43,6 @@ public abstract class Board extends Path<Integer> {
 	public abstract String getPlayer(Integer c);
 	public abstract boolean isKalaha(Integer c);
 	public abstract List<Integer> getCaptures(Integer c);
-	
-	@Override
-	public abstract Board clone();
 	
 	public int playerSum(String player) {
 		int sum = 0;
@@ -65,4 +70,30 @@ public abstract class Board extends Path<Integer> {
 		return sums;
 	}
 	
+	public Map<String, Integer> getScores(Game.LeftTokensGrantee leftTokensGrantee) {
+		HashMap<String, Integer> scores;
+		switch (leftTokensGrantee) {
+		case OWNER:
+			scores = getSums(true, true);
+			break;
+		case ENDER:
+			scores = getSums(true, false);
+			int bonus = getSums(false, true).values().stream().reduce(0, (a, b) -> a + b);
+			String ender = avatars.get(avatars.size() - 1);
+			scores.put(ender, scores.get(ender) + bonus);
+			break;
+		default:
+		case NOBODY:
+			scores = getSums(true, false);
+		}
+		
+		return Collections.unmodifiableMap(scores);
+	}
+	
+	@Override
+	public abstract Board readOnlyBoard();
+	
+	@Override
+	public abstract Board clone();
+
 }

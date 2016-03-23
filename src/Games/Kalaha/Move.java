@@ -21,7 +21,7 @@ public final class Move implements IMove<Integer, Integer, Board, String, Game> 
 	}
 	
 	private Integer add(Board board, Integer start, int tokens, String player, int value) {
-		if (tokens == 0) {
+		if (tokens <= 0) {
 			return start - 1;
 		}
 		
@@ -30,7 +30,7 @@ public final class Move implements IMove<Integer, Integer, Board, String, Game> 
 		}
 		else {
 			board.setPieceAt(start, board.getPieceAt(start) + value);
-			return add(board, start + 1, tokens - value, player, value);
+			return add(board, start + 1, tokens - 1, player, value);
 		}
 	}
 	

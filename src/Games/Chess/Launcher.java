@@ -59,7 +59,7 @@ public class Launcher extends Application {
     }
     
     public void step() {
-        g.step();
+        g.gameStep();
         System.out.println("Chosen move: " + g.getMove(-1).getNotation() + " -- " + g.getMove(-1) + " (" + g.getBoard().getPieces().size() + " pieces left)");
         if (g.isGameEnded()) {
             System.out.println("Démarrage d'une nouvelle partie !\n\n\n");

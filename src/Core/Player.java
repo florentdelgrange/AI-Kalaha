@@ -98,11 +98,7 @@ public abstract class Player<Piece,
 	 * @param winners
 	 */
 	public void informEnd(List<Avatar> winners) {
-		for (Avatar avatar : winners) {
-			if (avatars.contains(avatar)) {
-				System.out.println("Your avatar " + avatar + " has won !");
-			}
-		}
+		// The default is: "I don't care".
 	}
 
 }

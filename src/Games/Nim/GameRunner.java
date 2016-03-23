@@ -21,6 +21,7 @@ package Games.Nim;
 
 import java.util.Map;
 
+import Core.IGameRunner;
 import Games.Nim.Boards.Default;
 import Games.Nim.Players.Player;
 import Piece.AnonymousToken;
@@ -30,21 +31,30 @@ import Piece.AnonymousToken;
  * 
  * @author Fabian Pijcke
  */
-public class GameRunner extends Core.GameRunner<AnonymousToken, Integer, Default, String, Game, Move, Player> {
+public class GameRunner implements IGameRunner<AnonymousToken, Integer, Default, String, Game, Move, Player> {
 	
-	private final Map<String, Player> players;
 	private final Game game;
-	
-	@Override
-	public void init() {
-		super.init();
-		players.values().forEach(player -> player.informMaxLeap(game.getMaxLeap()));
-	}
+	private final Map<String, Player> players;
 	
 	public GameRunner(Game game, Map<String, Player> players) {
-		super(game, players);
 		this.game = game;
 		this.players = players;
 	}
+	
+	@Override
+	public Game getGame() {
+		return game;
+	}
+	
+	@Override
+	public Map<String, Player> getPlayers() {
+		return players;
+	}
 
+	@Override
+	public void gameInit() {
+		IGameRunner.super.gameInit();
+		players.values().forEach(player -> player.informMaxLeap(game.getMaxLeap()));
+	}
+	
 }
