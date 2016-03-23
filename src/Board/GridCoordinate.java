@@ -17,20 +17,44 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Board.Grid;
+package Board;
 
 /**
- * Extends the 2D map interface with an operation returning the coordinates of a given piece.
- * This common interface is meant to be passed both to the user (or AI) and to the game implementation.
+ * An immutable 2D coordinate using integers.
  * 
  * @author Fabian Pijcke
- * @param <P> A piece, as in IMap2D.
- * @param <C> A 2D coordinate.
  */
-public interface IInversibleGrid<P, C extends GridCoordinate> extends IGrid<P, C> {
-	/**
-	 * @param piece
-	 * @return the coordinate of the given piece.
-	 */
-    C getCoordinate(P piece);
+public class GridCoordinate {
+    private final int x, y;
+    
+    /**
+     * Constructs a 2D coordinate.
+     * 
+     * @param x
+     * @param y
+     */
+    public GridCoordinate(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    /**
+     * @return the x coordinate.
+     */
+    public int getX() {
+        return x;
+    }
+    
+    /**
+     * @return the y coordinate.
+     */
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + getX() + ", " + getY() + ")";
+    }
+    
 }

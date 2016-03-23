@@ -17,11 +17,10 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Board.Grid;
+package Board;
 
 import java.util.ArrayList;
 
-import Board.IBoard;
 import Utils.IConsumer;
 
 /**
@@ -29,12 +28,13 @@ import Utils.IConsumer;
  * implementation, not to the users or AIs.
  * 
  * @author Fabian Pijcke
- * @param <P> 
+ * @param <Piece> 
  * @param <C> 
  */
-public class Grid<P, C extends GridCoordinate> implements IBoard<P, C>, IGrid<P, C> {
+public class Grid<Piece> implements IBoard<Piece, GridCoordinate> {
     
-    private final ArrayList<P> elements;
+	private final boolean readOnly;
+    private final ArrayList<Piece> elements;
     private final int width, height;
     
     /**
@@ -50,44 +50,72 @@ public class Grid<P, C extends GridCoordinate> implements IBoard<P, C>, IGrid<P,
     	}
         this.width = width;
         this.height = height;
+        this.readOnly = false;
     }
     
     @Override
-    public P getPieceAt(C c) {
+    public Piece getPieceAt(GridCoordinate c) {
         if (has(c)) {
         	return elements.get(c.getY() * width + c.getX());
         }
         return null;
     }
     
-    @Override
     public int getWidth() {
         return width;
     }
     
-    @Override
     public int getHeight() {
         return height;
     }
     
     @Override
-    public void setPieceAt(C c, P e) {
-        if (has(c)) {
-        	elements.set(c.getY() * width + c.getX(), e);
-        }
-        else {
-            throw new IllegalArgumentException();
-        }
+    public void setPieceAt(GridCoordinate c, Piece e) {
+    	IBoard.super.setPieceAt(c, e);
+    	
+    	elements.set(c.getY() * width + c.getX(), e);
     }
 
     @Override
-    public void forEach(IConsumer<P> c) {
+    public void forEach(IConsumer<Piece> c) {
     	elements.forEach(c.filter((v) -> v != null));
     }
 
     @Override
-    public boolean has(C c) {
+    public boolean has(GridCoordinate c) {
         return c.getX() >= 0 && c.getX() < getWidth() && c.getY() >= 0 && c.getY() < getHeight();
     }
+
+	@Override
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
+	public Grid(Grid<Piece> grid) {
+		this.elements = grid.elements;
+		this.width = grid.width;
+		this.height = grid.height;
+		this.readOnly = true;
+	}
+
+	@Override
+	public Grid<Piece> readOnlyBoard() {
+		return new Grid<>(this);
+	}
+	
+	protected void copy(Grid<Piece> orig) {
+		for (int i = 0; i < width * height; ++i) {
+			if (orig.elements.get(i) != null) {
+				elements.set(i, orig.elements.get(i));
+			}
+		}
+	}
+
+	@Override
+	public Grid<Piece> clone() {
+		Grid<Piece> clone = new Grid<>(width, height);
+		clone.copy(this);
+		return clone;
+	}
     
 }

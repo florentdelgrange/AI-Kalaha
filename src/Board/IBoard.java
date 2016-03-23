@@ -25,12 +25,12 @@ import Utils.IConsumer;
  * The board contains the current state of the game.
  * 
  * @author Fabian Pijcke
- * @param <P>
+ * @param <Piece>
  *            The class of pieces that will be put on the board.
- * @param <C>
+ * @param <Coordinate>
  *            The coordinates used on the board.
  */
-public interface IBoard<P, C> {
+public interface IBoard<Piece, Coordinate> {
 	
 	/**
 	 * Puts the given piece at the given coordinate. The behaviour is not
@@ -39,7 +39,7 @@ public interface IBoard<P, C> {
 	 * @param coord
 	 * @param piece
 	 */
-	default public void setPieceAt(C coord, P piece) {
+	default public void setPieceAt(Coordinate coord, Piece piece) {
 		if (isReadOnly()) {
 			throw new ReadOnlyBoardException();
 		}
@@ -52,19 +52,19 @@ public interface IBoard<P, C> {
 	 * @param coord
 	 * @return the piece at coordinate coord.
 	 */
-	public abstract P getPieceAt(C coord);
+	public abstract Piece getPieceAt(Coordinate coord);
 	
 	/**
 	 * @param coord
 	 * @return true if and only if the coordinate coord belongs to the board.
 	 */
-	public abstract boolean has(C coord);
+	public abstract boolean has(Coordinate coord);
 	
 	/**
 	 * applies a function to each of the piece on the board (skipping nulls).
 	 * @param consumer
 	 */
-	public abstract void forEach(IConsumer<P> consumer);
+	public abstract void forEach(IConsumer<Piece> consumer);
 
 	/**
 	 * @return true if this board is read only. This should be the case for
@@ -74,7 +74,7 @@ public interface IBoard<P, C> {
 	 */
 	public abstract boolean isReadOnly();
 	
-	public abstract IBoard<P, C> readOnlyBoard();
-	public abstract IBoard<P, C> clone();
+	public abstract IBoard<Piece, Coordinate> readOnlyBoard();
+	public abstract IBoard<Piece, Coordinate> clone();
 	
 }

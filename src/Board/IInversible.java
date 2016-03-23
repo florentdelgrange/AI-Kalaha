@@ -17,31 +17,10 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Board.Grid;
+package Board;
 
-import Board.IBoardProxy;
+public interface IInversible<Piece, Coordinate> extends IBoard<Piece, Coordinate> {
+	
+	public Coordinate getPositionOf(Piece piece);
 
-/**
- * Common interface to Map2D and Map2DProxy, meant to be passed to both the user (AI) and to the Game implementation.
- * 
- * @author Fabian Pijcke
- * @param <P>
- * @param <C> A 2D Coordinate type.
- */
-public interface IGrid<P, C extends GridCoordinate> extends IBoardProxy<P, C> {
-	/**
-	 * @return the width of the board.
-	 */
-    int getWidth();
-    
-    /**
-     * @return the height of the board.
-     */
-    int getHeight();
-    
-    /**
-     * @param c
-     * @return true if the coordinate belongs to the limits of the board.
-     */
-    boolean has(C c);
 }
