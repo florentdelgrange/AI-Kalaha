@@ -24,12 +24,11 @@ import java.util.ArrayList;
 import Utils.IConsumer;
 
 /**
- * The complete implementation of a 2D map (grid) board. Instances of this class are meant to be passed to the game
- * implementation, not to the users or AIs.
+ * A grid is a 2D board of fixed width and height. The elements are stored in an
+ * array for efficiency purposes.
  * 
  * @author Fabian Pijcke
- * @param <Piece> 
- * @param <C> 
+ * @param <Piece>
  */
 public class Grid<Piece> implements IBoard<Piece, GridCoordinate> {
     
@@ -61,10 +60,16 @@ public class Grid<Piece> implements IBoard<Piece, GridCoordinate> {
         return null;
     }
     
+    /**
+     * @return the width of the grid.
+     */
     public int getWidth() {
         return width;
     }
     
+    /**
+     * @return the height of the grid.
+     */
     public int getHeight() {
         return height;
     }
@@ -91,7 +96,7 @@ public class Grid<Piece> implements IBoard<Piece, GridCoordinate> {
 		return readOnly;
 	}
 
-	public Grid(Grid<Piece> grid) {
+	private Grid(Grid<Piece> grid) {
 		this.elements = grid.elements;
 		this.width = grid.width;
 		this.height = grid.height;

@@ -24,10 +24,23 @@ import java.util.Map;
 
 import Utils.IConsumer;
 
+/**
+ * An inversible grid keeps track of the positions of the pieces on it. This is
+ * particularly useful for games with several piece classes, such as Chess.
+ * 
+ * @author shepard
+ * @param <Piece>
+ */
 public class GridInversible<Piece> extends Grid<Piece> implements IInversible<Piece, GridCoordinate> {
 	
 	private final Map<Piece, GridCoordinate> inverse;
 	
+	/**
+	 * Creates a new empty grid of given width and height.
+	 * 
+	 * @param width
+	 * @param height
+	 */
 	public GridInversible(int width, int height) {
 		super(width, height);
 		this.inverse = new HashMap<>();

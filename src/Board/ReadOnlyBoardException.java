@@ -19,6 +19,11 @@
 
 package Board;
 
+/**
+ * Thrown when one tries to alter an read-only board.
+ * 
+ * @author Fabian Pijcke
+ */
 public class ReadOnlyBoardException extends RuntimeException {
 
 	private static final long serialVersionUID = 7935442704724001779L;

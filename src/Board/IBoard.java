@@ -74,7 +74,15 @@ public interface IBoard<Piece, Coordinate> {
 	 */
 	public abstract boolean isReadOnly();
 	
+	/**
+	 * @return a read-only version of the board. This read-only version should
+	 */
 	public abstract IBoard<Piece, Coordinate> readOnlyBoard();
+	
+	/**
+	 * @return a clone of the board; as the pieces should be immutable, the
+	 *         board content is a priori untouched.
+	 */
 	public abstract IBoard<Piece, Coordinate> clone();
 	
 }

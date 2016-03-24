@@ -19,8 +19,20 @@
 
 package Board;
 
+/**
+ * An inversible board keeps track of the positions of the pieces.
+ * 
+ * @author Fabian Pijcke
+ *
+ * @param <Piece>
+ * @param <Coordinate>
+ */
 public interface IInversible<Piece, Coordinate> extends IBoard<Piece, Coordinate> {
 	
+	/**
+	 * @param piece
+	 * @return the coordinate of piece on the board.
+	 */
 	public Coordinate getPositionOf(Piece piece);
 
 }
