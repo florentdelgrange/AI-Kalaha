@@ -9,16 +9,24 @@ import javafx.scene.control.Spinner;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+/**
+ * Creates an uniform board where each avatar has the same number of pits in
+ * sequence, followed by their kalaha and each pit has the same number of
+ * starting tokens.
+ * 
+ * @author Fabian Pijcke
+ */
 public class Uniform extends Board {
-	
+
+	/**
+	 * An uniform Kalaha Board Maker.
+	 * 
+	 * @author Fabian Pijcke
+	 */
 	public static class Maker implements BoardMaker<Integer, Integer, Board, String> {
-		
-		private final Spinner<Integer> pitsPerPlayerSpinner, tokensPerPitSpinner;
-		
-		public Maker() {
-			pitsPerPlayerSpinner = new Spinner<>(1, Integer.MAX_VALUE / 2 - 2, 6);
-			tokensPerPitSpinner = new Spinner<>(1, Integer.MAX_VALUE / 12, 4);
-		}
+
+		private final Spinner<Integer> pitsPerPlayerSpinner = new Spinner<>(1, Integer.MAX_VALUE / 2 - 2, 6);
+		private final Spinner<Integer> tokensPerPitSpinner = new Spinner<>(1, Integer.MAX_VALUE / 12, 4);
 		
 		@Override
 		public Node getConfigPane() {
@@ -45,6 +53,13 @@ public class Uniform extends Board {
 	private final List<String> avatars;
 	private final int playerLength; // Not necessary, but boring to compute everytime.
 
+	/**
+	 * Constructs a new uniform Kalaha Board.
+	 * 
+	 * @param pitsPerPlayer
+	 * @param tokensPerPit
+	 * @param avatars
+	 */
 	public Uniform(int pitsPerPlayer, int tokensPerPit, List<String> avatars) {
 		super(avatars.size() * (pitsPerPlayer + 1), avatars);
 		

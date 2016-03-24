@@ -7,6 +7,7 @@ import java.util.Map;
 import FX.AvatarMaker;
 import FX.BoardMaker;
 import FX.PlayerMaker;
+import FX.SimplePlayerMaker;
 import FX.StringAvatarMaker;
 import Games.Kalaha.Boards.Board;
 import Games.Kalaha.Boards.FromFile;
@@ -22,11 +23,19 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * A Kalaha Game Maker.
+ * 
+ * @author Fabian Pijcke
+ */
 public class GameMaker implements FX.GameMaker<Integer, Integer, Board, String, Game, Move, Player, GameRunner> {
 	
 	private final RadioButton rbOwner, rbFinisher, rbNoone;
 	private final CheckBox cbEmptyCaptures;
 	
+	/**
+	 * Constructs a Kalaha Game Maker.
+	 */
 	public GameMaker() {
 		ToggleGroup ltg = new ToggleGroup();
 		rbOwner = new RadioButton("Owner");
@@ -67,8 +76,8 @@ public class GameMaker implements FX.GameMaker<Integer, Integer, Board, String, 
 	@Override
 	public List<PlayerMaker<Integer, Integer, Board, String, Game, Move, Player>> getPlayerMakers() {
 		List<PlayerMaker<Integer, Integer, Board, String, Game, Move, Player>> l = new ArrayList<>();
-		l.add(new RandomAI.Maker());
-		l.add(new HumanGUI.Maker());
+		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Human GUI", HumanGUI.class));
+		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Random AI", RandomAI.class));
 		//l.add(new HeuristicAI.Maker());
 		return l;
 	}

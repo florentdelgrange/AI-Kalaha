@@ -5,17 +5,34 @@ import java.util.HashMap;
 import Core.IMove;
 import Games.Kalaha.Boards.Board;
 
+/**
+ * The current player has to chose one of its pits. The action applied is that
+ * the pit is emptied and its tokens are scattered one token at a time in the
+ * pits and player's kalahas clockwise. If the last token is dropped in a
+ * kalaha, then the current player can play again. If the last token is dropped
+ * in an empty pit owend by himself, then he captures the tokens in pits
+ * attacked by this last pit.
+ * 
+ * @author Fabian Pijcke
+ */
 public final class Move implements IMove<Integer, Integer, Board, String, Game> {
 	
 	private final int pit;
 	private int tokens = 0;
 	private HashMap<Integer, Integer> captures;
 	
+	/**
+	 * Creates a move playing the given pit.
+	 * @param pit
+	 */
 	public Move(Integer pit) {
 		super();
 		this.pit = pit;
 	}
 	
+	/**
+	 * @return the pit played by this move.
+	 */
 	public Integer getPit() {
 		return pit;
 	}

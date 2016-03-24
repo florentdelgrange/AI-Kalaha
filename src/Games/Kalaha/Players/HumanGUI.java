@@ -2,10 +2,7 @@ package Games.Kalaha.Players;
 
 import java.util.List;
 
-import FX.PlayerMaker;
-import Games.Kalaha.Game;
 import Games.Kalaha.Move;
-import Games.Kalaha.Boards.Board;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -18,20 +15,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * A graphical user interface for a human to play. This is mainly intended for
+ * debugging.
+ * 
+ * @author Fabian Pijcke
+ */
 public class HumanGUI extends Player {
-	
-	public static class Maker implements PlayerMaker<Integer, Integer, Board, String, Game, Move, Player> {
-		@Override
-		public Player getPlayer() {
-			return new HumanGUI();
-		}
-		
-		@Override
-		public String toString() {
-			return "Human GUI";
-		}
-	}
-	
+
 	private class ChoseMoveDialog extends Stage {
 		private final double halfW = 320.;
 		private final double halfH = 240.;

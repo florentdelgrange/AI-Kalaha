@@ -3,24 +3,14 @@ package Games.Kalaha.Players;
 import java.util.ArrayList;
 import java.util.Random;
 
-import FX.PlayerMaker;
-import Games.Kalaha.Game;
 import Games.Kalaha.Move;
-import Games.Kalaha.Boards.Board;
 
+/**
+ * A Random AI for playing Kalaha Game.
+ * 
+ * @author Fabian Pijcke
+ */
 public class RandomAI extends Player {
-	
-	public static class Maker implements PlayerMaker<Integer, Integer, Board, String, Game, Move, Player> {
-		@Override
-		public Player getPlayer() {
-			return new RandomAI();
-		}
-		
-		@Override
-		public String toString() {
-			return "Random-playing AI";
-		}
-	}
 	
 	private final Random randomizer = new Random();
 	

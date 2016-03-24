@@ -15,12 +15,31 @@ import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 
+/**
+ * Creates a Kalaha Board from a file. The format is as follows:
+ * - Each line represents a pit or a kalaha;
+ * - The character sequences (either a number or the character "K") are separated by a single space.
+ * - The first number of the line is the player owning this line (starting from 0)
+ * - The second number is the starting number of tokens
+ * - Then comes either a "K" to indicate that the line is a kalaha, or several numbers indicating the pits attacked by this line.
+ * 
+ * @author Fabian Pijcke
+ */
 public class FromFile extends Board {
-	
+
+	/**
+	 * A Kalaha Board Maker.
+	 * 
+	 * @author Fabian Pijcke
+	 */
 	public static class Maker implements BoardMaker<Integer, Integer, Board, String> {
 		
 		ComboBox<Path> fileCombo;
 		
+		/**
+		 * Retrieves the boards available. They must be placed in the
+		 * src/Games/Kalaha/Boards folder of MetaBoard.
+		 */
 		public Maker() {
 			Path currentRelativePath = Paths.get("");
 			String s = currentRelativePath.toAbsolutePath().toString();
@@ -60,6 +79,13 @@ public class FromFile extends Board {
 	private final Map<Integer, String> owners = new HashMap<>();
 	private final Map<Integer, List<Integer>> captures = new HashMap<>();
 	
+	/**
+	 * Creates a Board from the path of a file and a list of avatars to
+	 * associate each id to a real avatar.
+	 * 
+	 * @param path
+	 * @param avatars
+	 */
 	public FromFile(Path path, List<String> avatars) {
 		super(nbCells(path), avatars);
 		

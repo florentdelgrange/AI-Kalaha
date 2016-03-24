@@ -8,10 +8,24 @@ import java.util.Map;
 import Board.Path;
 import Games.Kalaha.Game;
 
+/**
+ * A Kalaha Board is composed of pits and of kalahas. Each pit and each Kalaha
+ * is attributed to an avatar. Each pit "attacks" a list of pits.
+ * 
+ * @author Fabian Pijcke
+ *
+ */
 public abstract class Board extends Path<Integer> {
 	
 	private final List<String> avatars;
 	
+	/**
+	 * Constructs a Kalaha Board. As this class is abstract, it is only meant to
+	 * be used by subclasses' constructors.
+	 * 
+	 * @param length
+	 * @param avatars
+	 */
 	public Board(int length, List<String> avatars) {
 		super(length);
 		for (int i = 0; i < length; ++i) {
@@ -40,24 +54,35 @@ public abstract class Board extends Path<Integer> {
 		super.setPieceAt(coordinate(c), p);
 	}
 	
-	public abstract String getPlayer(Integer c);
-	public abstract boolean isKalaha(Integer c);
-	public abstract List<Integer> getCaptures(Integer c);
+	/**
+	 * @param coordinate
+	 * @return the player owning the pit/kalaha at the given coordinate.
+	 */
+	public abstract String getPlayer(Integer coordinate);
 	
-	public int playerSum(String player) {
-		int sum = 0;
-		for (int i = 0; i < getLength(); ++i) {
-			if (getPlayer(i).equals(player)) {
-				sum += getPieceAt(i);
-			}
-		}
-		return sum;
-	}
+	/**
+	 * @param coordinate
+	 * @return true if and only if there is a kalaha at the given coordinate.
+	 */
+	public abstract boolean isKalaha(Integer coordinate);
+	
+	/**
+	 * @param coordinate
+	 * @return the list of pits attacked by the pit at the given coordinate.
+	 */
+	public abstract List<Integer> getCaptures(Integer coordinate);
 	
 	protected final Integer coordinate(Integer c) {
 		return Math.floorMod(c, getLength());
 	}
 	
+	/**
+	 * @param kalahas
+	 *            take kalahas into account ?
+	 * @param pits
+	 *            take pits into account ?
+	 * @return the number of tokens belonging to each player.
+	 */
 	public HashMap<String, Integer> getSums(boolean kalahas, boolean pits) {
 		HashMap<String, Integer> sums = new HashMap<>();
 		avatars.forEach(avatar -> sums.put(avatar, 0));
@@ -70,6 +95,10 @@ public abstract class Board extends Path<Integer> {
 		return sums;
 	}
 	
+	/**
+	 * @param leftTokensGrantee
+	 * @return the scores of each player according to the game rule.
+	 */
 	public Map<String, Integer> getScores(Game.LeftTokensGrantee leftTokensGrantee) {
 		HashMap<String, Integer> scores;
 		switch (leftTokensGrantee) {
