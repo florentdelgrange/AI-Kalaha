@@ -29,10 +29,12 @@ import Board.IBoard;
  * human can use to input moves.
  * 
  * @author Fabian Pijcke
+ *
  * @param <Piece>
  * @param <Coordinate>
- * @param <BoardProxy>
+ * @param <Board>
  * @param <Avatar>
+ * @param <Game>
  * @param <Move>
  */
 public abstract class Player<Piece,

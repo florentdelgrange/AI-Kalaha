@@ -31,10 +31,11 @@ import Board.IBoard;
  * DecisionMaker opponents are sufficiently specific.
  *
  * @author Fabian Pijcke
- * @param <B>
- * @param <M>
- * @param <A>
- * @param <DM>
+ *
+ * @param <Piece>
+ * @param <Coordinate>
+ * @param <Board>
+ * @param <Avatar>
  */
 public interface IGame<Piece,
 		Coordinate,
@@ -83,9 +84,9 @@ public interface IGame<Piece,
 	List<Avatar> getWinners();
 
 	/**
-	 * Disqualifies a player (for two consecutive illegal moves, for example).
-	 * @param dm
+	 * Disqualifies a player (after two consecutive illegal moves, for example).
+	 * @param avatar
 	 */
-	void disqualify(Avatar player);
+	void disqualify(Avatar avatar);
 	
 }

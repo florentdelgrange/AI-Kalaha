@@ -25,7 +25,12 @@ import Board.IBoard;
  * A move is made of two actions. One going forward and the other backward.
  * 
  * @author Fabian Pijcke
- * @param <B>
+ *
+ * @param <Piece>
+ * @param <Coordinate>
+ * @param <Board>
+ * @param <Avatar>
+ * @param <Game>
  */
 public interface IMove<Piece,
 		Coordinate,
@@ -34,9 +39,9 @@ public interface IMove<Piece,
 		Game extends IGame<Piece, Coordinate, Board, Avatar>> {
 
 	/**
-	 * Applies the move on the board.
+	 * Applies the move.
 	 * 
-	 * @param board
+	 * @param game
 	 */
 	void apply(Game game);
 
@@ -47,7 +52,7 @@ public interface IMove<Piece,
 	 * in mind, the cancelling of a movement is mandatory if we don't want the
 	 * AI to reimplement the game.
 	 * 
-	 * @param board
+	 * @param game
 	 */
 	void cancel(Game game);
 	
