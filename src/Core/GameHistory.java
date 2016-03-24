@@ -26,42 +26,47 @@ import java.util.List;
 import Board.IBoard;
 
 /**
- * A game in which the list of played moves matters. For example a Chess game
- * ends if 50 moves are played without check nor captured piece.
+ * Utility class for games in which the list of played moves matters. For
+ * example a Chess game ends if 50 moves are played without check nor captured
+ * piece.
  * 
  * @author Fabian Pijcke
- * @param <B>
- * @param <M>
- * @param <DM>
+ *
+ * @param <Piece>
+ * @param <Coordinate>
+ * @param <Board>
+ * @param <Avatar>
+ * @param <Game>
+ * @param <Move>
  */
-public abstract class GameHistory<Piece,
+public class GameHistory<Piece,
 		Coordinate,
 		Board extends IBoard<Piece, Coordinate>,
-		Avatar>
-	implements IGame<Piece, Coordinate, Board, Avatar> {
+		Avatar,
+		Game extends IGame<Piece, Coordinate, Board, Avatar>,
+		Move extends IMove<Piece, Coordinate, Board, Avatar, Game>> {
 
-	private final List<Avatar> players;
-	private final List<IMove<Piece, Coordinate, Board, Avatar, GameHistory<Piece, Coordinate, Board, Avatar>>> moves;
+	private final ArrayList<Move> moves;
 
 	/**
-	 * Constructs a game with an empty history of played moves.
-	 * 
-	 * @param players
+	 * Constructs an empty history.
 	 */
-	public GameHistory(List<Avatar> players) {
-		this.players = players;
+	public GameHistory() {
 		this.moves = new ArrayList<>();
 	}
 
-	@Override
-	public List<Avatar> getPlayers() {
-		return players;
+	/**
+	 * Registers a move.
+	 * 
+	 * @param move
+	 */
+	public void registerMove(Move move) {
+		moves.add(move);
 	}
 	
-	public void registerMove(IMove<Piece, Coordinate, Board, Avatar, GameHistory<Piece, Coordinate, Board, Avatar>> m) {
-		moves.add(m);
-	}
-	
+	/**
+	 * Forgets the last move played.
+	 */
 	public void forgetLastMove() {
 		moves.remove(moves.size() - 1);
 	}
@@ -73,11 +78,6 @@ public abstract class GameHistory<Piece,
 		return moves.size();
 	}
 
-	@Override
-	public Avatar getCurrentPlayer() {
-		return players.get(getTurn() % players.size());
-	}
-
 	/**
 	 * This method returns the move played at a given time (0 is the first move,
 	 * 1 the second one, etc.). Negative numbers can be used to get moves played
@@ -87,7 +87,7 @@ public abstract class GameHistory<Piece,
 	 *            a positive or negative number.
 	 * @return the ith move played.
 	 */
-	public IMove<Piece, Coordinate, Board, Avatar, GameHistory<Piece, Coordinate, Board, Avatar>> getMove(int i) {
+	public Move getMove(int i) {
 		int index = i < 0 ? moves.size() + i : i;
 		return (index < 0 || index >= getTurn()) ? null : moves.get(index);
 	}
@@ -95,7 +95,7 @@ public abstract class GameHistory<Piece,
 	/**
 	 * @return the complete read-only list of played moves.
 	 */
-	public List<IMove<Piece, Coordinate, Board, Avatar, GameHistory<Piece, Coordinate, Board, Avatar>>> getMoves() {
+	public List<Move> getMoves() {
 		return Collections.unmodifiableList(moves);
 	}
 
