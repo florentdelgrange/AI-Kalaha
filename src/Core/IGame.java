@@ -47,7 +47,8 @@ public interface IGame<Piece,
 	Board getBoard();
 	
 	/**
-	 * @return a clone of the board (to be passed to players).
+	 * @return a clone of the board (to be passed to players). This is done in
+	 *         the Game class to ensure correctness of the returned type.
 	 */
 	Board getBoardClone();
 

@@ -37,13 +37,11 @@ import Board.IBoard;
 public abstract class GameHistory<Piece,
 		Coordinate,
 		Board extends IBoard<Piece, Coordinate>,
-		Avatar,
-		Game extends IGame<Piece, Coordinate, Board, Avatar>,
-		Move extends IMove<Piece, Coordinate, Board, Avatar, Game>>
+		Avatar>
 	implements IGame<Piece, Coordinate, Board, Avatar> {
 
 	private final List<Avatar> players;
-	private final List<Move> moves;
+	private final List<IMove<Piece, Coordinate, Board, Avatar, GameHistory<Piece, Coordinate, Board, Avatar>>> moves;
 
 	/**
 	 * Constructs a game with an empty history of played moves.
@@ -60,7 +58,7 @@ public abstract class GameHistory<Piece,
 		return players;
 	}
 	
-	public void registerMove(Move m) {
+	public void registerMove(IMove<Piece, Coordinate, Board, Avatar, GameHistory<Piece, Coordinate, Board, Avatar>> m) {
 		moves.add(m);
 	}
 	
@@ -89,7 +87,7 @@ public abstract class GameHistory<Piece,
 	 *            a positive or negative number.
 	 * @return the ith move played.
 	 */
-	public Move getMove(int i) {
+	public IMove<Piece, Coordinate, Board, Avatar, GameHistory<Piece, Coordinate, Board, Avatar>> getMove(int i) {
 		int index = i < 0 ? moves.size() + i : i;
 		return (index < 0 || index >= getTurn()) ? null : moves.get(index);
 	}
@@ -97,7 +95,7 @@ public abstract class GameHistory<Piece,
 	/**
 	 * @return the complete read-only list of played moves.
 	 */
-	public List<Move> getMoves() {
+	public List<IMove<Piece, Coordinate, Board, Avatar, GameHistory<Piece, Coordinate, Board, Avatar>>> getMoves() {
 		return Collections.unmodifiableList(moves);
 	}
 
