@@ -16,21 +16,16 @@
  You should have received a copy of the GNU General Public License
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
-package FX;
 
 /**
- * Avatar Maker.
- * @see Maker
+ * This package contains the base classes for the default graphical interface
+ * launching games in MetaBoard. The Launcher class is not meant to be
+ * subclassed. It launches an application allowing someone to launch a game
+ * between players on a chosen game and on a chosen board.
  * 
- * @author Fabian Pijcke
- *
- * @param <Avatar>
+ * The Maker interfaces are factories for objects useful for the game. There is
+ * always a getConfigPane() allowing the factory to ask user for some
+ * parameters, and a get*() method supposed to construct an instance from the
+ * parameters given by the user.
  */
-public interface AvatarMaker<Avatar> extends Maker {
-	
-	/**
-	 * @return an Avatar instance.
-	 */
-	public Avatar getAvatar();
-
-}
+package FX;

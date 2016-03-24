@@ -19,33 +19,24 @@
 package FX;
 
 import javafx.scene.Node;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 /**
- * In most games, the avatar is merely a String. This Maker asks the user for
- * some text and creates an Avatar (a String) from it.
+ * Makers are factories creating objects. The getConfigPane() gives a Node
+ * asking user for parameters, and a getX(...) method to be defined creates an
+ * instance using parameters given by the configuration pane or as arguments.
  * 
  * @author Fabian Pijcke
+ *
  */
-public class StringAvatarMaker implements AvatarMaker<String> {
-	
-	private static int playerId = 0;
-	
-	TextField nameField = new TextField("Player " + ++playerId);
-	
-	@Override
-	public Node getConfigPane() {
-		HBox hbox = new HBox();
-		hbox.getChildren().add(new Text("Name "));
-		hbox.getChildren().add(nameField);
-		return hbox;
-	}
+public interface Maker {
 
-	@Override
-	public String getAvatar() {
-		return nameField.getText();
+	/**
+	 * @return a configuration pane asking users for parameters of the instance
+	 *         being constructed. The default asks no additional parameters.
+	 */
+	default Node getConfigPane() {
+		return new Text("");
 	}
-
+	
 }
