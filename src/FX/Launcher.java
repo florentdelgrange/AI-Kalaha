@@ -25,8 +25,8 @@ import java.util.Map;
 
 import Board.IBoard;
 import Core.IGameRunner;
-import Core.IGame;
 import Core.Player;
+import Game.IGame;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;

@@ -21,7 +21,7 @@ package Games.Nim;
 
 import java.util.List;
 
-import Core.IGame;
+import Game.RoundRobin;
 import Games.Nim.Boards.Default;
 import Piece.AnonymousToken;
 
@@ -38,7 +38,7 @@ import Piece.AnonymousToken;
  * 
  * @author Fabian Pijcke
  */
-public class Game implements IGame<AnonymousToken, Integer, Default, String> {
+public class Game implements RoundRobin<AnonymousToken, Integer, Default, String> {
 
 	private Default board;
 	private List<String> players;
@@ -50,8 +50,8 @@ public class Game implements IGame<AnonymousToken, Integer, Default, String> {
 	 * initial position.
 	 * 
 	 * @param players
+	 * @param board
 	 * @param maxLeap
-	 * @param initialPosition
 	 */
 	public Game(List<String> players, Default board, int maxLeap) {
 		this.players = players;
@@ -82,19 +82,6 @@ public class Game implements IGame<AnonymousToken, Integer, Default, String> {
 	}
 
 	@Override
-	public String getCurrentPlayer() {
-		return getPlayers().get(0);
-	}
-	
-	public void setNextPlayer() {
-		getPlayers().add(getPlayers().remove(0));
-	}
-	
-	public void setPreviousPlayer() {
-		getPlayers().add(0, getPlayers().remove(getPlayers().size() - 1));
-	}
-
-	@Override
 	public boolean isGameEnded() {
 		return board.getTokenPosition() == 0 || getPlayers().size() == 1;
 	}
@@ -102,24 +89,6 @@ public class Game implements IGame<AnonymousToken, Integer, Default, String> {
 	@Override
 	public List<String> getWinners() {
 		return players.subList(players.size() - 1, players.size());
-	}
-
-	/**
-	 * Prints the current status of the game (token position, next player).
-	 */
-	public void printStatus() {
-		if (isGameEnded()) {
-			System.out.println("Winner : " + getWinners().get(0));
-		} else {
-			System.out.println("Token position : " + board.getTokenPosition());
-			System.out.println("Player in hand : " + getCurrentPlayer());
-			System.out.println();
-		}
-	}
-	
-	@Override
-	public void disqualify(String player) {
-		players.remove(player);
 	}
 
 }

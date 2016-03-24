@@ -19,8 +19,8 @@
 package FX;
 
 import Board.IBoard;
-import Core.IGame;
 import Core.IMove;
+import Game.IGame;
 
 /**
  * Most player classes do not require any parameter. This maker creates an

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Board.IBoard;
+import Game.IGame;
 
 /**
  * An entity making decisions. This can be either an AI or a user interface a

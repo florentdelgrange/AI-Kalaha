@@ -17,7 +17,7 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Core;
+package Game;
 
 import java.util.List;
 

@@ -20,6 +20,7 @@
 package Core;
 
 import Board.IBoard;
+import Game.IGame;
 
 /**
  * A move is made of two actions. One going forward and the other backward.

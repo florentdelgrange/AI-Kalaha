@@ -22,6 +22,7 @@ package Core;
 import java.util.Map;
 
 import Board.IBoard;
+import Game.IGame;
 import Move.Movement.IllegalMovementException;
 
 /**

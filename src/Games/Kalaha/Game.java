@@ -23,10 +23,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import Core.IGame;
+import Game.RoundRobin;
 import Games.Kalaha.Boards.Board;
 
-public class Game implements IGame<Integer, Integer, Board, String> {
+public class Game implements RoundRobin<Integer, Integer, Board, String> {
 	
 	public static enum LeftTokensGrantee { ENDER, OWNER, NOBODY };
 	
@@ -70,23 +70,9 @@ public class Game implements IGame<Integer, Integer, Board, String> {
 	}
 	
 	@Override
-	public String getCurrentPlayer() {
-		return avatars.get(0);
-	}
-	
-	public void setNextPlayer() {
-		avatars.add(avatars.remove(0));
-	}
-	
-	public void setPreviousPlayer() {
-		avatars.add(0, avatars.remove(avatars.size() - 1));
-	}
-
-	@Override
 	public boolean isGameEnded() {
 		return getBoard().getSums(false, true).containsValue(0);
 	}
-
 
 	@Override
 	public List<String> getWinners() {
@@ -97,10 +83,5 @@ public class Game implements IGame<Integer, Integer, Board, String> {
 		avatars.stream().filter(avatar -> scores.get(avatar) == m).forEach(avatar -> winners.add(avatar));
 		
 		return Collections.unmodifiableList(winners);
-	}
-	
-	@Override
-	public void disqualify(String avatar) {
-		avatars.remove(avatar);
 	}
 }

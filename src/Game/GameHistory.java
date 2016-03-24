@@ -17,13 +17,14 @@
  along with MetaBoard. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package Core;
+package Game;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import Board.IBoard;
+import Core.IMove;
 
 /**
  * Utility class for games in which the list of played moves matters. For

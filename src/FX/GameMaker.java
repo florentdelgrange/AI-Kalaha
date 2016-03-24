@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 import Board.IBoard;
-import Core.IGame;
 import Core.IMove;
+import Game.IGame;
 
 /**
  * Game Maker.

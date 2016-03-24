@@ -18,6 +18,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.VBox;
 
+/**
+ * A Nim Game Maker.
+ * 
+ * @author Fabian Pijcke
+ */
 public class GameMaker implements FX.GameMaker<AnonymousToken, Integer, Default, String, Game, Move, Player, GameRunner> {
 	
 	private final Spinner<Integer> maxLeapSpinner = new Spinner<>(1, Integer.MAX_VALUE, 3);

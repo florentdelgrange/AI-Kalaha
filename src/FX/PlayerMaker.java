@@ -19,8 +19,8 @@
 package FX;
 
 import Board.IBoard;
-import Core.IGame;
 import Core.IMove;
+import Game.IGame;
 
 /**
  * Player Maker.

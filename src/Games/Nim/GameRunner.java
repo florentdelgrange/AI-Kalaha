@@ -36,6 +36,12 @@ public class GameRunner implements IGameRunner<AnonymousToken, Integer, Default,
 	private final Game game;
 	private final Map<String, Player> players;
 	
+	/**
+	 * Constructs a game runner given a game and a avatar/player map.
+	 * 
+	 * @param game
+	 * @param players
+	 */
 	public GameRunner(Game game, Map<String, Player> players) {
 		this.game = game;
 		this.players = players;

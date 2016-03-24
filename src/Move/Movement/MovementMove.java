@@ -20,8 +20,8 @@
 package Move.Movement;
 
 import Board.IBoard;
-import Core.IGame;
 import Core.IMove;
+import Game.IGame;
 
 /**
  * This model of movement is indicated when the pieces are moved from one place
