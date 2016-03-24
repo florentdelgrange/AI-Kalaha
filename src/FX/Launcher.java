@@ -51,12 +51,12 @@ public class Launcher extends Application {
 	private final Button addPlayerButton = new Button("Add player");
 	private final Button resetPlayersButton = new Button("Reset players");
 	
-	public Launcher() {
+	private Launcher() {
 		addGameMaker(new Games.Nim.GameMaker());
 		addGameMaker(new Games.Kalaha.GameMaker());
 	}
 	
-	public void addGameMaker(GameMaker maker) {
+	private void addGameMaker(GameMaker maker) {
 		gameCombo.getItems().add(maker);
 	}
 	
@@ -104,7 +104,7 @@ public class Launcher extends Application {
 	
 	private Node gameConfigPane;
 	
-	public void changeGame(ActionEvent e) {
+	private void changeGame(ActionEvent e) {
 		if (gameConfigPane != null) {
 			gamePane.getChildren().remove(gameConfigPane);
 		}
@@ -116,7 +116,7 @@ public class Launcher extends Application {
 	
 	private Node boardConfigPane;
 	
-	public void changeBoard(ActionEvent e) {
+	private void changeBoard(ActionEvent e) {
 		if (boardConfigPane == null) {
 			addPlayerButton.setDisable(false);
 			resetPlayersButton.setDisable(false);
@@ -129,20 +129,20 @@ public class Launcher extends Application {
 		resetPlayers(null);
 	}
 	
-	public void resetPlayers(ActionEvent e) {
+	private void resetPlayers(ActionEvent e) {
 		playerPanes.getChildren().clear();
 		for (int i = 0; i < boardCombo.getValue().getMinPlayers(); ++i) {
 			addPlayer(null);
 		}
 	}
 
-	public void addPlayer(ActionEvent e) {
+	private void addPlayer(ActionEvent e) {
 		if (playerPanes.getChildren().size() < boardCombo.getValue().getMaxPlayers()) {
 			playerPanes.getChildren().add(new PlayerPane());
 		}
 	}
 	
-	public void launchGame(ActionEvent e) {
+	private void launchGame(ActionEvent e) {
 		List avatars = new ArrayList();
 		playerPanes.getChildren().forEach(pp -> avatars.add(((PlayerPane) pp).getAvatar()));
 		IBoard board = boardCombo.getValue().getBoard(avatars);
@@ -154,7 +154,7 @@ public class Launcher extends Application {
 		runner.gameStart();
 	}
 	
-	public class PlayerPane extends GridPane {
+	private class PlayerPane extends GridPane {
 		
 		private final AvatarMaker avatarMaker;
 		private final ComboBox<PlayerMaker> playerCombo = new ComboBox<>();

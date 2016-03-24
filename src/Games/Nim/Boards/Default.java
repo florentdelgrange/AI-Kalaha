@@ -38,6 +38,11 @@ import javafx.scene.layout.VBox;
  */
 public class Default extends Path<AnonymousToken> {
 	
+	/**
+	 * A Nim Classic Board Maker.
+	 * 
+	 * @author Fabian Pijcke
+	 */
 	public static class Maker implements BoardMaker<AnonymousToken, Integer, Default, String> {
 	
 		private final Spinner<Integer> initialPositionSpinner = new Spinner<>(1, Integer.MAX_VALUE, 20);
@@ -75,10 +80,28 @@ public class Default extends Path<AnonymousToken> {
 		setPieceAt(length - 1, token);
 	}
 	
-	public Default(Default board) {
+	protected Default(Default board) {
 		super(board);
 		token = board.token;
 		tokenPosition = board.tokenPosition;
+	}
+	
+	@Override
+	public Default readOnlyBoard() {
+		return new Default(this);
+	}
+	
+	protected void copy(Default orig) {
+		super.copy(orig);
+		token = orig.token;
+		tokenPosition = orig.tokenPosition;
+	}
+
+	@Override
+	public Default clone() {
+		Default clone = new Default(getLength());
+		clone.copy(this);
+		return clone;
 	}
 
 	/**

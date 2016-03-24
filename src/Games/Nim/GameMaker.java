@@ -7,6 +7,7 @@ import java.util.Map;
 import FX.AvatarMaker;
 import FX.BoardMaker;
 import FX.PlayerMaker;
+import FX.SimplePlayerMaker;
 import FX.StringAvatarMaker;
 import Games.Nim.Boards.Default;
 import Games.Nim.Players.HumanDialogBox;
@@ -51,8 +52,8 @@ public class GameMaker implements FX.GameMaker<AnonymousToken, Integer, Default,
 	@Override
 	public List<PlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player>> getPlayerMakers() {
 		ArrayList<PlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player>> ret = new ArrayList<>();
-		ret.add(new HumanDialogBox.Maker());
-		ret.add(new RandomAI.Maker());
+		ret.add(new SimplePlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player>("Human with dialog boxes", HumanDialogBox.class));
+		ret.add(new SimplePlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player>("Random AI", RandomAI.class));
 		return ret;
 	}
 	

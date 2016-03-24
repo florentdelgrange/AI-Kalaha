@@ -107,13 +107,20 @@ public class Path<Piece> implements IBoard<Piece, Integer> {
 		return new Path<>(this);
 	}
 	
+	protected void copy(Path<Piece> orig) {
+		for (int i = 0; i < length; ++i) {
+			if (orig.elements.get(i) != null) {
+				elements.set(i, orig.elements.get(i));
+			}
+		}
+	}
+
 	@Override
 	public Path<Piece> clone() {
-		Path<Piece> clone = new Path<>(getLength());
-		for (int i = 0; i < getLength(); ++i) {
-			clone.setPieceAt(i, getPieceAt(i));
-		}
+		Path<Piece> clone = new Path<>(length);
+		clone.copy(this);
 		return clone;
 	}
+    
 
 }

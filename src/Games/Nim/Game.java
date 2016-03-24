@@ -73,7 +73,7 @@ public class Game implements IGame<AnonymousToken, Integer, Default, String> {
 	
 	@Override
 	public Default getBoardClone() {
-		return new Default(getBoard());
+		return getBoard().clone();
 	}
 
 	@Override

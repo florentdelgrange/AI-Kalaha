@@ -22,11 +22,7 @@ package Games.Nim.Players;
 import java.util.List;
 import java.util.Optional;
 
-import FX.PlayerMaker;
-import Games.Nim.Game;
 import Games.Nim.Move;
-import Games.Nim.Boards.Default;
-import Piece.AnonymousToken;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
@@ -38,13 +34,6 @@ import javafx.scene.control.TextInputDialog;
  */
 public class HumanDialogBox extends Player {
 	
-	public static class Maker implements PlayerMaker<AnonymousToken, Integer, Default, String, Game, Move, Player> {
-		@Override
-		public Player getPlayer() {
-			return new HumanDialogBox();
-		}
-	}
-
 	@Override
 	public Move pickMove(String avatar) {
 		TextInputDialog dialog = new TextInputDialog();

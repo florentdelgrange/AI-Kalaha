@@ -29,9 +29,12 @@ import Core.IMove;
  * several atomic movements (like checkers).
  * 
  * @author Fabian Pijcke
- * @param <C>
- * @param <P>
- * @param <D>
+ *
+ * @param <Piece>
+ * @param <Coordinate>
+ * @param <Board>
+ * @param <Avatar>
+ * @param <Game>
  */
 public abstract class MovementMove<Piece,
 		Coordinate,
