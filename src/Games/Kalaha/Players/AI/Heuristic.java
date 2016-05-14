@@ -7,5 +7,5 @@ import Games.Kalaha.Boards.Board;
  */
 public interface Heuristic {
 
-    public void compute(Board board);
+    public Integer compute(Board board);
 }
