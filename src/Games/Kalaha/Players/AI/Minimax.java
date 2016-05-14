@@ -62,7 +62,7 @@ public class Minimax implements Heuristic{
 
     public Double maxValue(Board board, int currentPlayer, int depth, Double alpha, Double beta){
         if(terminalTest(board) || depth == maxDepth)
-            return utility.getScore(board);
+            return utility.getScore(board, max);
         else{
             Double v = Double.NEGATIVE_INFINITY;
             for(Integer a : actions(board, playersArray.get(currentPlayer))) {
@@ -80,7 +80,7 @@ public class Minimax implements Heuristic{
 
     public Double minValue(Board board, int currentPlayer, int depth, Double alpha, Double beta){
         if(terminalTest(board)){
-            return utility.getScore(board);
+            return utility.getScore(board, max);
         }
         else{
             Double v = Double.POSITIVE_INFINITY;

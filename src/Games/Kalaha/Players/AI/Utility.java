@@ -9,7 +9,7 @@ import Games.Kalaha.Players.Player;
  */
 public interface Utility {
 
-    Double getScore(Board board);
+    Double getScore(Board board, String player);
     Game.LeftTokensGrantee getLeftTokensGrantee();
     boolean getEmptyCapture();
 
