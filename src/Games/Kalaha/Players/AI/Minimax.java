@@ -71,7 +71,7 @@ public class Minimax implements Heuristic{
                 if (v >= beta)
                     return v;
                 if(depth == 0 && alpha < v)
-                    action = a;
+                    this.action = a;
                 alpha = Math.max(alpha, v);
             }
             return v;

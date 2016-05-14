@@ -12,7 +12,7 @@ public class TokenMinimaxAI extends Player{
     @Override
     public Move pickMove(String s) {
         Utility utility = new TokenUtility(leftTokensGrantee, emptyCapture);
-        Minimax minimax = new Minimax(5, utility, avatars, s);
+        Minimax minimax = new Minimax(1000000, utility, avatars, s);
         return new Move(minimax.compute(board));
     }
 }
