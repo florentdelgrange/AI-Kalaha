@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * Created by florentdelgrange on 15/05/16.
  */
-public class KahalaMinimizerAI extends Player{
+public class KalahaMinimizerAI extends Player{
     @Override
     public Move pickMove(String s) {
         Utility utility = new Utility() {

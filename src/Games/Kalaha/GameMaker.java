@@ -96,7 +96,7 @@ public class GameMaker implements FX.GameMaker<Integer, Integer, Board, String, 
 		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Random AI", RandomAI.class));
 		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Pits AI Maximizer", PitsAI.class));
 		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Kalaha AI Maximizer", KalahaAI.class));
-		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Kalaha AI Minimizer", KalahaAI.class));
+		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Kalaha AI Minimizer", KalahaMinimizerAI.class));
 		//l.add(new HeuristicAI.Maker());
 		return l;
 	}
