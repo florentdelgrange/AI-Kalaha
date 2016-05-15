@@ -23,6 +23,7 @@ public class MaxN extends Minimax{
                 break;
             }
         maxValue(board, currentPlayer, 0);
+        return action;
     }
 
     public double[] maxValue(Board board, int currentPlayer, int depth){
