@@ -30,10 +30,7 @@ import FX.StringAvatarMaker;
 import Games.Kalaha.Boards.Board;
 import Games.Kalaha.Boards.FromFile;
 import Games.Kalaha.Boards.Uniform;
-import Games.Kalaha.Players.HumanGUI;
-import Games.Kalaha.Players.Player;
-import Games.Kalaha.Players.RandomAI;
-import Games.Kalaha.Players.TokenMinimaxAI;
+import Games.Kalaha.Players.*;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
@@ -97,7 +94,8 @@ public class GameMaker implements FX.GameMaker<Integer, Integer, Board, String, 
 		List<PlayerMaker<Integer, Integer, Board, String, Game, Move, Player>> l = new ArrayList<>();
 		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Human GUI", HumanGUI.class));
 		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Random AI", RandomAI.class));
-		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Token Minimax AI", TokenMinimaxAI.class));
+		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Pits AI Maximizer", PitsAI.class));
+		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Kalaha AI Maximizer", KalahaAI.class));
 		//l.add(new HeuristicAI.Maker());
 		return l;
 	}
