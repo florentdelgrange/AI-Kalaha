@@ -12,11 +12,11 @@ import java.util.ArrayList;
  */
 public class Minimax implements Heuristic{
 
-    private int maxDepth;
-    private Utility utility;
-    private ArrayList<String> playersArray;
-    private String max;
-    private Integer action;
+    protected int maxDepth;
+    protected Utility utility;
+    protected ArrayList<String> playersArray;
+    protected String max;
+    protected Integer action;
 
     public Minimax(int maxDepth, Utility utility, ArrayList<String> playersArray, String max){
         this.maxDepth = maxDepth;
