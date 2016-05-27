@@ -31,12 +31,15 @@ public class MaxN extends Minimax{
             return playersArray.stream().mapToDouble(avatar ->
                 utility.getScore(board, avatar)).toArray();
         else{
-            if(playersArray.get(currentPlayer).equals(max))
-                depth ++;
             double[] v = new double[playersArray.size()];
             v[currentPlayer] = Double.NEGATIVE_INFINITY;
             for(Integer a : actions(board, playersArray.get(currentPlayer))){
-                double[] nextV = maxValue(result(board, a), (currentPlayer + 1) % playersArray.size(), depth);
+                CurrentState result = result(board, a);
+                double[] nextV;
+                if(result.avatar.equals(currentPlayer))
+                    nextV = maxValue(result.board, currentPlayer, depth + 1);
+                else
+                    nextV = maxValue(result.board, (currentPlayer + 1) % playersArray.size(), depth + 1);
                 if(nextV[currentPlayer] > v[currentPlayer]) {
                     if (playersArray.get(currentPlayer).equals(max))
                         action = a;

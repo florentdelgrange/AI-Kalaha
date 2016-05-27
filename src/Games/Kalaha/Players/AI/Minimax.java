@@ -52,12 +52,21 @@ public class Minimax implements Heuristic{
         return possibleMoves;
     }
 
-    public Board result(Board board, Integer a){
+    protected class CurrentState{
+        protected final Board board;
+        protected final String avatar;
+        protected CurrentState(Board board, String avatar){
+            this.board = board;
+            this.avatar = avatar;
+        }
+    }
+
+    public CurrentState result(Board board, Integer a){
         Game clonedGame = new Game(board.clone(), utility.getLeftTokensGrantee(),
                 utility.getEmptyCapture(), playersArray);
         Move move = new Move(a);
         move.apply(clonedGame);
-        return clonedGame.getBoard();
+        return new CurrentState(clonedGame.getBoard(), clonedGame.getCurrentPlayer());
     }
 
     public Double maxValue(Board board, int currentPlayer, int depth, Double alpha, Double beta){
@@ -66,8 +75,12 @@ public class Minimax implements Heuristic{
         else{
             Double v = Double.NEGATIVE_INFINITY;
             for(Integer a : actions(board, playersArray.get(currentPlayer))) {
-                v = Math.max(v, minValue(result(board, a),
-                        (currentPlayer + 1) % playersArray.size(), depth, alpha, beta));
+                CurrentState result = result(board, a);
+                if(result.avatar.equals(currentPlayer))
+                    v = Math.max(v, maxValue(result.board, currentPlayer, depth + 1, alpha, beta));
+                else
+                    v = Math.max(v, minValue(result.board,
+                            (currentPlayer + 1) % playersArray.size(), depth + 1, alpha, beta));
                 if (v >= beta)
                     return v;
                 if(depth == 0 && alpha < v)
@@ -85,7 +98,11 @@ public class Minimax implements Heuristic{
         else{
             Double v = Double.POSITIVE_INFINITY;
             for(Integer a: actions(board, playersArray.get(currentPlayer))) {
-                v = Math.min(v, maxValue(result(board, a),
+                CurrentState result = result(board, a);
+                if(result.avatar.equals(currentPlayer))
+                    v = Math.min(v, maxValue(result.board, currentPlayer, depth + 1, alpha, beta));
+                else
+                    v = Math.min(v, maxValue(result.board,
                         (currentPlayer + 1) % playersArray.size(), depth + 1, alpha, beta));
                 if(v <= alpha)
                     return v;

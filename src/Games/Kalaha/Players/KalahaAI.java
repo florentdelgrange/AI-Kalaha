@@ -32,10 +32,10 @@ public class KalahaAI extends Player{
         };
         Heuristic heuristic;
         if(players.size() == 2) {
-            heuristic = new Minimax(7, utility, players, s);
+            heuristic = new Minimax(12, utility, players, s);
         }
         else {
-            heuristic = new MaxN(3, utility, players, s);
+            heuristic = new MaxN(6, utility, players, s);
         }
         return new Move(heuristic.compute(board));
     }
