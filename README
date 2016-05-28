@@ -7,8 +7,9 @@ In order to compile and launch something, just place yourself in the src
 directory and compile what you want. Example with the Chess Launcher:
 
 ~ cd src
-~ javac Games/Chess/Launcher.java
-~ java Games.Chess.Launcher
+~ javac FX/Launcher.java
+~ cd ..
+~ java -cp src FX.Launcher
 
 Contact informations:
 - Fabian Pijcke <fabian.pijcke@gmail.com>
