@@ -28,8 +28,8 @@ public class AiTester {
 			boolean found = false;
 			for (PlayerMaker maker: pms) {
 				if (maker.toString().equals(arg)) {
-					out_avatars.add(""+i);
-					out_players.put(""+i, (Player)maker.getPlayer());
+					out_avatars.add(i+"_"+arg);
+					out_players.put(i+"_"+arg, (Player)maker.getPlayer());
 					i++;
 					found = true;
 					break;
@@ -55,16 +55,26 @@ public class AiTester {
 	public static void main(String[] args) {
 		try {
 			List<String> avatars = new ArrayList<>();
+			Map<String, Integer> scores = new HashMap<>();
 			Map<String, Player> players = new HashMap<>();
 			getPlayers(args, avatars, players);
+			avatars.stream().forEach(avatar -> scores.put(avatar, 0));
 			Board board = getBoard("uniform", avatars); //TODO
 			String ltg_s = "OWNER"; //TODO
 			Game.LeftTokensGrantee ltg = Game.LeftTokensGrantee.valueOf(ltg_s);
 			boolean emptyCaptures = false; //TODO
-			Game game = new Game(board, ltg, emptyCaptures, avatars);
-			GameRunner runner = new GameRunner(game, players);
-			runner.gameStart();
-			System.out.println("initialized");
+			for (int i=0; i<10; i++) {
+				Game game = new Game(board, ltg, emptyCaptures, avatars);
+				GameRunner runner = new GameRunner(game, players) {
+					public void gameFinish() {
+						game.getWinners().stream().forEach(avatar ->
+							scores.put(avatar, scores.get(avatar)+1));
+					}
+				};
+				runner.gameStart();
+			}
+			scores.entrySet().stream().forEach(entry ->
+				System.out.println(entry.getKey()+"\t"+entry.getValue()));
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
