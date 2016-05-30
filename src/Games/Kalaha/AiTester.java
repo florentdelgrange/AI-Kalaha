@@ -37,7 +37,12 @@ public class AiTester {
 		pms.add(new SimplePlayerMaker("kalaha_min", KalahaMinimizerAI.class));
 		pms.add(new SimplePlayerMaker("sq_pit_min", SquaredPitsAI.class));
 		pms.add(new SimplePlayerMaker("my_turn", MyTurnAI.class));
+		boolean first = true;
 		for (String arg: in_args) {
+			if (first) {
+				first = false;
+				continue;
+			}
 			boolean found = false;
 			for (PlayerMaker maker: pms) {
 				if (maker.toString().equals(arg)) {
@@ -88,7 +93,7 @@ public class AiTester {
 			String ltg_s = "OWNER"; //TODO
 			Game.LeftTokensGrantee ltg = Game.LeftTokensGrantee.valueOf(ltg_s);
 			boolean emptyCaptures = false; //TODO
-			for (int i=0; i<10; i++) {
+			for (int i=0; i<Integer.parseInt(args[0]); i++) {
 				Game game = new Game(board, ltg, emptyCaptures, avatars);
 				GameRunner runner = new GameRunner(game, players) {
 					public void gameFinish() {
