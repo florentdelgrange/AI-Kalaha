@@ -23,14 +23,12 @@ public class AiTester {
 		pms.add(new SimplePlayerMaker("kalaha_min", KalahaMinimizerAI.class));
 		pms.add(new SimplePlayerMaker("sq_pit_min", SquaredPitsAI.class));
 		pms.add(new SimplePlayerMaker("my_turn", MyTurnAI.class));
-		int i = 0;
 		for (String arg: in_args) {
 			boolean found = false;
 			for (PlayerMaker maker: pms) {
 				if (maker.toString().equals(arg)) {
-					out_avatars.add(i+"_"+arg);
-					out_players.put(i+"_"+arg, (Player)maker.getPlayer());
-					i++;
+					out_avatars.add(arg);
+					out_players.put(arg, (Player)maker.getPlayer());
 					found = true;
 					break;
 				}
