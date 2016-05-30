@@ -12,7 +12,21 @@ import Games.Kalaha.Boards.*;
 import FX.SimplePlayerMaker;
 import FX.PlayerMaker;
 
+/**
+ * Command-line artificial intelligence implementation comparator.
+ * Since most AIs (except RandomAI and MyTurnAI) are deterministic algorithms,
+ * we only compare two of them twice (the order is important).
+ * Starting from a random board could be tempting but how would we know
+ * when someone gets advantaged? We often can't explore the whole search space.
+ */
 public class AiTester {
+	/**
+	 * Instantiates a player object for each name in the input list.
+	 * @param in_args input list
+	 * @param out_avatars output avatar (String) list
+	 * @param out_players output player (Object) list
+	 * @throws ClassNotFoundException when trying to use a non-existing player
+	 */
 	protected static void getPlayers(String[] in_args,
 			List<String> out_avatars, Map<String, Player> out_players)
 			throws ClassNotFoundException {
@@ -38,8 +52,15 @@ public class AiTester {
 		}
 	}
 
+	/**
+	 * Instantiates a Board from a description.
+	 * @param name "uniform" or a board file name
+	 * @param avatars existing avatar list
+	 * @return new Board instance
+	 * @throws IllegalArgumentException when passed an invalid name
+	 */
 	protected static Board getBoard(String name, List<String> avatars)
-			throws ClassNotFoundException {
+			throws IllegalArgumentException {
 		if (name.endsWith(".board")) {
 			Path path = Paths.get("src", "Games", "Kalaha", "Boards", name);
 			return new FromFile(path, avatars);
@@ -47,9 +68,13 @@ public class AiTester {
 		else if (name.equals("uniform"))
 			return new Uniform(6, 4, avatars);
 		else
-			throw new ClassNotFoundException(name);
+			throw new IllegalArgumentException(name);
 	}
 
+	/**
+	 * Entry point
+	 * @param args command-line arguments
+	 */
 	public static void main(String[] args) {
 		try {
 			List<String> avatars = new ArrayList<>();
@@ -74,7 +99,7 @@ public class AiTester {
 			scores.entrySet().stream().forEach(entry ->
 				System.out.println(entry.getKey()+"\t"+entry.getValue()));
 		}
-		catch (ClassNotFoundException e) {
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
