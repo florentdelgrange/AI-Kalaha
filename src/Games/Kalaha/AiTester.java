@@ -82,10 +82,8 @@ public class AiTester {
 	public static void main(String[] args) {
 		try {
 			List<String> avatars = new ArrayList<>();
-			Map<String, Integer> scores = new HashMap<>();
 			Map<String, Player> players = new HashMap<>();
 			getPlayers(args, avatars, players);
-			avatars.stream().forEach(avatar -> scores.put(avatar, 0));
 			Board board = getBoard("uniform", avatars); //TODO
 			String ltg_s = "OWNER"; //TODO
 			Game.LeftTokensGrantee ltg = Game.LeftTokensGrantee.valueOf(ltg_s);
@@ -95,13 +93,11 @@ public class AiTester {
 				GameRunner runner = new GameRunner(game, players) {
 					public void gameFinish() {
 						game.getWinners().stream().forEach(avatar ->
-							scores.put(avatar, scores.get(avatar)+1));
+							System.out.println(avatar));
 					}
 				};
 				runner.gameStart();
 			}
-			scores.entrySet().stream().forEach(entry ->
-				System.out.println(entry.getKey()+"\t"+entry.getValue()));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
