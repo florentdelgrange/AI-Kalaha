@@ -41,8 +41,12 @@ public class AiTester {
 			boolean found = false;
 			for (PlayerMaker maker: pms) {
 				if (maker.toString().equals(arg)) {
-					out_avatars.add(arg);
-					out_players.put(arg, (Player)maker.getPlayer());
+					int i = 1;
+					String s;
+					while (out_players.get(s=arg+(i==1 ? "" : i)) != null)
+						i++;
+					out_avatars.add(s);
+					out_players.put(s, (Player)maker.getPlayer());
 					found = true;
 					break;
 				}
