@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #test command
-T=java -cp src Games.Kalaha.AiTester
+T="java -cp src Games.Kalaha.Players.AiTester"
 #count for non-deterministic AIs
 N=10
 

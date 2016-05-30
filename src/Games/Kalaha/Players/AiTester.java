@@ -1,4 +1,4 @@
-package Games.Kalaha;
+package Games.Kalaha.Players;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import Games.Kalaha.Players.*;
+import Games.Kalaha.*;
 import Games.Kalaha.Boards.*;
 import FX.SimplePlayerMaker;
 import FX.PlayerMaker;
