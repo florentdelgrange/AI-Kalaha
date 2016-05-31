@@ -97,7 +97,7 @@ public class Launcher extends Application {
 		root.getChildren().add(new TitledPane("Players", playersPane));
 		root.getChildren().add(launchButton);
 		
-		primaryStage.setScene(new Scene(root, 640, 480));
+		primaryStage.setScene(new Scene(root, 440, 600));
 		primaryStage.show();
 		
 	}
