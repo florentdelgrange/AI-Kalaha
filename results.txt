@@ -1,0 +1,98 @@
+RANDOM
+    543 random
+    519 random2
+PLACEBO pit_max
+      8 pit_max
+      5 random
+pit_max PLACEBO
+      5 pit_max
+      5 random
+PLACEBO kalaha_max
+     10 kalaha_max
+kalaha_max PLACEBO
+     10 kalaha_max
+PLACEBO kalaha_min
+     10 kalaha_min
+      1 random
+kalaha_min PLACEBO
+      6 kalaha_min
+      4 random
+PLACEBO sq_pit_min
+      5 random
+      5 sq_pit_min
+sq_pit_min PLACEBO
+      2 random
+      8 sq_pit_min
+PLACEBO my_turn
+      9 my_turn
+      1 random
+my_turn PLACEBO
+      7 my_turn
+      4 random
+SELF pit_max
+     10 pit_max2
+SELF kalaha_max
+     10 kalaha_max
+SELF kalaha_min
+     10 kalaha_min
+SELF sq_pit_min
+      9 sq_pit_min
+      1 sq_pit_min2
+SELF my_turn
+      7 my_turn
+      4 my_turn2
+pit_max vs. kalaha_max
+     10 kalaha_max
+kalaha_max vs. pit_max
+     10 kalaha_max
+pit_max vs. kalaha_min
+      3 kalaha_min
+      1 pit_max
+kalaha_min vs. pit_max
+      4 kalaha_min
+      4 pit_max
+pit_max vs. sq_pit_min
+      5 pit_max
+      2 sq_pit_min
+sq_pit_min vs. pit_max
+      2 pit_max
+      7 sq_pit_min
+pit_max vs. my_turn
+      5 my_turn
+      4 pit_max
+my_turn vs. pit_max
+      6 my_turn
+      2 pit_max
+kalaha_max vs. kalaha_min
+      7 kalaha_max
+      2 kalaha_min
+kalaha_min vs. kalaha_max
+      8 kalaha_max
+      1 kalaha_min
+kalaha_max vs. sq_pit_min
+     10 kalaha_max
+sq_pit_min vs. kalaha_max
+      6 kalaha_max
+      4 sq_pit_min
+kalaha_max vs. my_turn
+     10 kalaha_max
+my_turn vs. kalaha_max
+      8 kalaha_max
+      2 my_turn
+kalaha_min vs. sq_pit_min
+      7 sq_pit_min
+sq_pit_min vs. kalaha_min
+      3 kalaha_min
+      5 sq_pit_min
+kalaha_min vs. my_turn
+      1 kalaha_min
+      4 my_turn
+my_turn vs. kalaha_min
+      4 kalaha_min
+      4 my_turn
+sq_pit_min vs. my_turn
+      1 my_turn
+      9 sq_pit_min
+my_turn vs. sq_pit_min
+      2 my_turn
+      5 sq_pit_min
