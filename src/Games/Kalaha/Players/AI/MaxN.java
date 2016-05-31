@@ -16,32 +16,26 @@ public class MaxN extends Minimax{
 
     @Override
     public Integer compute(Board board) {
-        int currentPlayer = 0;
-        for(int i = 0; i < playersArray.size(); i++)
-            if(playersArray.get(i).equals(max)) {
-                currentPlayer = i;
-                break;
-            }
-        maxValue(board, currentPlayer, 0);
+        maxValue(board, 0, 0);
         return action;
     }
 
     public double[] maxValue(Board board, int currentPlayer, int depth){
         if(terminalTest(board) || depth == maxDepth)
-            return playersArray.stream().mapToDouble(avatar ->
+            return players.stream().mapToDouble(avatar ->
                 utility.getScore(board, avatar)).toArray();
         else{
-            double[] v = new double[playersArray.size()];
+            double[] v = new double[players.size()];
             v[currentPlayer] = Double.NEGATIVE_INFINITY;
-            for(Integer a : actions(board, playersArray.get(currentPlayer))){
-                CurrentState result = result(board, a);
+            for(Integer a : actions(board, players.get(currentPlayer))){
+                CurrentState result = result(board, currentPlayer, a);
                 double[] nextV;
-                if(result.avatar.equals(currentPlayer))
+                if(result.avatar.equals(players.get(currentPlayer)))
                     nextV = maxValue(result.board, currentPlayer, depth + 1);
                 else
-                    nextV = maxValue(result.board, (currentPlayer + 1) % playersArray.size(), depth + 1);
+                    nextV = maxValue(result.board, (currentPlayer + 1) % players.size(), depth + 1);
                 if(nextV[currentPlayer] > v[currentPlayer]) {
-                    if (playersArray.get(currentPlayer).equals(max))
+                    if (depth == 0)
                         action = a;
                     v = nextV;
                 }

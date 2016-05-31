@@ -14,26 +14,23 @@ public class Minimax implements Heuristic{
 
     protected int maxDepth;
     protected Utility utility;
-    protected ArrayList<String> playersArray;
+    protected ArrayList<String> players;
     protected String max;
     protected Integer action;
 
-    public Minimax(int maxDepth, Utility utility, ArrayList<String> playersArray, String max){
+    public Minimax(int maxDepth, Utility utility, ArrayList<String> players, String max){
         this.maxDepth = maxDepth;
         this.utility = utility;
-        this.playersArray = playersArray;
+        this.players = players;
         this.max = max;
+        //order initialization
+        while(!players.get(0).equals(max))
+            players.add(players.remove(0));
     }
 
     @Override
     public Integer compute(Board board) {
-        int currentPlayer = 0;
-        for(int i = 0; i < playersArray.size(); i++)
-            if(playersArray.get(i).equals(max)) {
-                currentPlayer = i;
-                break;
-            }
-        maxValue(board, currentPlayer, 0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        maxValue(board, 0, 0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
         return action;
     }
 
@@ -61,9 +58,12 @@ public class Minimax implements Heuristic{
         }
     }
 
-    public CurrentState result(Board board, Integer a){
+    public CurrentState result(Board board, Integer currentPlayer, Integer a){
+        ArrayList playersInOrder = new ArrayList(players.size());
+        playersInOrder.addAll(players.subList(currentPlayer, players.size()));
+        playersInOrder.addAll(players.subList(0, currentPlayer));
         Game clonedGame = new Game(board.clone(), utility.getLeftTokensGrantee(),
-                utility.getEmptyCapture(), playersArray);
+                utility.getEmptyCapture(), playersInOrder);
         Move move = new Move(a);
         move.apply(clonedGame);
         return new CurrentState(clonedGame.getBoard(), clonedGame.getCurrentPlayer());
@@ -74,13 +74,13 @@ public class Minimax implements Heuristic{
             return utility.getScore(board, max);
         else{
             Double v = Double.NEGATIVE_INFINITY;
-            for(Integer a : actions(board, playersArray.get(currentPlayer))) {
-                CurrentState result = result(board, a);
-                if(result.avatar.equals(currentPlayer))
+            for(Integer a : actions(board, players.get(currentPlayer))) {
+                CurrentState result = result(board, currentPlayer, a);
+                if(result.avatar.equals(players.get(currentPlayer)))
                     v = Math.max(v, maxValue(result.board, currentPlayer, depth + 1, alpha, beta));
                 else
                     v = Math.max(v, minValue(result.board,
-                            (currentPlayer + 1) % playersArray.size(), depth + 1, alpha, beta));
+                            (currentPlayer + 1) % players.size(), depth + 1, alpha, beta));
                 if (v >= beta)
                     return v;
                 if(depth == 0 && alpha < v)
@@ -92,18 +92,18 @@ public class Minimax implements Heuristic{
     }
 
     public Double minValue(Board board, int currentPlayer, int depth, Double alpha, Double beta){
-        if(terminalTest(board)){
+        if(terminalTest(board) || depth == maxDepth){
             return utility.getScore(board, max);
         }
         else{
             Double v = Double.POSITIVE_INFINITY;
-            for(Integer a: actions(board, playersArray.get(currentPlayer))) {
-                CurrentState result = result(board, a);
-                if(result.avatar.equals(currentPlayer))
+            for(Integer a: actions(board, players.get(currentPlayer))) {
+                CurrentState result = result(board, currentPlayer, a);
+                if(result.avatar.equals(players.get(currentPlayer)))
                     v = Math.min(v, maxValue(result.board, currentPlayer, depth + 1, alpha, beta));
                 else
                     v = Math.min(v, maxValue(result.board,
-                        (currentPlayer + 1) % playersArray.size(), depth + 1, alpha, beta));
+                        (currentPlayer + 1) % players.size(), depth + 1, alpha, beta));
                 if(v <= alpha)
                     return v;
                 beta = Math.min(beta, v);
