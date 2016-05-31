@@ -89,11 +89,11 @@ public class AiTester {
 			List<String> avatars = new ArrayList<>();
 			Map<String, Player> players = new HashMap<>();
 			getPlayers(args, avatars, players);
-			Board board = getBoard("uniform", avatars); //TODO
 			String ltg_s = "OWNER"; //TODO
 			Game.LeftTokensGrantee ltg = Game.LeftTokensGrantee.valueOf(ltg_s);
 			boolean emptyCaptures = false; //TODO
 			for (int i=0; i<Integer.parseInt(args[0]); i++) {
+				Board board = getBoard("uniform", avatars); //TODO
 				Game game = new Game(board, ltg, emptyCaptures, avatars);
 				GameRunner runner = new GameRunner(game, players) {
 					public void gameFinish() {
