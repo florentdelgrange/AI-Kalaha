@@ -11,28 +11,13 @@ import Games.Kalaha.Players.AI.*;
 public class PitsAI extends Player{
     @Override
     public Move pickMove(String s) {
-        Utility utility = new Utility() {
-            @Override
-            public Double getScore(Board board, String player) {
-                return 1.0 * board.getSums(false, true).get(player);
-            }
-
-            @Override
-            public Game.LeftTokensGrantee getLeftTokensGrantee() {
-                return leftTokensGrantee;
-            }
-
-            @Override
-            public boolean getEmptyCapture() {
-                return emptyCapture;
-            }
-        };
-        Heuristic heuristic;
+        Heuristic utility = (board1, player) -> 1.0 * board1.getSums(false, true).get(player);
+        Minimax heuristic;
         if(players.size() == 2) {
-            heuristic = new Minimax(12, utility, players, s);
+            heuristic = new Minimax(12, utility, players, s, leftTokensGrantee, emptyCapture);
         }
         else {
-            heuristic = new MaxN(6, utility, players, s);
+            heuristic = new MaxN(6, utility, players, s, leftTokensGrantee, emptyCapture);
         }
         return new Move(heuristic.compute(board));
     }

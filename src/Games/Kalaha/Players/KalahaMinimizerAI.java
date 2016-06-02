@@ -6,7 +6,6 @@ import Games.Kalaha.Move;
 import Games.Kalaha.Players.AI.Heuristic;
 import Games.Kalaha.Players.AI.MaxN;
 import Games.Kalaha.Players.AI.Minimax;
-import Games.Kalaha.Players.AI.Utility;
 
 import java.util.HashMap;
 
@@ -16,30 +15,17 @@ import java.util.HashMap;
 public class KalahaMinimizerAI extends Player{
     @Override
     public Move pickMove(String s) {
-        Utility utility = new Utility() {
-            @Override
-            public Double getScore(Board board, String player) {
-                HashMap<String, Integer> sums = board.getSums(true, false);
-                return -1.0 * ( sums.values().stream().reduce(0, (a, b) -> a + b) - sums.get(player) );
-            }
-
-            @Override
-            public Game.LeftTokensGrantee getLeftTokensGrantee() {
-                return leftTokensGrantee;
-            }
-
-            @Override
-            public boolean getEmptyCapture() {
-                return emptyCapture;
-            }
+        Heuristic heuristic = (board1, player) -> {
+            HashMap<String, Integer> sums = board1.getSums(true, false);
+            return -1.0 * ( sums.values().stream().reduce(0, (a, b) -> a + b) - sums.get(player) );
         };
-        Heuristic heuristic;
+        Minimax minimax;
         if(players.size() == 2) {
-            heuristic = new Minimax(12, utility, players, s);
+            minimax = new Minimax(12, heuristic, players, s, leftTokensGrantee, emptyCapture);
         }
         else {
-            heuristic = new MaxN(6, utility, players, s);
+            minimax = new MaxN(6, heuristic, players, s, leftTokensGrantee, emptyCapture);
         }
-        return new Move(heuristic.compute(board));
+        return new Move(minimax.compute(board));
     }
 }

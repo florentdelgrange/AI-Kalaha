@@ -1,6 +1,7 @@
 package Games.Kalaha.Players.AI;
 
 import Games.Kalaha.Boards.Board;
+import Games.Kalaha.Game;
 
 import java.util.ArrayList;
 
@@ -10,8 +11,9 @@ import java.util.ArrayList;
  */
 public class MaxN extends Minimax{
 
-    public MaxN(int maxDepth, Utility utility, ArrayList<String> playersArray, String max) {
-        super(maxDepth, utility, playersArray, max);
+    public MaxN(int maxDepth, Heuristic heuristic, ArrayList<String> playersArray, String max,
+                Game.LeftTokensGrantee leftTokensGrantee, Boolean emptyCapture) {
+        super(maxDepth, heuristic, playersArray, max, leftTokensGrantee, emptyCapture);
     }
 
     @Override
@@ -23,7 +25,7 @@ public class MaxN extends Minimax{
     public double[] maxValue(Board board, int currentPlayer, int depth){
         if(terminalTest(board) || depth == maxDepth)
             return players.stream().mapToDouble(avatar ->
-                utility.getScore(board, avatar)).toArray();
+                heuristic.getScore(board, avatar)).toArray();
         else{
             double[] v = new double[players.size()];
             v[currentPlayer] = Double.NEGATIVE_INFINITY;

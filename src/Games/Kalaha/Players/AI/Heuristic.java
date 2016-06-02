@@ -1,11 +1,14 @@
 package Games.Kalaha.Players.AI;
 
 import Games.Kalaha.Boards.Board;
+import Games.Kalaha.Game;
+import Games.Kalaha.Players.Player;
 
 /**
- * Created by florentdelgrange on 11/05/16.
+ * Created by florentdelgrange on 12/05/16.
  */
 public interface Heuristic {
 
-    public Integer compute(Board board);
+    Double getScore(Board board, String player);
+
 }

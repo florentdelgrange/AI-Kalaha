@@ -10,25 +10,29 @@ import java.util.ArrayList;
  * Created by florentdelgrange on 11/05/16.
  * Classic alpha-beta Minimax implementation for 2 players.
  */
-public class Minimax implements Heuristic{
+public class Minimax{
 
     protected int maxDepth;
-    protected Utility utility;
+    protected Heuristic heuristic;
+    protected Game.LeftTokensGrantee leftTokensGrantee;
+    protected Boolean emptyCapture;
     protected ArrayList<String> players;
     protected String max;
     protected Integer action;
 
-    public Minimax(int maxDepth, Utility utility, ArrayList<String> players, String max){
+    public Minimax(int maxDepth, Heuristic heuristic, ArrayList<String> players, String max,
+                   Game.LeftTokensGrantee leftTokensGrantee, Boolean emptyCapture){
         this.maxDepth = maxDepth;
-        this.utility = utility;
+        this.heuristic = heuristic;
         this.players = players;
         this.max = max;
+        this.leftTokensGrantee = leftTokensGrantee;
+        this.emptyCapture = emptyCapture;
         //order initialization
         while(!players.get(0).equals(max))
             players.add(players.remove(0));
     }
 
-    @Override
     public Integer compute(Board board) {
         maxValue(board, 0, 0, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
         return action;
@@ -62,8 +66,8 @@ public class Minimax implements Heuristic{
         ArrayList playersInOrder = new ArrayList(players.size());
         playersInOrder.addAll(players.subList(currentPlayer, players.size()));
         playersInOrder.addAll(players.subList(0, currentPlayer));
-        Game clonedGame = new Game(board.clone(), utility.getLeftTokensGrantee(),
-                utility.getEmptyCapture(), playersInOrder);
+        Game clonedGame = new Game(board.clone(), leftTokensGrantee,
+                emptyCapture, playersInOrder);
         Move move = new Move(a);
         move.apply(clonedGame);
         return new CurrentState(clonedGame.getBoard(), clonedGame.getCurrentPlayer());
@@ -71,7 +75,7 @@ public class Minimax implements Heuristic{
 
     public Double maxValue(Board board, int currentPlayer, int depth, Double alpha, Double beta){
         if(terminalTest(board) || depth == maxDepth)
-            return utility.getScore(board, max);
+            return heuristic.getScore(board, max);
         else{
             Double v = Double.NEGATIVE_INFINITY;
             for(Integer a : actions(board, players.get(currentPlayer))) {
@@ -93,7 +97,7 @@ public class Minimax implements Heuristic{
 
     public Double minValue(Board board, int currentPlayer, int depth, Double alpha, Double beta){
         if(terminalTest(board) || depth == maxDepth){
-            return utility.getScore(board, max);
+            return heuristic.getScore(board, max);
         }
         else{
             Double v = Double.POSITIVE_INFINITY;

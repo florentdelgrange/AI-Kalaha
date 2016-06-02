@@ -6,7 +6,6 @@ import Games.Kalaha.Move;
 import Games.Kalaha.Players.AI.Heuristic;
 import Games.Kalaha.Players.AI.MaxN;
 import Games.Kalaha.Players.AI.Minimax;
-import Games.Kalaha.Players.AI.Utility;
 
 /**
  * Created by florentdelgrange on 15/05/16.
@@ -14,29 +13,14 @@ import Games.Kalaha.Players.AI.Utility;
 public class KalahaAI extends Player{
     @Override
     public Move pickMove(String s) {
-        Utility utility = new Utility() {
-            @Override
-            public Double getScore(Board board, String player) {
-                return 1.0 * board.getSums(true, false).get(player);
-            }
-
-            @Override
-            public Game.LeftTokensGrantee getLeftTokensGrantee() {
-                return leftTokensGrantee;
-            }
-
-            @Override
-            public boolean getEmptyCapture() {
-                return emptyCapture;
-            }
-        };
-        Heuristic heuristic;
+        Heuristic heuristic = (board1, player) -> 1.0 * board1.getSums(true, false).get(player);
+        Minimax minimax;
         if(players.size() == 2) {
-            heuristic = new Minimax(12, utility, players, s);
+            minimax = new Minimax(12, heuristic, players, s, leftTokensGrantee, emptyCapture);
         }
         else {
-            heuristic = new MaxN(6, utility, players, s);
+            minimax = new MaxN(6, heuristic, players, s, leftTokensGrantee, emptyCapture);
         }
-        return new Move(heuristic.compute(board));
+        return new Move(minimax.compute(board));
     }
 }
