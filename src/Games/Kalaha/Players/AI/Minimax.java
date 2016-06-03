@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 /**
  * Created by florentdelgrange on 11/05/16.
- * Classic alpha-beta Minimax implementation for 2 players.
+ * Classic alpha-beta MiniMax implementation for 2 players.
  */
-public class Minimax{
+public class MiniMax {
 
     protected int maxDepth;
     protected Heuristic heuristic;
@@ -20,7 +20,7 @@ public class Minimax{
     protected String max;
     protected Integer action;
 
-    public Minimax(int maxDepth, Heuristic heuristic, ArrayList<String> players, String max,
+    public MiniMax(int maxDepth, Heuristic heuristic, ArrayList<String> players, String max,
                    Game.LeftTokensGrantee leftTokensGrantee, Boolean emptyCapture){
         this.maxDepth = maxDepth;
         this.heuristic = heuristic;
@@ -75,7 +75,7 @@ public class Minimax{
 
     public Double maxValue(Board board, int currentPlayer, int depth, Double alpha, Double beta){
         if(terminalTest(board) || depth == maxDepth)
-            return heuristic.getScore(board, max);
+            return heuristic.compute(board, max);
         else{
             Double v = Double.NEGATIVE_INFINITY;
             for(Integer a : actions(board, players.get(currentPlayer))) {
@@ -97,14 +97,14 @@ public class Minimax{
 
     public Double minValue(Board board, int currentPlayer, int depth, Double alpha, Double beta){
         if(terminalTest(board) || depth == maxDepth){
-            return heuristic.getScore(board, max);
+            return heuristic.compute(board, max);
         }
         else{
             Double v = Double.POSITIVE_INFINITY;
             for(Integer a: actions(board, players.get(currentPlayer))) {
                 CurrentState result = result(board, currentPlayer, a);
                 if(result.avatar.equals(players.get(currentPlayer)))
-                    v = Math.min(v, maxValue(result.board, currentPlayer, depth + 1, alpha, beta));
+                    v = Math.min(v, minValue(result.board, currentPlayer, depth + 1, alpha, beta));
                 else
                     v = Math.min(v, maxValue(result.board,
                         (currentPlayer + 1) % players.size(), depth + 1, alpha, beta));
