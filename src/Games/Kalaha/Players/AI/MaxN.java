@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by florentdelgrange on 15/05/16.
  * This is the Max-n implementation.
  */
-public class MaxN extends Minimax{
+public class MaxN extends MiniMax {
 
     public MaxN(int maxDepth, Heuristic heuristic, ArrayList<String> playersArray, String max,
                 Game.LeftTokensGrantee leftTokensGrantee, Boolean emptyCapture) {
@@ -25,7 +25,7 @@ public class MaxN extends Minimax{
     public double[] maxValue(Board board, int currentPlayer, int depth){
         if(terminalTest(board) || depth == maxDepth)
             return players.stream().mapToDouble(avatar ->
-                heuristic.getScore(board, avatar)).toArray();
+                heuristic.compute(board, avatar)).toArray();
         else{
             double[] v = new double[players.size()];
             v[currentPlayer] = Double.NEGATIVE_INFINITY;

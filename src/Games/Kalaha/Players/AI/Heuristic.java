@@ -9,6 +9,6 @@ import Games.Kalaha.Players.Player;
  */
 public interface Heuristic {
 
-    Double getScore(Board board, String player);
+    Double compute(Board board, String player);
 
 }

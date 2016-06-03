@@ -1,16 +1,15 @@
 package Games.Kalaha.Players;
 
-import Games.Kalaha.Boards.Board;
-import Games.Kalaha.Game;
 import Games.Kalaha.Move;
 import Games.Kalaha.Players.AI.MaxN;
-import Games.Kalaha.Players.AI.Minimax;
+import Games.Kalaha.Players.AI.MiniMax;
 import Games.Kalaha.Players.AI.Heuristic;
 
 import java.util.LinkedList;
 
 /**
  * Created by florentdelgrange on 15/05/16.
+ * TODO : drop
  */
 public class SquaredPitsAI extends Player{
     @Override
@@ -30,9 +29,9 @@ public class SquaredPitsAI extends Player{
             }
             return -1.0 * score;
         };
-        Minimax heuristic;
+        MiniMax heuristic;
         if(players.size() == 2) {
-            heuristic = new Minimax(12, utility, players, s, leftTokensGrantee, emptyCapture);
+            heuristic = new MiniMax(12, utility, players, s, leftTokensGrantee, emptyCapture);
         }
         else {
             heuristic = new MaxN(6, utility, players, s, leftTokensGrantee, emptyCapture);
