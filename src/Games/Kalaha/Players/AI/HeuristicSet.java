@@ -20,7 +20,7 @@ public final class HeuristicSet {
         return -1.0 * ( sums.values().stream().reduce(0, (a, b) -> a + b) - sums.get(player) );
     };
     public static Heuristic pitsMaximizer = (board1, player) -> 1.0 * board1.getSums(false, true).get(player);
-    public static Heuristic squarredPitsMinimizer = (board1, player) -> {
+    public static Heuristic squaredPitsMinimizer = (board1, player) -> {
             Double score = 0.0;
             LinkedList<Integer> indices = new LinkedList<>();
             for (int i = 0; i < board1.getLength(); ++i) {

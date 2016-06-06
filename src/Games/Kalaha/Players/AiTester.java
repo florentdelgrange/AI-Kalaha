@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 
 import Games.Kalaha.*;
 import Games.Kalaha.Boards.*;
+import Games.Kalaha.Players.AI.*;
 import FX.SimplePlayerMaker;
 import FX.PlayerMaker;
 
@@ -20,6 +21,11 @@ import FX.PlayerMaker;
  * when someone gets advantaged? We often can't explore the whole search space.
  */
 public class AiTester {
+	public static final Player pitsAI = new MiniMaxAI(HeuristicSet.pitsMaximizer);
+	public static final Player kalahaAI = new MiniMaxAI(HeuristicSet.kalahaMaximizer);
+	public static final Player kalahaMinimizerAI = new MiniMaxAI(HeuristicSet.kalahaMinimizer);
+	public static final Player sqPitsAI = new MiniMaxAI(HeuristicSet.squaredPitsMinimizer);
+
 	/**
 	 * Instantiates a player object for each name in the input list.
 	 * @param in_args input list
@@ -32,10 +38,10 @@ public class AiTester {
 			throws ClassNotFoundException {
 		List<PlayerMaker> pms = new ArrayList<>();
 		pms.add(new SimplePlayerMaker("random", RandomAI.class));
-		pms.add(new SimplePlayerMaker("pit_max", PitsAI.class));
-		pms.add(new SimplePlayerMaker("kalaha_max", KalahaAI.class));
-		pms.add(new SimplePlayerMaker("kalaha_min", KalahaMinimizerAI.class));
-		pms.add(new SimplePlayerMaker("sq_pit_min", SquaredPitsAI.class));
+		pms.add(new SimplerPlayerMaker("pit_max", pitsAI));
+		pms.add(new SimplerPlayerMaker("kalaha_max", kalahaAI));
+		pms.add(new SimplerPlayerMaker("kalaha_min", kalahaMinimizerAI));
+		pms.add(new SimplerPlayerMaker("sq_pit_min", sqPitsAI));
 		pms.add(new SimplePlayerMaker("my_turn", MyTurnAI.class));
 		boolean first = true;
 		for (String arg: in_args) {
