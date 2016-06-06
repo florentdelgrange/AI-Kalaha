@@ -31,7 +31,7 @@ import Games.Kalaha.Boards.Board;
 import Games.Kalaha.Boards.FromFile;
 import Games.Kalaha.Boards.Uniform;
 import Games.Kalaha.Players.*;
-import static Games.Kalaha.Players.AiTester.*;
+import Games.Kalaha.Players.AI.*;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
@@ -95,12 +95,12 @@ public class GameMaker implements FX.GameMaker<Integer, Integer, Board, String, 
 		List<PlayerMaker<Integer, Integer, Board, String, Game, Move, Player>> l = new ArrayList<>();
 		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Human GUI", HumanGUI.class));
 		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Random AI", RandomAI.class));
-		l.add(new SimplerPlayerMaker("Pits AI Maximizer", pitsAI));
-		l.add(new SimplerPlayerMaker("Kalaha AI Maximizer", kalahaAI));
-		l.add(new SimplerPlayerMaker("Kalaha AI Minimizer", kalahaMinimizerAI));
-		l.add(new SimplerPlayerMaker("Squared Pits AI Minimizer", sqPitsAI));
+		l.add(new MiniMaxMaker("Pits AI Maximizer", HeuristicSet.pitsMaximizer));
+		l.add(new MiniMaxMaker("Kalaha AI Maximizer", HeuristicSet.kalahaMaximizer));
+		l.add(new MiniMaxMaker("Kalaha AI Minimizer", HeuristicSet.kalahaMinimizer));
+		l.add(new MiniMaxMaker("Squared Pits AI Minimizer", HeuristicSet.squaredPitsMinimizer));
 		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Finishing Sequence AI", MyTurnAI.class));
-		l.add(new SimplerPlayerMaker("Kalaha Master", master));
+		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Kalaha Master", KalahaMaster.class));
 		return l;
 	}
 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.*;
 
 import Games.Kalaha.*;
 import Games.Kalaha.Boards.*;
@@ -21,11 +22,7 @@ import FX.PlayerMaker;
  * when someone gets advantaged? We often can't explore the whole search space.
  */
 public class AiTester {
-	public static final Player pitsAI = new MiniMaxAI(HeuristicSet.pitsMaximizer);
-	public static final Player kalahaAI = new MiniMaxAI(HeuristicSet.kalahaMaximizer);
-	public static final Player kalahaMinimizerAI = new MiniMaxAI(HeuristicSet.kalahaMinimizer);
-	public static final Player sqPitsAI = new MiniMaxAI(HeuristicSet.squaredPitsMinimizer);
-	public static final Player master = new KalahaMaster();
+	protected static final int TIMEOUT = 120;
 
 	/**
 	 * Instantiates a player object for each name in the input list.
@@ -39,12 +36,12 @@ public class AiTester {
 			throws ClassNotFoundException {
 		List<PlayerMaker> pms = new ArrayList<>();
 		pms.add(new SimplePlayerMaker("random", RandomAI.class));
-		pms.add(new SimplerPlayerMaker("pit_max", pitsAI));
-		pms.add(new SimplerPlayerMaker("kalaha_max", kalahaAI));
-		pms.add(new SimplerPlayerMaker("kalaha_min", kalahaMinimizerAI));
-		pms.add(new SimplerPlayerMaker("sq_pit_min", sqPitsAI));
+		pms.add(new MiniMaxMaker("pit_max", HeuristicSet.pitsMaximizer));
+		pms.add(new MiniMaxMaker("kalaha_max", HeuristicSet.kalahaMaximizer));
+		pms.add(new MiniMaxMaker("kalaha_min", HeuristicSet.kalahaMinimizer));
+		pms.add(new MiniMaxMaker("sq_pit_min", HeuristicSet.squaredPitsMinimizer));
 		pms.add(new SimplePlayerMaker("my_turn", MyTurnAI.class));
-		pms.add(new SimplerPlayerMaker("master", master));
+		pms.add(new SimplePlayerMaker("master", KalahaMaster.class));
 		boolean first = true;
 		for (String arg: in_args) {
 			if (first) {
@@ -88,32 +85,69 @@ public class AiTester {
 			throw new IllegalArgumentException(name);
 	}
 
+	public static String getParameter(String name, String default_value) {
+		String ret = System.getenv(name);
+		return ret==null ? default_value : ret;
+	}
+
 	/**
 	 * Entry point
 	 * @param args command-line arguments
 	 */
 	public static void main(String[] args) {
-		try {
-			List<String> avatars = new ArrayList<>();
-			Map<String, Player> players = new HashMap<>();
-			getPlayers(args, avatars, players);
-			String ltg_s = "OWNER"; //TODO
-			Game.LeftTokensGrantee ltg = Game.LeftTokensGrantee.valueOf(ltg_s);
-			boolean emptyCaptures = false; //TODO
-			for (int i=0; i<Integer.parseInt(args[0]); i++) {
-				Board board = getBoard("uniform", avatars); //TODO
-				Game game = new Game(board, ltg, emptyCaptures, avatars);
-				GameRunner runner = new GameRunner(game, players) {
-					public void gameFinish() {
-						game.getWinners().stream().forEach(avatar ->
-							System.out.println(avatar));
+		ExecutorService pool = Executors.newWorkStealingPool();
+		final String ltg_s = getParameter("AITESTER_LTG", "OWNER");
+		final String board_s = getParameter("AITESTER_BOARD", "uniform");
+		Game.LeftTokensGrantee ltg = Game.LeftTokensGrantee.valueOf(ltg_s);
+		boolean emptyCaptures = System.getenv("AITESTER_EMPTY_CAPTURES")!=null;
+		boolean multithreaded = System.getenv("AITESTER_SINGLE")==null;
+		for (int i=0; i<Integer.parseInt(args[0]); i++) {
+			Runnable r = new Runnable() {
+				@Override
+				public void run() {
+					try {
+						List<String> avatars = new ArrayList<>();
+						Map<String, Player> players = new HashMap<>();
+						getPlayers(args, avatars, players);
+						Board board = getBoard(board_s, avatars);
+						Game game = new Game(board, ltg, emptyCaptures, avatars);
+						GameRunner runner = new GameRunner(game, players) {
+							public void gameFinish() {
+								game.getWinners().stream().forEach(avatar ->
+									System.out.println(avatar));
+							}
+						};
+						runner.gameStart();
 					}
-				};
-				runner.gameStart();
-			}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			};
+			if (multithreaded)
+				pool.execute(r);
+			else
+				r.run();
 		}
-		catch (Exception e) {
-			e.printStackTrace();
+		shutdownAndAwaitTermination(pool);
+	}
+
+	//https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html
+	public static void shutdownAndAwaitTermination(ExecutorService pool) {
+		pool.shutdown(); //Disable new tasks from being submitted
+		try {
+			//Wait a while for existing tasks to terminate
+			if (!pool.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+				pool.shutdownNow(); //Cancel currently executing tasks
+				//Wait a while for tasks to respond to being cancelled
+				if (!pool.awaitTermination(TIMEOUT, TimeUnit.SECONDS))
+					System.err.println("Pool did not terminate");
+			}
+		} catch (InterruptedException ie) {
+			//(Re-)Cancel if current thread also interrupted
+			pool.shutdownNow();
+			//Preserve interrupt status
+			Thread.currentThread().interrupt();
 		}
 	}
 }
