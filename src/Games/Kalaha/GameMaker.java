@@ -100,6 +100,7 @@ public class GameMaker implements FX.GameMaker<Integer, Integer, Board, String, 
 		l.add(new SimplerPlayerMaker("Kalaha AI Minimizer", kalahaMinimizerAI));
 		l.add(new SimplerPlayerMaker("Squared Pits AI Minimizer", sqPitsAI));
 		l.add(new SimplePlayerMaker<Integer, Integer, Board, String, Game, Move, Player>("Finishing Sequence AI", MyTurnAI.class));
+		l.add(new SimplerPlayerMaker("Kalaha Master", master));
 		return l;
 	}
 

@@ -25,6 +25,7 @@ public class AiTester {
 	public static final Player kalahaAI = new MiniMaxAI(HeuristicSet.kalahaMaximizer);
 	public static final Player kalahaMinimizerAI = new MiniMaxAI(HeuristicSet.kalahaMinimizer);
 	public static final Player sqPitsAI = new MiniMaxAI(HeuristicSet.squaredPitsMinimizer);
+	public static final Player master = new KalahaMaster();
 
 	/**
 	 * Instantiates a player object for each name in the input list.
@@ -43,6 +44,7 @@ public class AiTester {
 		pms.add(new SimplerPlayerMaker("kalaha_min", kalahaMinimizerAI));
 		pms.add(new SimplerPlayerMaker("sq_pit_min", sqPitsAI));
 		pms.add(new SimplePlayerMaker("my_turn", MyTurnAI.class));
+		pms.add(new SimplerPlayerMaker("master", master));
 		boolean first = true;
 		for (String arg: in_args) {
 			if (first) {
