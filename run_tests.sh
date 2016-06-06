@@ -5,7 +5,7 @@ T="java -cp src Games.Kalaha.Players.AiTester"
 #count for non-deterministic AIs
 N=1000
 #count for deterministic AIs
-D=10
+D=20
 #count for self tests
 S=10
 
