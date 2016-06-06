@@ -44,18 +44,25 @@ placebo kalaha_max
 placebo kalaha_min
 placebo sq_pit_min
 placebo my_turn
+placebo master
 self pit_max
 self kalaha_max
 self kalaha_min
 self sq_pit_min
 self my_turn
+self master
 compare pit_max kalaha_max
 compare pit_max kalaha_min
 compare pit_max sq_pit_min
 compare pit_max my_turn
+compare pit_max master
 compare kalaha_max kalaha_min
 compare kalaha_max sq_pit_min
 compare kalaha_max my_turn
+compare kalaha_max master
 compare kalaha_min sq_pit_min
 compare kalaha_min my_turn
+compare kalaha_min master
 compare sq_pit_min my_turn
+compare sq_pit_min master
+compare my_turn master
