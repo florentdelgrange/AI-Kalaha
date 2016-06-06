@@ -79,6 +79,8 @@ public class MiniMax {
         else{
             Double v = Double.NEGATIVE_INFINITY;
             for(Integer a : actions(board, players.get(currentPlayer))) {
+                //let's be careful and clone the whole board (even we're wasting memory)
+                //we should've used Move.cancel(), though
                 CurrentState result = result(board, currentPlayer, a);
                 if(result.avatar.equals(players.get(currentPlayer)))
                     v = Math.max(v, maxValue(result.board, currentPlayer, depth + 1, alpha, beta));
