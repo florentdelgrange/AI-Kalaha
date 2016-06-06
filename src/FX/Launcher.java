@@ -52,7 +52,6 @@ public class Launcher extends Application {
 	private final Button resetPlayersButton = new Button("Reset players");
 	
 	public Launcher() {
-		addGameMaker(new Games.Nim.GameMaker());
 		addGameMaker(new Games.Kalaha.GameMaker());
 	}
 	
