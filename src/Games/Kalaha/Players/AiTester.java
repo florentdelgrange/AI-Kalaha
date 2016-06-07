@@ -22,8 +22,6 @@ import FX.PlayerMaker;
  * when someone gets advantaged? We often can't explore the whole search space.
  */
 public class AiTester {
-	protected static final int TIMEOUT = 120;
-
 	/**
 	 * Instantiates a player object for each name in the input list.
 	 * @param in_args input list
@@ -137,10 +135,10 @@ public class AiTester {
 		pool.shutdown(); //Disable new tasks from being submitted
 		try {
 			//Wait a while for existing tasks to terminate
-			if (!pool.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+			if (!pool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)) {
 				pool.shutdownNow(); //Cancel currently executing tasks
 				//Wait a while for tasks to respond to being cancelled
-				if (!pool.awaitTermination(TIMEOUT, TimeUnit.SECONDS))
+				if (!pool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS))
 					System.err.println("Pool did not terminate");
 			}
 		} catch (InterruptedException ie) {
