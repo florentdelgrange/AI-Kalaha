@@ -1,6 +1,6 @@
 cd src
 find -iname \*.class -delete
 javac FX/Launcher.java
-javac Games/Kalaha/Players/AiTester.java
+javac Games/Kalaha/Players/HDAiTester.java
 cd ..
 java -cp src FX.Launcher
