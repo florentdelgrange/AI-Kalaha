@@ -6,7 +6,7 @@ import Games.Kalaha.Move;
  * This AI combines the best from both KalahaAI (the best implemented AI)
  * with HDMyTurnAI which always win when a very specific sequence is detected.
  *
- * Results are stored in analysis.raw.csv, have fun peeking at it.
+ * Results are stored in analysis.txt, have fun peeking at it.
  * A pie chart was created using LibreOffice Calc in analysis.ods.
  */
 public class HDKalahaMaster extends HDMiniMaxAI {
