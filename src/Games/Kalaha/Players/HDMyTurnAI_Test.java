@@ -2,7 +2,7 @@ package Games.Kalaha.Players;
 import java.util.List;
 import java.util.AbstractList;
 
-public class MyTurnAI_Test extends MyTurnAI {
+public class HDMyTurnAI_Test extends HDMyTurnAI {
 	public static void main(String[] args) {
 		int[] b = {0, 0, 1};
 		List<Integer> bl = asList(b);

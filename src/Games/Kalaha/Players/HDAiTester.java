@@ -10,18 +10,17 @@ import java.util.concurrent.*;
 
 import Games.Kalaha.*;
 import Games.Kalaha.Boards.*;
-import Games.Kalaha.Players.AI.*;
 import FX.SimplePlayerMaker;
 import FX.PlayerMaker;
 
 /**
  * Command-line artificial intelligence implementation comparator.
- * Since most AIs (except RandomAI and MyTurnAI) are deterministic algorithms,
+ * Since most AIs (except RandomAI and HDMyTurnAI) are deterministic algorithms,
  * we only compare two of them twice (the order is important).
  * Starting from a random board could be tempting but how would we know
  * when someone gets advantaged? We often can't explore the whole search space.
  */
-public class AiTester {
+public class HDAiTester {
 	/**
 	 * Instantiates a player object for each name in the input list.
 	 * @param in_args input list
@@ -34,12 +33,12 @@ public class AiTester {
 			throws ClassNotFoundException {
 		List<PlayerMaker> pms = new ArrayList<>();
 		pms.add(new SimplePlayerMaker("random", RandomAI.class));
-		pms.add(new MiniMaxMaker("pit_max", HeuristicSet.pitsMaximizer));
-		pms.add(new MiniMaxMaker("kalaha_max", HeuristicSet.kalahaMaximizer));
-		pms.add(new MiniMaxMaker("kalaha_min", HeuristicSet.kalahaMinimizer));
-		pms.add(new MiniMaxMaker("sq_pit_min", HeuristicSet.squaredPitsMinimizer));
-		pms.add(new SimplePlayerMaker("my_turn", MyTurnAI.class));
-		pms.add(new SimplePlayerMaker("master", KalahaMaster.class));
+		pms.add(new HDMiniMaxMaker("pit_max", HDHeuristicSet.pitsMaximizer));
+		pms.add(new HDMiniMaxMaker("kalaha_max", HDHeuristicSet.kalahaMaximizer));
+		pms.add(new HDMiniMaxMaker("kalaha_min", HDHeuristicSet.kalahaMinimizer));
+		pms.add(new HDMiniMaxMaker("sq_pit_min", HDHeuristicSet.squaredPitsMinimizer));
+		pms.add(new SimplePlayerMaker("my_turn", HDMyTurnAI.class));
+		pms.add(new SimplePlayerMaker("master", HDKalahaMaster.class));
 		boolean first = true;
 		for (String arg: in_args) {
 			if (first) {

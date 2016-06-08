@@ -1,4 +1,4 @@
-package Games.Kalaha.Players.AI;
+package Games.Kalaha.Players;
 
 import Games.Kalaha.Boards.Board;
 import Games.Kalaha.Game;
@@ -8,20 +8,20 @@ import java.util.ArrayList;
 
 /**
  * Created by florentdelgrange on 11/05/16.
- * Classic alpha-beta MiniMax implementation for 2 players.
+ * Classic alpha-beta HDMiniMax implementation for 2 players.
  */
-public class MiniMax {
+public class HDMiniMax {
 
     protected int maxDepth;
-    protected Heuristic heuristic;
+    protected HDHeuristic heuristic;
     protected Game.LeftTokensGrantee leftTokensGrantee;
     protected Boolean emptyCapture;
     protected ArrayList<String> players;
     protected String max;
     protected Integer action;
 
-    public MiniMax(int maxDepth, Heuristic heuristic, ArrayList<String> players, String max,
-                   Game.LeftTokensGrantee leftTokensGrantee, Boolean emptyCapture){
+    public HDMiniMax(int maxDepth, HDHeuristic heuristic, ArrayList<String> players, String max,
+                     Game.LeftTokensGrantee leftTokensGrantee, Boolean emptyCapture){
         this.maxDepth = maxDepth;
         this.heuristic = heuristic;
         this.players = players;

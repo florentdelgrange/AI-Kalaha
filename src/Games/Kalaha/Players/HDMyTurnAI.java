@@ -7,7 +7,7 @@ import Games.Kalaha.Boards.Board;
 /**
  * An AI playing finishing sequences when possible and random moves otherwise.
  */
-public class MyTurnAI extends RandomAI {
+public class HDMyTurnAI extends RandomAI {
 	/**
 	 * Detects an uninterruptible winning sequence.
 	 * @param pits pit values, temporarily modified but restored upon exit

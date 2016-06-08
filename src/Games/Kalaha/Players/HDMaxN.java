@@ -1,4 +1,4 @@
-package Games.Kalaha.Players.AI;
+package Games.Kalaha.Players;
 
 import Games.Kalaha.Boards.Board;
 import Games.Kalaha.Game;
@@ -9,10 +9,10 @@ import java.util.ArrayList;
  * Created by florentdelgrange on 15/05/16.
  * This is the Max-n implementation.
  */
-public class MaxN extends MiniMax {
+public class HDMaxN extends HDMiniMax {
 
-    public MaxN(int maxDepth, Heuristic heuristic, ArrayList<String> playersArray, String max,
-                Game.LeftTokensGrantee leftTokensGrantee, Boolean emptyCapture) {
+    public HDMaxN(int maxDepth, HDHeuristic heuristic, ArrayList<String> playersArray, String max,
+                  Game.LeftTokensGrantee leftTokensGrantee, Boolean emptyCapture) {
         super(maxDepth, heuristic, playersArray, max, leftTokensGrantee, emptyCapture);
     }
 
