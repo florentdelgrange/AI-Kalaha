@@ -3,6 +3,7 @@ package Games.Kalaha.Players;
 import java.lang.reflect.InvocationTargetException;
 
 import FX.PlayerMaker;
+import FX.SimplePlayerMaker;
 import Games.Kalaha.Boards.Board;
 import Games.Kalaha.Game;
 import Games.Kalaha.Move;
